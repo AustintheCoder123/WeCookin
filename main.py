@@ -2,6 +2,7 @@ import webview
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+from recipe import Recipe
 
 
 class API:
@@ -13,17 +14,20 @@ class API:
         self.model = "gpt-4.1-nano"
 
     def create_recipe(self, userPreferences, prompt):
-        gptJob = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food, " \
-        "for all types of good while acpeting dietary restrictions from customers." \
-        "Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
-        combinedPrompt = gptJob+ userPreferences+ "and apply it when making the recipe. Knowing these restrictions make a recipe for this food:  " + prompt+""
-        " and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe."
+        
+        gptJob = """You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food,
+        for all types of good while acpeting dietary restrictions from customers.
+        Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: """
+        
+        combinedPrompt = f"""{gptJob} {userPreferences} and apply it when making the recipe. Knowing these restrictions make a recipe for this food: {prompt}
+        and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe."""
 
-        response = self.client.chat.completions.create(
+        response = self.client.beta.chat.completions.parse(
             model=self.model,
             messages=[
                 {"role": "user", "content": combinedPrompt}
-            ]
+            ],
+            response_format=Recipe
         )
         print(response.choices[0].message.content)
 
@@ -37,5 +41,3 @@ if __name__  == "__main__":
 
     window = webview.create_window("WeCookin","templates/index.html",js_api=api)
     webview.start(debug=True)
-
-    print(api.create_recipe(pref, prompt))
