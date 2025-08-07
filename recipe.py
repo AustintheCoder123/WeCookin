@@ -1,10 +1,9 @@
-import pydantic
+from pydantic import BaseModel
 
-class Recipe:
-    def __init__(self):
-        self.name: str
-        self.ingredients: list[str]
-        self.nutrition: str
-        self.desc: str
-        self.time: int
-        self.instructions: list[str]
+class Recipe(BaseModel):
+    name: str
+    ingredients: list[str]
+    nutrition: str
+    desc: str
+    time: int
+    instructions: str
