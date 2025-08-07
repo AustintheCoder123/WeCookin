@@ -14,7 +14,7 @@
     <button>settings</button>
 </div>
 <div class="recipeBody">
-    <h1 id="recipeName">Burger</h1>
+    <h1 id="recipeName">B</h1>
     <p id="recipeTime">1 hour</p>
     <p id="recipeCal">1000 calories</p>
     <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
@@ -43,8 +43,8 @@
         let recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         if(recipe){
             console.log(recipe)
-
-            // document.getElementById("recipeName").value= "JFERIOJFERIOJ"
+            console.log(recipe.name)
+            document.getElementById("recipeName").textContent = recipe.name
 
 
 
