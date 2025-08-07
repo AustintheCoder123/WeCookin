@@ -2,6 +2,7 @@ import webview
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+from recipe import Recipe
 
 
 class API:
@@ -21,11 +22,12 @@ class API:
         combinedPrompt = f"""{gptJob} {userPreferences} and apply it when making the recipe. Knowing these restrictions make a recipe for this food: {prompt}
         and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe."""
 
-        response = self.client.chat.completions.create(
+        response = self.client.beta.chat.completions.parse(
             model=self.model,
             messages=[
                 {"role": "user", "content": combinedPrompt}
-            ]
+            ],
+            response_format=Recipe
         )
         print(response.choices[0].message.content)
 
