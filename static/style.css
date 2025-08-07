@@ -3,4 +3,8 @@
 --timberwolf: #dedbd2ff;
 --ash-gray: #b0c4b1ff;
 --outer-space: #4a5759ff;
-.class(
+
+.textbox{
+    align-content: center;
+    color: white;
+}
