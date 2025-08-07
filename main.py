@@ -29,9 +29,19 @@ class API:
             ],
             response_format=Recipe
         )
-        print(response.choices[0].message.content)
+        print(type(response))
+        response = response.choices[0].message.parsed
 
-        return response.choices[0].message.content
+        recipe_dict = {
+            "name": response.name,
+            "ingredients": response.ingredients,
+            "nutrition": response.nutrition,
+            "desc": response.desc,
+            "time": response.time,
+            "instructions": response.instructions
+        }
+
+        return recipe_dict()
 
 if __name__  == "__main__":
     api = API()
