@@ -21,8 +21,8 @@
     <img src="../statc/gluten-free-logo-png_seeklogo-530821.png">
     <button>Nutrition List</button>
     <button>Ingredients</button>
-    
-    
+
+
 </div>
 <div class="textboxDiv">
     <input placeholder="Start making recipes!" >
@@ -30,4 +30,17 @@
 </div>
 
 </body>
+
+<script>
+
+    pywebview.api.init();
+
+    async function createRecipe(){
+        let recipe = await pywebview.api.create_recipe("not gluten", "Pasta");
+        if(recipe){
+            console.log(recipe)
+        }
+    }
+
+</script>
 </html>
