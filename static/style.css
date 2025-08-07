@@ -4,7 +4,16 @@
 --ash-gray: #b0c4b1ff;
 --outer-space: #4a5759ff;
 
-.textbox{
+.textboxDiv{
     align-content: center;
-    color: white;
+    padding: 
+}
+
+.textboxDiv > input {
+    align-content: center;
+    color: var(--ash-gray);
+}
+
+.textboxDiv > button {
+    color: red;
 }
