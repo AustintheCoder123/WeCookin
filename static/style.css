@@ -1,10 +1,30 @@
+:root{
 --cherry-blossom-pink: #edafb8ff;
 --champagne-pink: #f7e1d7ff;
 --timberwolf: #dedbd2ff;
 --ash-gray: #b0c4b1ff;
 --outer-space: #4a5759ff;
-
-.textbox{
+}
+.textboxDiv{
     align-content: center;
-    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 44%;
+    padding-right: 50%;
+    padding-top: 700px;
+}
+
+.textboxDiv > input {
+    align-content: center;
+    color: var(--ash-gray, green);
+    background-color: var(--outer-space);
+}
+
+.textboxDiv > button {
+    background-color: var(--outer-space);
+    color: var(--cherry-blossom-pink, green);
+}
+
+#recipeName{
+    text-align: center;
 }
