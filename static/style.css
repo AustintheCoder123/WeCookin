@@ -20,6 +20,10 @@
     background-color: var(--outer-space);
 }
 
+::placeholder {
+    color: var(--ash-gray);
+}
+
 .textboxDiv > button {
     background-color: var(--outer-space);
     color: var(--cherry-blossom-pink, green);
