@@ -31,7 +31,6 @@ class API:
 
         return response.choices[0].message.content
 
-
 if __name__  == "__main__":
     api = API()
     pref = "not gluten"
