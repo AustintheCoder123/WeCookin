@@ -10,7 +10,7 @@
 
 </div>
 <div class="options">
-    <input placeholder="Dietary restrictions here!">
+    <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
     <button>settings</button>
 </div>
 <div class="recipeBody">
@@ -25,7 +25,7 @@
 
 </div>
 <div class="textboxDiv">
-    <input placeholder="Start making recipes!" >
+    <input id="foodPrompt" placeholder="Start making recipes!" >
     <button onclick="createRecipe()">hi</button>
 </div>
 
@@ -36,7 +36,11 @@
     pywebview.api.init();
 
     async function createRecipe(){
-        let recipe = await pywebview.api.create_recipe("not gluten", "Pasta");
+        let foodRecipe = document.getElementById("foodPrompt").value
+        console.log(foodRecipe)
+        let restrictions = document.getElementById("restrictionsPrompt").value
+        console.log(restrictions)
+        let recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         if(recipe){
             console.log(recipe)
         }
