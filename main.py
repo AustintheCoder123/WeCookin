@@ -22,11 +22,17 @@ class API:
                 {"role": "user", "content": combinedPrompt}
             ]
         )
+        print(response.choices[0].message.content)
 
         return response.choices[0].message.content
 
-a = API()
+
 if __name__  == "__main__":
+    api = API()
     pref = "not gluten"
     prompt = "Pasta"
-    print(a.create_recipe(pref, prompt))
+
+    window = webview.create_window("WeCookin","templates/index.html",js_api=api)
+    webview.start(debug=True)
+
+    print(api.create_recipe(pref, prompt))
