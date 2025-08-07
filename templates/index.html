@@ -70,6 +70,7 @@
 <div class="textbox">
     <input placeholder="Start making recipes!">
     <button onclick="createRecipe()">hi</button>
+    <!-- <button onclick="pywebview.api.createRecipe()">hi</button> -->
 </div>
 
 </body>
@@ -78,7 +79,7 @@
 
     pywebview.api.init();
 
-    async fucntion createRecipe(){
+    async function createRecipe(){
         let recipe = await pywebview.api.create_recipe("not gluten", "Pasta");
         if(recipe){
             console.log(recipe)
