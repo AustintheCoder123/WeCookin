@@ -1,0 +1,7 @@
+--cherry-blossom-pink: #edafb8ff;
+--champagne-pink: #f7e1d7ff;
+--timberwolf: #dedbd2ff;
+--ash-gray: #b0c4b1ff;
+--outer-space: #4a5759ff;
+.class(
+text: var(--champagne-pink)
