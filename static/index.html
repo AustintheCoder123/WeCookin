@@ -69,13 +69,16 @@
         console.log(window.currentRecipe);
         console.log(window.currentRecipe["name"]);
         console.log(window.recipeDict);
+
         if (typeof window.recipeDict == "undefined"){
             window.recipeDict = {}
         }
+
         console.log(window.recipeDict);
 
         window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
         console.log(window.recipeDict);
+        newBookmark();
     }
 
     function setRecipe(displayRecipe){
@@ -92,6 +95,15 @@
     function recipeFromBar(name){
         grabbed = window.recipeDict[name];
         setRecipe(grabbed);
+    }
+
+    function newBookmark(){
+        let bookmarkDiv = document.createElement("div");
+        let bookmarkText = document.createElement("h3");
+        bookmarkText.innerText = currentRecipe.name;
+        document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
+        bookmarkDiv.appendChild(bookmarkText);
+
     }
 
 </script>
