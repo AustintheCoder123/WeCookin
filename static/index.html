@@ -35,13 +35,15 @@
 <script>
 
     pywebview.api.init();
+    var currentRecipe;
 
     async function createRecipe(){
-        let foodRecipe = document.getElementById("foodPrompt").value
-        console.log(foodRecipe)
-        let restrictions = document.getElementById("restrictionsPrompt").value
-        console.log(restrictions)
-        let recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
+        let foodRecipe = document.getElementById("foodPrompt").value;
+        console.log(foodRecipe);
+        let restrictions = document.getElementById("restrictionsPrompt").value;
+        console.log(restrictions);
+        recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
+        currentRecipe = recipe;
         if(recipe){
             document.getElementById("mainRecipeName").textContent = recipe.name
             document.getElementById("mainRecipeTime").textContent = recipe.time
@@ -50,6 +52,11 @@
             document.getElementById("mainRecipeIngredients").textContent = recipe.ingredients
             document.getElementById("mainRecipeInstructions").textContent = recipe.instructions
         }
+    }
+
+    function saveRecipe(){
+        let recipeDict = {};
+        recipeDict[currentRecipe.name] = currentRecipe;
     }
 
 </script>
