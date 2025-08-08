@@ -75,8 +75,9 @@ body {
 .bookmark {
     width: 19%;
     background-color: var(--cherry-blossom-pink);
-    height: 100vh;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .mainRecipePage {
