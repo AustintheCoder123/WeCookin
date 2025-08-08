@@ -13,7 +13,7 @@
         <div class="bookmark">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
-                <h3 class="savedRecipe" onclick="loadRecipe()">Borgor bookmarked</h3>
+                <h3 class="savedRecipe" onclick="recipeFromBar()">Borgor bookmarked</h3>
             </div>
         </div>
 
@@ -93,10 +93,11 @@
         let recipeName = document.getElementById(elementId).textContent;
         currentRecipe = setReciperecipeDict[recipeName];
         setRecipe(currentRecipe);
+        console.log("it works!!!!'")
     }
 
-    function loadRecipe(){
-        console.log("it works!!!!'")
+    function newBookmark(){
+        
     }
 
 </script>
