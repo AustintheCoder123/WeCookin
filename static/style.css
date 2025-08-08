@@ -95,17 +95,25 @@ body {
     margin-left: 5px;
 }
 
-.bookmark {
+#bookmarkBar {
     width: 19%;
     background-color: var(--cherry-blossom-pink);
-    height: 100vh;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .mainRecipePage {
     width: 80%;
-    padding-left: 1%;
+    padding-left: 0.6%;
     display: inline-block;
+}
+
+.savedRecipe {
+    text-align: center;
+    padding-right: 30px;
+    font-size: 160%;
+    color: var(--outer-space);
 }
 
 #wholePage {
