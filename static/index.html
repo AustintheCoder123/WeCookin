@@ -82,6 +82,8 @@
     }
 
     function setRecipe(displayRecipe){
+        console.log("setting recipe");
+        console.log(displayRecipe);
         if(currentRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
@@ -100,9 +102,19 @@
     function newBookmark(){
         let bookmarkDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
+        
         bookmarkText.innerText = currentRecipe.name;
+        bookmarkText.className = "savedRecipe";
+        bookmarkDiv.className = "bookmarkRecipe";
+        
+        
+        bookmarkDiv.addEventListener('click', function () {
+            setRecipe(recipeDict[bookmarkText.innerText]);
+        });
+
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
+        
 
     }
 
