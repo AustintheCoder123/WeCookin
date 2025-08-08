@@ -48,5 +48,5 @@ if __name__  == "__main__":
     pref = "not gluten"
     prompt = "Pasta"
 
-    window = webview.create_window("WeCookin","templates/index.html",js_api=api)
+    window = webview.create_window("WeCookin","static/index.html",js_api=api)
     webview.start(debug=True)
