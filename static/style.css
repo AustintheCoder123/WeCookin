@@ -11,7 +11,7 @@
     align-items: center;
     padding-left: 44%;
     padding-right: 50%;
-    padding-top: 510px;
+    padding-top: 700px;
 }
 
 .textboxDiv > input {
@@ -37,16 +37,23 @@
 
 .recipeTime{
     text-align: center;
-    
+    margin-top: -50px;
+    margin-left: -140px;
 }
 
 .recipeCal{
-    
+    text-align: center;
+    margin-top: -33px;
+    margin-left: 55px;
 }
 
 .options{
     padding-left: 86%;
     display: flex;
+}
+
+.options > input{
+    background-color: var(--outer-space);
 }
 
 .options > button {
