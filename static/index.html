@@ -65,7 +65,9 @@
         if(recipe){
             document.getElementById("mainRecipeName").textContent = recipe.name
             document.getElementById("mainRecipeTime").textContent = recipe.time
-            document.getElementById("mainRecipeNutrition").textContent = recipe.nutrition
+
+            let nutrition = recipe.nutrition.cholesterol  + ", "  + recipe.nutrition.sodium + ", "  + recipe.nutrition.servingsPerRecipe + ", "  + recipe.nutrition.totalCalories + ", "  + recipe.nutrition.totalFat + ", "  + recipe.nutrition.saturatedFat + ", "
+            document.getElementById("mainRecipeNutrition").textContent = nutrition
             document.getElementById("mainRecipeDescription").textContent = recipe.desc
             document.getElementById("mainRecipeIngredients").textContent = recipe.ingredients
             document.getElementById("mainRecipeInstructions").textContent = recipe.instructions
