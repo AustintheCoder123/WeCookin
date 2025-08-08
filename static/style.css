@@ -76,14 +76,16 @@ body {
     width: 19%;
     background-color: var(--cherry-blossom-pink);
     height: 100%;
+    display: inline-block;
 }
 
 .mainRecipePage {
     width: 80%;
     padding-left: 20%;
+    display: inline-block;
 }
 
 #wholePage {
-    display: flex;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
 }
