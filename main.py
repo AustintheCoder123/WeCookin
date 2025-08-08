@@ -43,6 +43,15 @@ class API:
         }
 
         return recipe_dict
+    
+#d = {"ferrari":2, "bugatti":3}
+
+def saveRecipeJson(recipe):
+    with open("storage/test.json", "w+") as f:
+        json.dump(recipe, f)
+
+#saveRecipeJson(d)
+
 
 if __name__  == "__main__":
     api = API()
