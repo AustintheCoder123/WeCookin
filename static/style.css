@@ -5,6 +5,9 @@
 --ash-gray: #b0c4b1ff;
 --outer-space: #4a5759ff;
 --tea-rose: #e9c4c9;
+display: grid;
+grid-template-rows: minmax(60px, auto) minmax(0, 100%);
+height: 100%;
 }
 
 body {
@@ -53,7 +56,7 @@ body {
 }
 
 .options{
-    padding-left: 84%;
+    padding-left: 82%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
@@ -67,4 +70,21 @@ body {
 
 .options > button {
     margin-left: 5px;
+}
+
+.bookmark {
+    width: 19%;
+    background-color: var(--cherry-blossom-pink);
+    height: 100vh;
+    display: inline-block;
+}
+
+.mainRecipePage {
+    width: 80%;
+    padding-left: 1%;
+    display: inline-block;
+}
+
+#wholePage {
+    display: flex;
 }
