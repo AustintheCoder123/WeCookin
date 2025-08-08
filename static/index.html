@@ -23,6 +23,7 @@
         <div class="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
             <div class="options">
+                <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
                 <button>settings</button>
             </div>
@@ -53,8 +54,8 @@
 <script>
 
     pywebview.api.init();
-    var currentRecipe;
-    var recipeDict = {};
+    window.currentRecipe;
+    window.recipeDict = {};
     
 
     async function createRecipe(){
@@ -63,28 +64,34 @@
         let restrictions = document.getElementById("restrictionsPrompt").value;
         console.log(restrictions);
         recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
-        currentRecipe = recipe;
+        window.currentRecipe = recipe;
         setRecipe();
     }
 
     function saveRecipe(){
-        recipeDict[currentRecipe["name"]] = currentRecipe;
-        console.log(recipeDict);
+        console.log(window.currentRecipe);
+        console.log(window.currentRecipe["name"]);
+        
+
+        window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
+        
     }
 
-    function setRecipe(){
+    function setRecipe(displayRecipe){
         if(currentRecipe){
-            document.getElementById("mainRecipeName").textContent = currentRecipe.name;
-            document.getElementById("mainRecipeTime").textContent = currentRecipe.time;
-            document.getElementById("mainRecipeNutrition").textContent = currentRecipe.nutrition;
-            document.getElementById("mainRecipeDescription").textContent = currentRecipe.desc;
-            document.getElementById("mainRecipeIngredients").textContent = currentRecipe.ingredients;
-            document.getElementById("mainRecipeInstructions").textContent = currentRecipe.instructions;
+            document.getElementById("mainRecipeName").textContent = displayRecipe.name;
+            document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
+            document.getElementById("mainRecipeNutrition").textContent = displayRecipe.nutrition;
+            document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
+            document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
+            document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
         }
     }
 
     function recipeFromBar(elementId){
-
+        let recipeName = document.getElementById(elementId).textContent;
+        currentRecipe = setReciperecipeDict[recipeName];
+        setRecipe(currentRecipe);
     }
 
 </script>
