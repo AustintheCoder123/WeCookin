@@ -7,41 +7,61 @@
     <title>Title</title>
 </head>
 <body>
-<div class="PLACEHOLDER_forBookMark">
 
-</div>
-<div class="options">
-    <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
-    <button>settings</button>
-</div>
-<div class="recipeBody">
-    <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
-    <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
-    <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
-    <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
-    <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-    <p id = "mainRecipeDescription">Description</p>
-    <p id = "mainRecipeIngredients">Ingredients</p>
-    <p id = "mainRecipeInstructions"> Instructions</p>
+    <div id="wholePage">
+<!-- div for bookmark bar -->
+        <div class="bookmark">
+            <h2>Bookmarks</h2>
+            <div class="bookmarkRecipe">
 
-</div>
-<div class="textboxDiv">
-    <input id="foodPrompt" placeholder="Start making recipes!" >
-    <button onclick="createRecipe()">↑</button>
-</div>
+
+
+                <h3>Borgor bookmarked</h3>
+            </div>
+        </div>
+
+        <div class="mainRecipePage">
+            <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
+            <div class="options">
+                <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
+                <button>settings</button>
+            </div>
+
+            <!-- This div holds all the things related to the main recipe -->
+            <div class="recipeBody">
+                <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
+                <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
+                <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
+                <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
+                <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
+                <p id = "mainRecipeDescription">Description</p>
+                <p id = "mainRecipeIngredients">Ingredients</p>
+                <p id = "mainRecipeInstructions"> Instructions</p>
+
+            </div>
+
+            <!-- the div for the search bar and send button -->
+            <div class="textboxDiv">
+                <input id="foodPrompt" placeholder="Start making recipes!" >
+                <button onclick="createRecipe()">↑</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 <script>
 
     pywebview.api.init();
+    var currentRecipe;
 
     async function createRecipe(){
-        let foodRecipe = document.getElementById("foodPrompt").value
-        console.log(foodRecipe)
-        let restrictions = document.getElementById("restrictionsPrompt").value
-        console.log(restrictions)
-        let recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
+        let foodRecipe = document.getElementById("foodPrompt").value;
+        console.log(foodRecipe);
+        let restrictions = document.getElementById("restrictionsPrompt").value;
+        console.log(restrictions);
+        recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
+        currentRecipe = recipe;
         if(recipe){
             document.getElementById("mainRecipeName").textContent = recipe.name
             document.getElementById("mainRecipeTime").textContent = recipe.time
@@ -50,6 +70,12 @@
             document.getElementById("mainRecipeIngredients").textContent = recipe.ingredients
             document.getElementById("mainRecipeInstructions").textContent = recipe.instructions
         }
+    }
+
+    function saveRecipe(){
+        let recipeDict = {};
+        recipeDict[currentRecipe.name] = currentRecipe;
+        console.log(recipeDict);
     }
 
 </script>
