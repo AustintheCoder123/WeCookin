@@ -38,6 +38,7 @@
     pywebview.api.init();
     var currentRecipe;
     var recipeDict = {};
+    
 
     async function createRecipe(){
         let foodRecipe = document.getElementById("foodPrompt").value;
@@ -50,7 +51,10 @@
     }
 
     function saveRecipe(){
-        recipeDict[currentRecipe.name] = currentRecipe;
+        console.log(currentRecipe);
+        console.log(recipeDict);
+
+        recipeDict[currentRecipe["name"]] = currentRecipe;
         console.log(recipeDict);
     }
 
@@ -63,6 +67,10 @@
             document.getElementById("mainRecipeIngredients").textContent = currentRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = currentRecipe.instructions;
         }
+    }
+
+    function recipeFromBar(elementId){
+
     }
 
 </script>
