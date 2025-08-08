@@ -113,7 +113,8 @@ body {
 .savedRecipe {
     text-align: center;
     padding-right: 30px;
-    size: 100%;
+    font-size: 160%;
+    color: var(--outer-space);
 }
 
 #wholePage {
