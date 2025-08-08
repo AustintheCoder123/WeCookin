@@ -14,13 +14,14 @@
     <button>settings</button>
 </div>
 <div class="recipeBody">
-    <h1 class="recipeName">Burger</h1>
-    <p class="recipeTime">1 hour</p>
-    <p class="recipeCal">1000 calories</p>
+    <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
+    <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
+    <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
     <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
     <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-    <button>Nutrition List</button>
-    <button>Ingredients</button>
+    <p id = "mainRecipeDescription">Description</p>
+    <p id = "mainRecipeIngredients">Ingredients</p>
+    <p id = "mainRecipeInstructions"> Instructions</p>
 
 </div>
 <div class="textboxDiv">
@@ -41,12 +42,12 @@
         console.log(restrictions)
         let recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         if(recipe){
-            console.log(recipe)
-            console.log(recipe.name)
-            document.getElementById("recipeName").textContent = recipe.name
-
-
-
+            document.getElementById("mainRecipeName").textContent = recipe.name
+            document.getElementById("mainRecipeTime").textContent = recipe.time
+            document.getElementById("mainRecipeNutrition").textContent = recipe.nutrition
+            document.getElementById("mainRecipeDescription").textContent = recipe.desc
+            document.getElementById("mainRecipeIngredients").textContent = recipe.ingredients
+            document.getElementById("mainRecipeInstructions").textContent = recipe.instructions
         }
     }
 

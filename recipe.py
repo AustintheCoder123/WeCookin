@@ -5,5 +5,5 @@ class Recipe(BaseModel):
     ingredients: list[str]
     nutrition: str
     desc: str
-    time: int
+    time: str
     instructions: str

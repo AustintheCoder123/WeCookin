@@ -41,7 +41,7 @@ class API:
             "instructions": response.instructions
         }
 
-        return recipe_dict()
+        return recipe_dict
 
 if __name__  == "__main__":
     api = API()
