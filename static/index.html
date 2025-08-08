@@ -11,6 +11,7 @@
 
 </div>
 <div class="options">
+    <button onclick="saveRecipe()"> Save Recipe  </button>
     <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
     <button>settings</button>
 </div>
@@ -57,6 +58,7 @@
     function saveRecipe(){
         let recipeDict = {};
         recipeDict[currentRecipe.name] = currentRecipe;
+        console.log(recipeDict);
     }
 
 </script>
