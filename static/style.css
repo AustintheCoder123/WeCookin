@@ -85,6 +85,12 @@ body {
     display: inline-block;
 }
 
+.savedRecipe {
+    text-align: center;
+    padding-right: 30px;
+    size: 100%;
+}
+
 #wholePage {
     display: flex;
 }
