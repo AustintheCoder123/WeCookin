@@ -13,7 +13,7 @@
         <div class="bookmark">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
-                <h3 class="savedRecipe">Borgor bookmarked</h3>
+                <h3 class="savedRecipe" onclick="loadRecipe()">Borgor bookmarked</h3>
             </div>
         </div>
 
@@ -73,6 +73,10 @@
         let recipeDict = {};
         recipeDict[currentRecipe.name] = currentRecipe;
         console.log(recipeDict);
+    }
+
+    function loadRecipe(){
+        console.log("it works!!!!'")
     }
 
 </script>
