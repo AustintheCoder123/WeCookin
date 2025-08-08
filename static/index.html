@@ -10,7 +10,7 @@
 
     <div id="wholePage">
 <!-- div for bookmark bar -->
-        <div class="bookmark">
+        <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
                 <h3 class="savedRecipe" onclick="recipeFromBar()">Borgor bookmarked</h3>
@@ -89,15 +89,9 @@
         }
     }
 
-    function recipeFromBar(elementId){
-        let recipeName = document.getElementById(elementId).textContent;
-        currentRecipe = setReciperecipeDict[recipeName];
-        setRecipe(currentRecipe);
-        console.log("it works!!!!'")
-    }
-
-    function newBookmark(){
-        
+    function recipeFromBar(name){
+        grabbed = window.recipeDict[name];
+        setRecipe(grabbed);
     }
 
 </script>

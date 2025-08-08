@@ -95,7 +95,7 @@ body {
     margin-left: 5px;
 }
 
-.bookmark {
+#bookmarkBar {
     width: 19%;
     background-color: var(--cherry-blossom-pink);
     display: flex;
