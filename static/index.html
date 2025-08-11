@@ -41,7 +41,7 @@
             <!-- the div for the search bar and send button -->
             <div class="textboxDiv">
                 <input id="foodPrompt" placeholder="Start making recipes!" >
-                <button onclick="createRecipe()">↑</button>
+                <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
         </div>
     </div>
@@ -56,6 +56,9 @@
 
 
     async function createRecipe(){
+        let createButton = document.getElementById("createRecipeButton");
+        createButton.disabled = true;
+
         let foodRecipe = document.getElementById("foodPrompt").value;
         console.log(foodRecipe);
         let restrictions = document.getElementById("restrictionsPrompt").value;
@@ -63,6 +66,7 @@
         recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         window.currentRecipe = recipe;
         setRecipe(recipe);
+        createButton.disabled = false;
     }
 
     function saveRecipe(){

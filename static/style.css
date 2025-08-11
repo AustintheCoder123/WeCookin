@@ -60,6 +60,12 @@ body {
     background-color: var(--dark-gray);
 }
 
+.textboxDiv > button:disabled {
+    background-color: var(--outer-space);
+}
+
+
+
 .recipeName{
     text-align: center;
     font-size: 90px;
