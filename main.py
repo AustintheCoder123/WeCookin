@@ -13,6 +13,8 @@ class API:
         self.client = OpenAI()
         self.client.api_key = api_key
         self.model = "gpt-4.1-nano"
+        self.cookbookLocation = "storage/cookbook.json"
+        self.settingLocation = "storage/preferences.json"
 
     def create_recipe(self, user_preferences, prompt):
         
@@ -68,13 +70,31 @@ class API:
 
         return recipe_dict
     
-#d = {"ferrari":2, "bugatti":3}
+    @staticmethod
+    def save_json(location, item):
+        with open(location, "w+") as f:
+            json.dump(item, f)
 
-def saveRecipeJson(recipe):
-    with open("storage/test.json", "w+") as f:
-        json.dump(recipe, f)
+    @staticmethod
+    def load_json(location):
+        with open(location, "r") as f:
+            return json.load(f)
+    
+    def save_recipe(self, recipe):
+        self.save_json(self.cookbookLocation, recipe)
 
-#saveRecipeJson(d)
+    def save_settings(self, settings):
+        self.save_json(self.settingLocation, settings)
+
+    def load_recipes(self):
+        recipes = self.load_json(self.cookbookLocation)
+        print(recipes)
+        return recipes
+
+    def load_settings(self):
+        return self.load_json(self.settingLocation)
+
+
 
 
 if __name__  == "__main__":
@@ -82,5 +102,6 @@ if __name__  == "__main__":
     pref = "not gluten"
     prompt = "Pasta"
 
-    window = webview.create_window("WeCookin","static/index.html",js_api=api)
+    html_path = os.path.abspath("static/index.html")
+    window = webview.create_window("WeCookin",html_path,js_api=api)
     webview.start(debug=True)
