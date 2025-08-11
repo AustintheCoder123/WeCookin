@@ -14,13 +14,15 @@ class API:
         self.client.api_key = api_key
         self.model = "gpt-4.1-nano"
 
-    def create_recipe(self, userPreferences, prompt):
+    def create_recipe(self, user_preferences, prompt):
         
-        gptJob = """You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food,
-        for all types of food while accepting dietary restrictions from customers.
-        Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: """
+            
+        gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
-        combinedPrompt = f"""{gptJob} {userPreferences} and apply it when making the recipe. Knowing these restrictions, make a recipe for this food: {prompt}
+        if user_preferences != "":
+            gpt_job += "for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
+        
+        combinedPrompt = f"""{gpt_job} {user_preferences} and apply it when making the recipe. Knowing these restrictions, make a recipe for this food: {prompt}
         and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe.
         Follow this order and format when returning:
         - Name: A short, descriptive name of the food/dish in "str" or string format
