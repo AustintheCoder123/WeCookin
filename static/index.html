@@ -29,7 +29,12 @@
             <div class="recipeBody">
                 <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
                 <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
-                <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
+                <div id="mainRecipeNutrition">
+                    <div id="nutritionItem">
+                        <p></p>
+                    </div>
+                </div>
+
                 <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
                 <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
                 <p id = "mainRecipeDescription">Description</p>
@@ -50,7 +55,7 @@
 
 <script>
     console.log("borgor maxing");
-    
+
     window.currentRecipe;
     window.recipeDict = {};
 
@@ -89,12 +94,40 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
-            document.getElementById("mainRecipeNutrition").textContent = nutrition;
+            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
+
+            // NUTRITION INFORMATION
+
+            let nutrition = displayRecipe.nutrition;
+            createNutrientItem("Calories", nutrition.calori)
+            createNutrientItem("Cholesterol", nutrition.cholesterol);
+            createNutrientItem("Sodium", nutrition.sodium);
+            createNutrientItem("Servings", nutrition.servingsPerRecipe);
+            createNutrientItem("Fat", nutrition.totalFat);
+            createNutrientItem("Saturated fat", nutrition.saturatedFat);
+
+
+
+
+
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
         }
+    }
+
+    function createNutrientItem(nutrient, value) {
+        let nutritionDiv = document.createElement("div");
+        let nutritionText = document.createElement("p");
+
+        nutritionText.innerText = nutrient + ": " + value;
+        nutritionDiv.className = "nutritionItem";
+        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
+
+        document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
+        nutritionDiv.appendChild(nutritionText);
+
+        console.log('this worked')
     }
 
     function recipeFromBar(name){
@@ -117,18 +150,18 @@
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
-        
-
     }
+
+    
 
     // window.addEventListener("beforeunload", function (val) {
     //     val.preventDefault();
-        
+
     // });
 
     window.addEventListener('pywebviewready', async () => {
         console.log("STARTING STARTING STARTING");
-        
+
         if (pywebview.api.init) {
             await pywebview.api.init();
             console.log("pywebview.api initialized");
