@@ -87,8 +87,8 @@
         if(currentRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            let nutrition = recipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
-            document.getElementById("mainRecipeNutrition").textContent = displayRecipe.nutrition;
+            let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
+            document.getElementById("mainRecipeNutrition").textContent = nutrition;
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
