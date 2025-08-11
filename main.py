@@ -53,7 +53,7 @@ class API:
         print(response)
         recipe_dict = {
             "name": response.name,
-            "`ingredient`s": response.ingredients,
+            "ingredients": response.ingredients,
             "nutrition": {
                 "cholesterol" : response.nutrition.Cholesterol,
                 "sodium" : response.nutrition.Sodium,

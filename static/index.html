@@ -113,6 +113,7 @@
 
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
+            console.log(displayRecipe.ingredients);
 
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
 
@@ -140,8 +141,8 @@
         let instructionDiv = document.createElement("div");
         let instructionText = document.createElement("p");
 
-        nutritionText.innerText = instruction;
-        nutrientDiv.className = "recipeInstructions"
+        instructionText.innerText = instruction;
+        instructionDiv.className = "recipeInstructions"
 
         document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
         instructionDiv.appendChild(instructionText);
