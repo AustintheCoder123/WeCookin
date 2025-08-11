@@ -70,10 +70,8 @@
         console.log(window.currentRecipe["name"]);
         console.log(window.recipeDict);
 
-        pywebview.api.saveRecipe(recipeDict)
-
         if (typeof window.recipeDict == "undefined"){
-            window.recipeDict = {}
+            window.recipeDict = {};
         }
 
         console.log(window.recipeDict);
@@ -81,6 +79,8 @@
         window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
         console.log(window.recipeDict);
         newBookmark();
+
+        pywebview.api.save_recipe(recipeDict);
     }
 
     function setRecipe(displayRecipe){
@@ -121,11 +121,14 @@
 
     }
 
-    
+    // window.addEventListener("beforeunload", function (val) {
+    //     val.preventDefault();
+        
+    // });
 
     window.addEventListener("load", (event) => {
 
-    })
+    });
 
 </script>
 </html>

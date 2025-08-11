@@ -75,15 +75,13 @@ class API:
         with open(location, "w+") as f:
             json.dump(item, f)
     
-    def saveRecipe(self, recipe):
+    def save_recipe(self, recipe):
         self.saveJson(self.cookbookLocation, recipe)
 
-    def saveSettings(self, settings):
+    def save_settings(self, settings):
         self.saveJson(self.settingLocation, settings)
 
 
-
-#saveRecipeJson(d)
 
 
 if __name__  == "__main__":
@@ -91,8 +89,6 @@ if __name__  == "__main__":
     pref = "not gluten"
     prompt = "Pasta"
 
-    d = {"ferrari":2, "bugatti":3}
-    api.saveRecipesJson(d)
 
     window = webview.create_window("WeCookin","static/index.html",js_api=api)
     webview.start(debug=True)
