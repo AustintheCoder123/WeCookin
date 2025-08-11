@@ -70,6 +70,8 @@
         console.log(window.currentRecipe["name"]);
         console.log(window.recipeDict);
 
+        pywebview.api.saveRecipe(recipeDict)
+
         if (typeof window.recipeDict == "undefined"){
             window.recipeDict = {}
         }
@@ -118,6 +120,12 @@
         
 
     }
+
+    
+
+    window.addEventListener("load", (event) => {
+
+    })
 
 </script>
 </html>
