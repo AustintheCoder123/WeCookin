@@ -49,8 +49,8 @@
 </body>
 
 <script>
+    console.log("borgor maxing");
     
-    pywebview.api.init();
     window.currentRecipe;
     window.recipeDict = {};
 
@@ -126,18 +126,21 @@
         
     // });
 
-    window.onload = () => {
-        
-        pywebview.api.init();
+    window.addEventListener('pywebviewready', async () => {
         console.log("STARTING STARTING STARTING");
         
-        recipeDict = pywebview.api.load_recipes();
+        if (pywebview.api.init) {
+            await pywebview.api.init();
+            console.log("pywebview.api initialized");
+        }
+        recipeDict = await pywebview.api.load_recipes();
+
         console.log(recipeDict);
+
         for (const key in recipeDict){
             newBookmark(recipeDict[key]);
         }
-
-    };
+    });
 
 </script>
 </html>

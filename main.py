@@ -102,6 +102,6 @@ if __name__  == "__main__":
     pref = "not gluten"
     prompt = "Pasta"
 
-
-    window = webview.create_window("WeCookin","static/index.html",js_api=api)
+    html_path = os.path.abspath("static/index.html")
+    window = webview.create_window("WeCookin",html_path,js_api=api)
     webview.start(debug=True)
