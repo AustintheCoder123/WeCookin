@@ -53,7 +53,7 @@
     pywebview.api.init();
     window.currentRecipe;
     window.recipeDict = {};
-    
+
 
     async function createRecipe(){
         let foodRecipe = document.getElementById("foodPrompt").value;
@@ -87,6 +87,7 @@
         if(currentRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
+            let nutrition = recipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
             document.getElementById("mainRecipeNutrition").textContent = displayRecipe.nutrition;
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
