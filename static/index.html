@@ -87,12 +87,31 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
-            document.getElementById("mainRecipeNutrition").textContent = nutrition;
+            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
+            
+            // NUTRITION INFORMATION
+            let nutrition = displayRecipe.nutrition;
+            createNutrientItem(nutrition.)
+            
+
+
+
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
         }
+    }
+
+    function createNutrientItem(nutrient, value) {
+        let nutritionDiv = document.createElement("div");
+        let nutritionText = document.createElement("p");
+
+        nutritionDiv.className = "NutritionsContainer";
+        nutritionText.className = "mainRecipeNutrition";
+
+        document.getElementsByClassName("mainRecipeNutrition").textContent = nutrient + ": " + value;
+       
+        return nut
     }
 
     function recipeFromBar(name){
@@ -115,9 +134,8 @@
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
-        
-
     }
+
 
 </script>
 </html>
