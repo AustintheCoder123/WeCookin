@@ -30,7 +30,7 @@
                 <div id = "mainRecipeName">
                     <h1 class="recipeName">Burger</h1>
                 </div>
-                <p id = "mainRecipeTime" class="recipeTime">1000000 min</p>
+                    <p id = "mainRecipeTime" class="recipeTime">1000000 min</p>
                 <div id="mainRecipeNutrition">
                     <div id="nutritionItem">
                         <p></p>
@@ -39,9 +39,16 @@
 
                 <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
                 <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-                <p id = "mainRecipeDescription">Description</p>
-                <p id = "mainRecipeIngredients">Ingredients</p>
-                <p id = "mainRecipeInstructions"> Instructions</p>
+                <div id="mainRecipeDescription">
+                    <p id = "recipeDescription">Description</p>
+                </div>
+                <div>
+                    <p id = "mainRecipeIngredients">Ingredients</p>
+                </div>
+                <div>
+                    <p id = "mainRecipeInstructions"> Instructions</p>
+                </div>
+                
 
             </div>
 
@@ -110,7 +117,7 @@
 
 
 
-            document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
+            document.getElementById("recipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
         }
