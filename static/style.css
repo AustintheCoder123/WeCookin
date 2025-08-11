@@ -78,6 +78,8 @@ body {
     margin-left: 55px;
 }
 
+.
+
 .options{
     padding-left: 82%;
     padding-top: 20px;
@@ -119,3 +121,40 @@ body {
 #wholePage {
     display: flex;
 }
+
+#mainRecipeName{
+
+}
+
+#mainRecipeTime{
+
+}
+
+#NutritionsContainer{
+
+}
+
+#mainRecipeNutrition{
+
+}
+
+#mainRecipeDescription{
+
+}
+
+#ingredientsContainer {
+
+}
+
+#mainRecipeIngredients {
+
+}
+
+#InstructionsContainer{
+
+}
+
+#mainRecipeInstructions{
+    
+}
+
