@@ -94,11 +94,8 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
 
             // NUTRITION INFORMATION
-            
-            
             while (document.getElementById("mainRecipeNutrition").lastElementChild){
                 document.getElementById("mainRecipeNutrition").removeChild(document.getElementById("mainRecipeNutrition").lastElementChild);
             }
@@ -112,13 +109,14 @@
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
 
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
-            document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
-            console.log(displayRecipe.ingredients);
-
-            document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
-
+            for (ingredient in displayRecipe.ingredients){
+                createIngredients(ingredient);
+            }
+            
             for (instruction in displayRecipe.instructions){
                 createInstructions(instruction);
+                console.log(instruction);console.log();
+                // console.log(displayRecipe.instructions);
             }
         }
     }
@@ -141,11 +139,24 @@
         let instructionDiv = document.createElement("div");
         let instructionText = document.createElement("p");
 
-        instructionText.innerText = instruction;
         instructionDiv.className = "recipeInstructions"
 
-        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+        instructionText.innerText = instruction;
         instructionDiv.appendChild(instructionText);
+
+        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+    }
+
+    function createIngredients(ingredient){
+        let ingredientDiv = document.createElement("div");
+        let ingredientText = document.createElement("p");
+
+        ingredientDiv.className = "recipeIngredients";
+
+        ingredientText.innerText = ingredient;
+        ingredientDiv.appendChild(ingredientText);
+
+        document.getElementById("mainRecipeIngredients").appendChild(instructionDiv);
     }
 
     function recipeFromBar(name){
