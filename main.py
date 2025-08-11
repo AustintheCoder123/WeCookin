@@ -3,6 +3,7 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 from recipe import Recipe
+import json
 
 
 class API:

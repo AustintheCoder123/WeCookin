@@ -10,19 +10,17 @@
 
     <div id="wholePage">
 <!-- div for bookmark bar -->
-        <div class="bookmark">
+        <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
-
-
-
-                <h3>Borgor bookmarked</h3>
+                <h3 class="savedRecipe" onclick="recipeFromBar()">Borgor bookmarked</h3>
             </div>
         </div>
 
         <div class="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
             <div class="options">
+                <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
                 <button>settings</button>
             </div>
@@ -53,7 +51,9 @@
 <script>
 
     pywebview.api.init();
-    var currentRecipe;
+    window.currentRecipe;
+    window.recipeDict = {};
+
 
     async function createRecipe(){
         let foodRecipe = document.getElementById("foodPrompt").value;
@@ -61,23 +61,50 @@
         let restrictions = document.getElementById("restrictionsPrompt").value;
         console.log(restrictions);
         recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
-        currentRecipe = recipe;
-        if(recipe){
-            document.getElementById("mainRecipeName").textContent = recipe.name
-            document.getElementById("mainRecipeTime").textContent = recipe.time
-
-            let nutrition = recipe.nutrition.cholesterol  + ", "  + recipe.nutrition.sodium + ", "  + recipe.nutrition.servingsPerRecipe + ", "  + recipe.nutrition.totalCalories + ", "  + recipe.nutrition.totalFat + ", "  + recipe.nutrition.saturatedFat + ", "
-            document.getElementById("mainRecipeNutrition").textContent = nutrition
-            document.getElementById("mainRecipeDescription").textContent = recipe.desc
-            document.getElementById("mainRecipeIngredients").textContent = recipe.ingredients
-            document.getElementById("mainRecipeInstructions").textContent = recipe.instructions
-        }
+        window.currentRecipe = recipe;
+        setRecipe(recipe);
     }
 
     function saveRecipe(){
-        let recipeDict = {};
-        recipeDict[currentRecipe.name] = currentRecipe;
-        console.log(recipeDict);
+        console.log(window.currentRecipe);
+        console.log(window.currentRecipe["name"]);
+        console.log(window.recipeDict);
+
+        if (typeof window.recipeDict == "undefined"){
+            window.recipeDict = {}
+        }
+
+        console.log(window.recipeDict);
+
+        window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
+        console.log(window.recipeDict);
+        newBookmark();
+    }
+
+    function setRecipe(displayRecipe){
+        if(currentRecipe){
+            document.getElementById("mainRecipeName").textContent = displayRecipe.name;
+            document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
+            let nutrition = recipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
+            document.getElementById("mainRecipeNutrition").textContent = displayRecipe.nutrition;
+            document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
+            document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
+            document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
+        }
+    }
+
+    function recipeFromBar(name){
+        grabbed = window.recipeDict[name];
+        setRecipe(grabbed);
+    }
+
+    function newBookmark(){
+        let bookmarkDiv = document.createElement("div");
+        let bookmarkText = document.createElement("h3");
+        bookmarkText.innerText = currentRecipe.name;
+        document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
+        bookmarkDiv.appendChild(bookmarkText);
+
     }
 
 </script>
