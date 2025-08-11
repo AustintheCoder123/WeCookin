@@ -13,10 +13,15 @@ class API:
         self.client = OpenAI()
         self.client.api_key = api_key
         self.model = "gpt-4.1-nano"
+        self.processingRequest = False
 
     def create_recipe(self, user_preferences, prompt):
-        
+        if self.processingRequest:
+            return
             
+
+        self.processingRequest = True
+        
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
         if user_preferences != "":
@@ -65,6 +70,8 @@ class API:
             "time": response.time,
             "instructions": response.instructions
         }
+
+        self.processingRequest = False
 
         return recipe_dict
     
