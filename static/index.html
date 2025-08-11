@@ -111,13 +111,14 @@
             createNutrientItem("Fat", nutrition.totalFat);
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
 
-
-
-
-
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
+
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
+
+            for (instruction in displayRecipe.instructions){
+                createInstructions(instruction);
+            }
         }
     }
 
@@ -133,6 +134,17 @@
         nutritionDiv.appendChild(nutritionText);
 
         console.log('this worked')
+    }
+    
+    function createInstructions(instruction){
+        let instructionDiv = document.createElement("div");
+        let instructionText = document.createElement("p");
+
+        nutritionText.innerText = instruction;
+        nutrientDiv.className = "recipeInstructions"
+
+        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+        instructionDiv.appendChild(instructionText);
     }
 
     function recipeFromBar(name){
