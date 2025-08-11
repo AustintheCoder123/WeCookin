@@ -97,9 +97,13 @@
             // NUTRITION INFORMATION
 
             let nutrition = displayRecipe.nutrition;
-            createNutrientItem("Cholesterol", nutrition.Cholesterol);
-            createNutrientItem("Sodium", nutrition.Sodium);
+            createNutrientItem("Calories", nutrition.calori)
+            createNutrientItem("Cholesterol", nutrition.cholesterol);
+            createNutrientItem("Sodium", nutrition.sodium);
             createNutrientItem("Servings", nutrition.servingsPerRecipe);
+            createNutrientItem("Fat", nutrition.totalFat);
+            createNutrientItem("Saturated fat", nutrition.saturatedFat);
+
             
 
 
@@ -115,10 +119,10 @@
         let nutritionText = document.createElement("p");
         
         nutritionText.innerText = nutrient + ": " + value;
-        nutritionDiv.className = "mainRecipeNutrition";
-        nutritionText.className = "nutrient";
+        nutritionDiv.className = "nutritionItem";
+        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
 
-        document.getElementsByClassName("nutritionsContainer").appendChild(nutritionDiv);
+        document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
         nutritionDiv.appendChild(nutritionText);
         
         console.log('this worked')
