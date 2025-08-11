@@ -95,9 +95,14 @@
             //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
             
             // NUTRITION INFORMATION
-
+            
+            
+            while (document.getElementById("mainRecipeNutrition").lastElementChild){
+                document.getElementById("mainRecipeNutrition").removeChild(document.getElementById("mainRecipeNutrition").lastElementChild);
+            }
             let nutrition = displayRecipe.nutrition;
-            createNutrientItem("Calories", nutrition.calori)
+
+            createNutrientItem("Calories", nutrition.totalCalories);
             createNutrientItem("Cholesterol", nutrition.cholesterol);
             createNutrientItem("Sodium", nutrition.sodium);
             createNutrientItem("Servings", nutrition.servingsPerRecipe);
