@@ -84,7 +84,7 @@
     function setRecipe(displayRecipe){
         console.log("setting recipe");
         console.log(displayRecipe);
-        if(currentRecipe){
+        if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
             let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
