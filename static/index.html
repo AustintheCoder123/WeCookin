@@ -29,7 +29,12 @@
             <div class="recipeBody">
                 <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
                 <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
-                <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
+                <div id="mainRecipeNutrition">
+                    <div id="nutritionItem">
+                        <p></p>
+                    </div>
+                </div>
+                    
                 <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
                 <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
                 <p id = "mainRecipeDescription">Description</p>
@@ -90,8 +95,11 @@
             //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
             
             // NUTRITION INFORMATION
+
             let nutrition = displayRecipe.nutrition;
-            createNutrientItem(nutrition.)
+            createNutrientItem("Cholesterol", nutrition.Cholesterol);
+            createNutrientItem("Sodium", nutrition.Sodium);
+            createNutrientItem("Servings", nutrition.servingsPerRecipe);
             
 
 
@@ -105,13 +113,15 @@
     function createNutrientItem(nutrient, value) {
         let nutritionDiv = document.createElement("div");
         let nutritionText = document.createElement("p");
+        
+        nutritionText.innerText = nutrient + ": " + value;
+        nutritionDiv.className = "mainRecipeNutrition";
+        nutritionText.className = "nutrient";
 
-        nutritionDiv.className = "NutritionsContainer";
-        nutritionText.className = "mainRecipeNutrition";
-
-        document.getElementsByClassName("mainRecipeNutrition").textContent = nutrient + ": " + value;
-       
-        return nut
+        document.getElementsByClassName("nutritionsContainer").appendChild(nutritionDiv);
+        nutritionDiv.appendChild(nutritionText);
+        
+        console.log('this worked')
     }
 
     function recipeFromBar(name){
