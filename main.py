@@ -71,15 +71,28 @@ class API:
         return recipe_dict
     
     @staticmethod
-    def saveJson(location, item):
+    def save_json(location, item):
         with open(location, "w+") as f:
             json.dump(item, f)
+
+    @staticmethod
+    def load_json(location):
+        with open(location, "r") as f:
+            return json.load(f)
     
     def save_recipe(self, recipe):
-        self.saveJson(self.cookbookLocation, recipe)
+        self.save_json(self.cookbookLocation, recipe)
 
     def save_settings(self, settings):
-        self.saveJson(self.settingLocation, settings)
+        self.save_json(self.settingLocation, settings)
+
+    def load_recipes(self):
+        recipes = self.load_json(self.cookbookLocation)
+        print(recipes)
+        return recipes
+
+    def load_settings(self):
+        return self.load_json(self.settingLocation)
 
 
 

@@ -49,7 +49,7 @@
 </body>
 
 <script>
-
+    
     pywebview.api.init();
     window.currentRecipe;
     window.recipeDict = {};
@@ -78,7 +78,7 @@
 
         window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
         console.log(window.recipeDict);
-        newBookmark();
+        newBookmark(currentRecipe);
 
         pywebview.api.save_recipe(recipeDict);
     }
@@ -102,11 +102,11 @@
         setRecipe(grabbed);
     }
 
-    function newBookmark(){
+    function newBookmark(recipe){
         let bookmarkDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
         
-        bookmarkText.innerText = currentRecipe.name;
+        bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         
@@ -126,9 +126,18 @@
         
     // });
 
-    window.addEventListener("load", (event) => {
+    window.onload = () => {
+        
+        pywebview.api.init();
+        console.log("STARTING STARTING STARTING");
+        
+        recipeDict = pywebview.api.load_recipes();
+        console.log(recipeDict);
+        for (const key in recipeDict){
+            newBookmark(recipeDict[key]);
+        }
 
-    });
+    };
 
 </script>
 </html>
