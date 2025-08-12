@@ -187,25 +187,35 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
 
             // NUTRITION INFORMATION
-
+            while (document.getElementById("mainRecipeNutrition").lastElementChild){
+                document.getElementById("mainRecipeNutrition").removeChild(document.getElementById("mainRecipeNutrition").lastElementChild);
+            }
             let nutrition = displayRecipe.nutrition;
-            createNutrientItem("Calories", nutrition.calori)
+
+            createNutrientItem("Calories", nutrition.totalCalories);
             createNutrientItem("Cholesterol", nutrition.cholesterol);
             createNutrientItem("Sodium", nutrition.sodium);
             createNutrientItem("Servings", nutrition.servingsPerRecipe);
             createNutrientItem("Fat", nutrition.totalFat);
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
-
-
-
-
+            
 
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
-            document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
-            document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
+
+            // INGREDIENTS
+            for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++){
+                createIngredients(displayRecipe.ingredients[ingredient]);
+                console.log(displayRecipe.ingredients)
+            }
+            
+            // INSTRUCTIONS
+            for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
+                createInstructions(displayRecipe.instructions[instruction]);
+                console.log(instruction);console.log();
+                // console.log(displayRecipe.instructions);
+            }
         }
     }
 
@@ -215,12 +225,35 @@
 
         nutritionText.innerText = nutrient + ": " + value;
         nutritionDiv.className = "nutritionItem";
-        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
 
         document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
         nutritionDiv.appendChild(nutritionText);
 
         console.log('this worked')
+    }
+    
+    function createInstructions(instruction){
+        let instructionDiv = document.createElement("div");
+        let instructionText = document.createElement("p");
+
+        instructionDiv.className = "recipeInstructions"
+
+        instructionText.innerText = instruction;
+        instructionDiv.appendChild(instructionText);
+
+        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+    }
+
+    function createIngredients(ingredient){
+        let ingredientDiv = document.createElement("div");
+        let ingredientText = document.createElement("p");
+
+        ingredientDiv.className = "mainRecipeIngredientItem";
+
+        ingredientText.innerText = ingredient;
+        ingredientDiv.appendChild(ingredientText);
+
+        document.getElementById("mainRecipeIngredients").appendChild(ingredientDiv);
     }
 
     function recipeFromBar(name){
