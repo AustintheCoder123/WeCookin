@@ -7,13 +7,47 @@
     <title>Title</title>
 </head>
 <body>
+    <div class="popup"> 
+        <div class="userPreferences" id="userPrefs">
+            <h3>Restrictions</h3>
+
+            <button id="closeButton" onclick="closeSettings()">x</button>
+            
+            <input type="checkbox" id="glutenFree">
+            <label for="glutenFree">Gluten Free</label><br><br>
+
+            <input type="checkbox" id="noDairy">
+            <label for="noDairy">No Dairy</label><br><br>
+
+            <input type="checkbox" id="noNuts">
+            <label for="noNuts">No Nuts</label><br><br>
+
+            <h3>Allergens</h3>
+
+            <input type="checkbox" id="vegetarian">
+            <label for="vegetarian">Vegetarian</label><br><br>
+
+            <input type="checkbox" id="vegan">
+            <label for="vegan">Vegan</label><br><br>
+
+            <input type="checkbox" id="halal">
+            <label for="halal">Halal</label><br><br>
+
+            <input type="checkbox" id="Kosher">
+            <label for="kosher">Kosher</label><br><br>
+
+
+            
+        </div>
+
+    </div>
 
     <div id="wholePage">
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
-                <h3 class="savedRecipe" onclick="recipeFromBar()">Borgor bookmarked</h3>
+
             </div>
         </div>
 
@@ -22,31 +56,56 @@
             <div class="options">
                 <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
-                <button>settings</button>
+                <button onclick="openSettings()">settings</button>
             </div>
 
             <!-- This div holds all the things related to the main recipe -->
             <div class="recipeBody">
-                <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
-                <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
+                
+                <div id = "mainRecipeName">
+                        <h1>Burger</h1>
+                </div>
+                
+                <div id = "mainRecipeTime">
+                    <p>1000000 min</p>
+                </div>
+
                 <div id="mainRecipeNutrition">
-                    <div id="nutritionItem">
-                        <p></p>
+                    <div class="nutritionItem">
+                        <p>Nutrition</p>
                     </div>
                 </div>
 
                 <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
                 <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-                <p id = "mainRecipeDescription">Description</p>
-                <p id = "mainRecipeIngredients">Ingredients</p>
-                <p id = "mainRecipeInstructions"> Instructions</p>
+                <div class="flexContainer">
+                    <div id="box1">
+                        <div id="mainRecipeDescription">
+                            <p>Description</p>
+                        </div>
+                    </div>
+                    <div id="box2">
+                        <div id="mainRecipeIngredients">
+                            <div class = "mainRecipeIngredientItem">
+                                <p>Ingredients</p>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mainRecipeInstructions">
+                    <div class = "recipeInstructions">
+                        <p>Instructions</p>
+                    </div>          
+                </div>
+                
 
             </div>
 
             <!-- the div for the search bar and send button -->
             <div class="textboxDiv">
                 <input id="foodPrompt" placeholder="Start making recipes!" >
-                <button onclick="createRecipe()">↑</button>
+                <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
         </div>
     </div>
@@ -61,6 +120,9 @@
 
 
     async function createRecipe(){
+        let createButton = document.getElementById("createRecipeButton");
+        createButton.disabled = true;
+
         let foodRecipe = document.getElementById("foodPrompt").value;
         console.log(foodRecipe);
         let restrictions = document.getElementById("restrictionsPrompt").value;
@@ -68,6 +130,7 @@
         recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         window.currentRecipe = recipe;
         setRecipe(recipe);
+        createButton.disabled = false;
     }
 
     function saveRecipe(){
@@ -183,7 +246,14 @@
         bookmarkDiv.appendChild(bookmarkText);
     }
 
-    
+    function openSettings(){
+        let settings = document.getElementById("userPrefs");
+        settings.style.display = "block";
+    }
+    function closeSettings(){
+        let settings = document.getElementById("userPrefs");
+        settings.style.display = "none";
+    }
 
     // window.addEventListener("beforeunload", function (val) {
     //     val.preventDefault();
@@ -205,6 +275,7 @@
             newBookmark(recipeDict[key]);
         }
     });
+
 
 </script>
 </html>
