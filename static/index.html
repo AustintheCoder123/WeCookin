@@ -147,6 +147,8 @@
 
     window.currentRecipe;
     window.recipeDict = {};
+    window.restrictionsList = [];
+    window.allergensList = [];
 
 
     async function createRecipe(){
@@ -288,6 +290,14 @@
         allergenItemDiv.appendChild(newAllergenLabel);
     }
 
+    function loadAllergens(){
+
+    }
+
+    function loadRestrictions(){
+        
+    }
+    //Event Listeners------------------------------------------
 
     let restrictionsInput = document.getElementById("otherRestriction");
     let allergensInput = document.getElementById("otherAllergen");
