@@ -223,7 +223,7 @@ body {
 }
 
 #closeButton {
-    position: absolute;
+    position: sticky;
     top: 8px;
     right: 10px;
     font-size: 20px;
@@ -234,6 +234,18 @@ body {
 
 #closeButton:hover {
     color: red;
+}
+
+.allergenItem{
+    margin-bottom: 2%;
+}
+
+.restrictionItem{
+    margin-bottom: 2%;
+}
+
+#allergensHeader{
+    
 }
 
 #mainRecipeName{
