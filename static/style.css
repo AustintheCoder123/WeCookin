@@ -1,20 +1,19 @@
 :root{
---cherry-blossom-pink: #edafb8ff;
---champagne-pink: #f7e1d7ff;
---timberwolf: #dedbd2ff;
---ash-gray: #b0c4b1ff;
---outer-space: #4a5759ff;
---tea-rose: #e9c4c9;
---dark-gray: #2e3435;
+--parchment: #ebf0d2;
+--tea-green: #DDE5B6;
+--olive: #ADC178;
+--chamoisee: #A98467;
+--umber: #6C584C;
+--dark-brown: #3d3028;
 --white: #ffffff;
---red: 
+
 display: grid;
 grid-template-rows: minmax(60px, auto) minmax(0, 100%);
 height: 100%;
 }
 
 body {
-    background-color: var(--champagne-pink)
+    background-color: var(--parchment)
 }
 .textboxDiv{
     justify-content: center;
@@ -22,14 +21,14 @@ body {
     align-items: center;
     padding-left: 44%;
     padding-right: 50%;
-    padding-top: 550px;
+    padding-top: 20px;
 
 }
 
 .textboxDiv > input {
     align-content: center;
-    color: var(--ash-gray, green);
-    background-color: var(--outer-space);
+    color: var(--dark-brown, green);
+    background-color: var(--chamoisee);
     padding: 20px;
     padding-left: 10px;
     padding-right: 100px;
@@ -43,12 +42,12 @@ body {
 }
 
 ::placeholder {
-    color: var(--ash-gray);
+    color: var(--umber);
 }
 
 .textboxDiv > button {
-    background-color: var(--outer-space);
-    color: var(--ash-gray, green);
+    background-color: var(--chamoisee);
+    color: var(--dark-brown, green);
     margin: -50px;
     border-radius: 70px;
     padding: 12px;
@@ -59,13 +58,95 @@ body {
 }
 
 .textboxDiv > button:active {
-    background-color: var(--dark-gray);
+    background-color: var(--umber);
 }
 
-.recipeName{
+#mainRecipeName{
+    align-content: center;
+    padding-bottom: -20px;
     text-align: center;
     font-size: 90px;
-    margin-top: -15px;
+    margin-top: -10px;
+}
+
+#mainRecipeName > h1 {
+  color: black;
+}
+
+.textboxDiv > button:disabled {
+    background-color: var(--outer-space);
+}
+#mainRecipeTime{
+
+}
+
+#mainRecipeNutrition{
+
+}
+
+.nutritionItem{
+
+}
+
+.flexContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+#box1{
+    width: 50%;
+}
+
+#box2{
+    width: 50%;
+}
+
+#mainRecipeDescription{
+    background-color: var(--tea-green);
+    margin-top: -10px;
+    padding-bottom: 200px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+#mainRecipeDescription > p{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+#mainRecipeIngredients{
+    margin-bottom: px;
+    background-color: var(--tea-green);
+    margin-top: -10px;
+    padding-bottom: 200px   ;
+    border-radius: 10px;
+}
+
+.mainRecipeIngredientItem > p{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.recipeIngredients{
+
+}
+
+#mainRecipeInstructions{
+    background-color: var(--tea-green);
+    border-radius: 10px;
+    padding-bottom: 230px;
+
+}
+
+.recipeInstructions{
+
+}
+
+.recipeInstructions > p{
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .recipeTime{
@@ -74,7 +155,7 @@ body {
     margin-left: -140px;
 }
 
-.recipeCal{
+#mainRecipeCal{
     text-align: center;
     margin-top: -33px;
     margin-left: 55px;
@@ -86,11 +167,11 @@ body {
     padding-bottom: 20px;
     padding-right: 20px;
     display: flex;
-    background-color: var(--tea-rose);
+    background-color: var(--tea-green);
 }
 
 .options > input{
-    background-color: var(--outer-space);
+    background-color: var(--chamoisee);
 }
 
 .options > button {
@@ -99,7 +180,7 @@ body {
 
 #bookmarkBar {
     width: 19%;
-    background-color: var(--cherry-blossom-pink);
+    background-color: var(--olive);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -115,7 +196,7 @@ body {
     text-align: center;
     padding-right: 30px;
     font-size: 160%;
-    color: var(--outer-space);
+    color: black;
 }
 
 #wholePage {
@@ -128,7 +209,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
     background-color: white;
     border-radius: 25px;
     padding: 20px;
@@ -159,35 +240,19 @@ body {
 
 }
 
-#mainRecipeTime{
 
+#nutritionsContainer{
+    color: var(--olive);
+    padding: 10%;
 }
 
-#NutritionsContainer{
 
-}
 
-#mainRecipeNutrition{
 
-}
-
-#mainRecipeDescription{
-
-}
 
 #ingredientsContainer {
 
 }
 
-#mainRecipeIngredients {
 
-}
-
-#InstructionsContainer{
-
-}
-
-#mainRecipeInstructions{
-    
-}
 
