@@ -61,20 +61,21 @@ body {
     background-color: var(--umber);
 }
 
-
-
 #mainRecipeName{
     align-content: center;
     padding-bottom: -20px;
-}
-
-#mainRecipeName > h1{
-    color: black;
     text-align: center;
     font-size: 90px;
     margin-top: -10px;
 }
 
+#mainRecipeName > h1 {
+  color: black;
+}
+
+.textboxDiv > button:disabled {
+    background-color: var(--outer-space);
+}
 #mainRecipeTime{
 
 }

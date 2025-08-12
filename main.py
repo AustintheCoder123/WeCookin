@@ -15,10 +15,15 @@ class API:
         self.model = "gpt-4.1-nano"
         self.cookbookLocation = "storage/cookbook.json"
         self.settingLocation = "storage/preferences.json"
+        self.processingRequest = False
 
     def create_recipe(self, user_preferences, prompt):
-        
+        if self.processingRequest:
+            return
             
+
+        self.processingRequest = True
+        
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
         if user_preferences != None:
@@ -69,6 +74,8 @@ class API:
             "time": response.time,
             "instructions": response.instructions
         }
+
+        self.processingRequest = False
 
         return recipe_dict
     
