@@ -9,34 +9,64 @@
 <body>
     <div class="popup"> 
         <div class="userPreferences" id="userPrefs">
-            <h3>Restrictions</h3>
-
             <button id="closeButton" onclick="closeSettings()">x</button>
-            
-            <input type="checkbox" id="glutenFree">
-            <label for="glutenFree">Gluten Free</label><br><br>
 
-            <input type="checkbox" id="noDairy">
-            <label for="noDairy">No Dairy</label><br><br>
+            <div class="restrictions" id="restrictionItems">
+                <div class="restrictionItem">
+                    <h3 id="restrictionsHeader">Restrictions</h3>
+                </div>
 
-            <input type="checkbox" id="noNuts">
-            <label for="noNuts">No Nuts</label><br><br>
+                <div class="restrictionItem">
+                    <input type="checkbox" id="glutenFree">
+                    <label for="glutenFree">Gluten Free</label>
+                </div>
 
-            <h3>Allergens</h3>
+                <div class="restrictionItem">
+                    <input type="checkbox" id="noDairy">
+                    <label for="noDairy">No Dairy</label>
+                </div>
 
-            <input type="checkbox" id="vegetarian">
-            <label for="vegetarian">Vegetarian</label><br><br>
+                <div class="restrictionItem">
+                    <input type="checkbox" id="noNuts">
+                    <label for="noNuts">No Nuts</label>
+                </div>
+            </div>
 
-            <input type="checkbox" id="vegan">
-            <label for="vegan">Vegan</label><br><br>
+            <div id="otherRestrictionBox">
+                <label>Other:</label>
+                <input id="otherRestriction">
+            </div>
 
-            <input type="checkbox" id="halal">
-            <label for="halal">Halal</label><br><br>
+            <div class="allergens" id="allergenItems">
+                <div class="allergenItem">
+                    <h3 id="allergensHeader">Allergens</h3>
+                </div>
 
-            <input type="checkbox" id="Kosher">
-            <label for="kosher">Kosher</label><br><br>
+                <div class="allergenItem">
+                    <input type="checkbox" id="vegetarian">
+                    <label for="vegetarian">Vegetarian</label>
+                </div>
 
+                <div class="allergenItem">
+                    <input type="checkbox" id="vegan">
+                    <label for="vegan">Vegan</label>
+                </div>
 
+                <div class="allergenItem">
+                    <input type="checkbox" id="halal">
+                    <label for="halal">Halal</label>
+                </div>
+
+                <div class="allergenItem">
+                    <input type="checkbox" id="Kosher">
+                    <label for="kosher">Kosher</label>
+                </div>          
+            </div>
+
+            <div id="otherAllergenBox">
+                <label>Other:</label>
+                <input id="otherAllergen">
+            </div>
             
         </div>
 
@@ -157,25 +187,35 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
 
             // NUTRITION INFORMATION
-
+            while (document.getElementById("mainRecipeNutrition").lastElementChild){
+                document.getElementById("mainRecipeNutrition").removeChild(document.getElementById("mainRecipeNutrition").lastElementChild);
+            }
             let nutrition = displayRecipe.nutrition;
-            createNutrientItem("Calories", nutrition.calori)
+
+            createNutrientItem("Calories", nutrition.totalCalories);
             createNutrientItem("Cholesterol", nutrition.cholesterol);
             createNutrientItem("Sodium", nutrition.sodium);
             createNutrientItem("Servings", nutrition.servingsPerRecipe);
             createNutrientItem("Fat", nutrition.totalFat);
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
-
-
-
-
+            
 
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
-            document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
-            document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
+
+            // INGREDIENTS
+            for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++){
+                createIngredients(displayRecipe.ingredients[ingredient]);
+                console.log(displayRecipe.ingredients)
+            }
+            
+            // INSTRUCTIONS
+            for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
+                createInstructions(displayRecipe.instructions[instruction]);
+                console.log(instruction);console.log();
+                // console.log(displayRecipe.instructions);
+            }
         }
     }
 
@@ -185,12 +225,35 @@
 
         nutritionText.innerText = nutrient + ": " + value;
         nutritionDiv.className = "nutritionItem";
-        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
 
         document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
         nutritionDiv.appendChild(nutritionText);
 
         console.log('this worked')
+    }
+    
+    function createInstructions(instruction){
+        let instructionDiv = document.createElement("div");
+        let instructionText = document.createElement("p");
+
+        instructionDiv.className = "recipeInstructions"
+
+        instructionText.innerText = instruction;
+        instructionDiv.appendChild(instructionText);
+
+        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+    }
+
+    function createIngredients(ingredient){
+        let ingredientDiv = document.createElement("div");
+        let ingredientText = document.createElement("p");
+
+        ingredientDiv.className = "mainRecipeIngredientItem";
+
+        ingredientText.innerText = ingredient;
+        ingredientDiv.appendChild(ingredientText);
+
+        document.getElementById("mainRecipeIngredients").appendChild(ingredientDiv);
     }
 
     function recipeFromBar(name){
@@ -224,10 +287,62 @@
         settings.style.display = "none";
     }
 
-    // window.addEventListener("beforeunload", function (val) {
-    //     val.preventDefault();
+    function addRestriction(item){
+        let restrictionItemDiv = document.createElement("div");
+        let newRestrictionBox = document.createElement("input");
+        let newRestrictionLabel = document.createElement("label");
 
-    // });
+        restrictionItemDiv.className = "restrictionItem";
+        newRestrictionBox.type = "checkbox";
+        newRestrictionBox.value = item;
+
+        newRestrictionLabel.textContent = item;
+
+        
+        document.getElementById("restrictionItems").appendChild(restrictionItemDiv);
+        restrictionItemDiv.appendChild(newRestrictionBox);
+        restrictionItemDiv.appendChild(newRestrictionLabel);
+
+    }
+
+    function addAllergen(item){
+        let allergenItemDiv = document.createElement("div");
+        let newAllergenBox = document.createElement("input");
+        let newAllergenLabel = document.createElement("label");
+
+        allergenItemDiv.className = "allergenItem";
+        newAllergenBox.type = "checkbox";
+        newAllergenBox.value = item;
+
+        newAllergenLabel.textContent = item;
+
+        document.getElementById("allergenItems").appendChild(allergenItemDiv);
+        allergenItemDiv.appendChild(newAllergenBox);
+        allergenItemDiv.appendChild(newAllergenLabel);
+    }
+
+
+    let restrictionsInput = document.getElementById("otherRestriction");
+    let allergensInput = document.getElementById("otherAllergen");
+
+    restrictionsInput.addEventListener("keypress", function (event){
+        if(event.key=="Enter"){
+            event.preventDefault();
+            addRestriction(restrictionsInput.value);
+            restrictionsInput.value = "";
+        }
+    });
+
+    allergensInput.addEventListener("keypress", function (event){
+        if(event.key=="Enter"){
+            event.preventDefault();
+            addAllergen(allergensInput.value);
+            allergensInput.value = "";
+        }
+    });
+
+
+
 
     window.addEventListener('pywebviewready', async () => {
         console.log("STARTING STARTING STARTING");
@@ -244,6 +359,8 @@
             newBookmark(recipeDict[key]);
         }
     });
+
+    
 
 
 </script>

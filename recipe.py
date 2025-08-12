@@ -14,5 +14,5 @@ class Recipe(BaseModel):
     nutrition: Nutrition
     desc: str
     time: str
-    instructions: str
+    instructions: list[str]
 
