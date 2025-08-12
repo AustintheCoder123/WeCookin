@@ -20,7 +20,7 @@ body {
     align-items: center;
     padding-left: 44%;
     padding-right: 50%;
-    padding-top: 550px;
+    padding-top: 20px;
 
 }
 
@@ -58,6 +58,98 @@ body {
 
 .textboxDiv > button:active {
     background-color: var(--umber);
+}
+
+
+
+
+
+
+
+
+#mainRecipeName{
+    align-content: center;
+    padding-bottom: -20px;
+}
+
+#mainRecipeName > h1{
+    color: black;
+    text-align: center;
+    font-size: 90px;
+    margin-top: -10px;
+}
+
+#mainRecipeTime{
+
+}
+
+#mainRecipeNutrition{
+
+}
+
+.nutritionItem{
+
+}
+
+.flexContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+#box1{
+    width: 50%;
+}
+
+#box2{
+    width: 50%;
+}
+
+#mainRecipeDescription{
+    background-color: var(--tea-green);
+    margin-top: -10px;
+    padding-bottom: 200px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+#mainRecipeDescription > p{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+#mainRecipeIngredients{
+    margin-bottom: px;
+    background-color: var(--tea-green);
+    margin-top: -10px;
+    padding-bottom: 200px   ;
+    border-radius: 10px;
+}
+
+.mainRecipeIngredientItem > p{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.recipeIngredients{
+
+}
+
+#mainRecipeInstructions{
+    background-color: var(--tea-green);
+    border-radius: 10px;
+    padding-bottom: 230px;
+
+}
+
+.recipeInstructions{
+    
+}
+
+.recipeInstructions > p{
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .recipeTime{
@@ -114,45 +206,20 @@ body {
     display: flex;
 }
 
-#mainRecipeName{
-    align-content: center;
-    background-color: olive;
-}
 
-#mainRecipeName > h1 {
-    color: black;
-    text-align: center;
-    font-size: 90px;
-    margin-top: -15px;
-}
 
 #nutritionsContainer{
     color: var(--olive);
     padding: 10%;
 }
 
-.mainRecipeNutrition{
 
-}
 
-#mainRecipeDescription{
-    color: var(--olive);
 
-}
 
 #ingredientsContainer {
 
 }
 
-.mainRecipeIngredients {
 
-}
-
-#instructionsContainer{
-
-}
-
-.mainRecipeInstructions{
-    
-}
 
