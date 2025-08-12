@@ -171,15 +171,18 @@
             createNutrientItem("Fat", nutrition.totalFat);
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
             
-            // INGREDIENTS
+
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
-            for (ingredient in displayRecipe.ingredients){
-                createIngredients(ingredient);
+
+            // INGREDIENTS
+            for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++){
+                createIngredients(displayRecipe.ingredients[ingredient]);
+                console.log(displayRecipe.ingredients)
             }
             
             // INSTRUCTIONS
-            for (instruction in displayRecipe.instructions){
-                createInstructions(instruction);
+            for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
+                createInstructions(displayRecipe.instructions[instruction]);
                 console.log(instruction);console.log();
                 // console.log(displayRecipe.instructions);
             }
@@ -192,7 +195,6 @@
 
         nutritionText.innerText = nutrient + ": " + value;
         nutritionDiv.className = "nutritionItem";
-        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
 
         document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
         nutritionDiv.appendChild(nutritionText);
@@ -216,12 +218,12 @@
         let ingredientDiv = document.createElement("div");
         let ingredientText = document.createElement("p");
 
-        ingredientDiv.className = "recipeIngredients";
+        ingredientDiv.className = "mainRecipeIngredientItem";
 
         ingredientText.innerText = ingredient;
         ingredientDiv.appendChild(ingredientText);
 
-        document.getElementById("mainRecipeIngredients").appendChild(instructionDiv);
+        document.getElementById("mainRecipeIngredients").appendChild(ingredientDiv);
     }
 
     function recipeFromBar(name){
