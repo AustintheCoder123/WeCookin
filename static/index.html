@@ -107,12 +107,14 @@
             createNutrientItem("Servings", nutrition.servingsPerRecipe);
             createNutrientItem("Fat", nutrition.totalFat);
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
-
+            
+            // INGREDIENTS
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             for (ingredient in displayRecipe.ingredients){
                 createIngredients(ingredient);
             }
             
+            // INSTRUCTIONS
             for (instruction in displayRecipe.instructions){
                 createInstructions(instruction);
                 console.log(instruction);console.log();
