@@ -29,7 +29,7 @@ class API:
         and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe.
         Follow this order and format when returning:
         - Name: A short, descriptive name of the food/dish in "str" or string format
-        - Ingredients: Make a bullet list of all the ingredients used for the dish, all in "str" or string format  
+        - Ingredients: Make a list of all the ingredients used for the dish, all in "str" or string format  
         - Nutrition: A bullet-list of all the nutrition facts of the dish, with a subheading labeled 'Nutrition Facts.' Make sure to make the list start underneath the label and move downward.
              - ServingsPerRecipe: The number of servings per recipe made with the given amout of ingredients
              - TotalCalories: The total amount of calories in one serving of the dish
@@ -55,7 +55,7 @@ class API:
         print(response)
         recipe_dict = {
             "name": response.name,
-            "`ingredient`s": response.ingredients,
+            "ingredients": response.ingredients,
             "nutrition": {
                 "cholesterol" : response.nutrition.Cholesterol,
                 "sodium" : response.nutrition.Sodium,
