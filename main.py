@@ -13,6 +13,8 @@ class API:
         self.client = OpenAI()
         self.client.api_key = api_key
         self.model = "gpt-4.1-nano"
+        self.cookbookLocation = "storage/cookbook.json"
+        self.settingLocation = "storage/preferences.json"
         self.processingRequest = False
 
     def create_recipe(self, user_preferences, prompt):
@@ -24,8 +26,9 @@ class API:
         
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
-        if user_preferences != "":
+        if user_preferences != None:
             gpt_job += "for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
+        
         
         combinedPrompt = f"""{gpt_job} {user_preferences} and apply it when making the recipe. Knowing these restrictions, make a recipe for this food: {prompt}
         and format the recipe, Description of the food, then the ingredients with nutrition facts, and finally the instructions for the recipe.
@@ -44,6 +47,7 @@ class API:
         - Time: Time it takes to make the dish in "str" or string format
         - Instructions: Write out the instructions to make the dish step-by step, with each step being part of a numbered list, again, all in "str" or string format"""
 
+        
         response = self.client.beta.chat.completions.parse(
             model=self.model,
             messages=[
@@ -75,13 +79,31 @@ class API:
 
         return recipe_dict
     
-#d = {"ferrari":2, "bugatti":3}
+    @staticmethod
+    def save_json(location, item):
+        with open(location, "w+") as f:
+            json.dump(item, f)
 
-def saveRecipeJson(recipe):
-    with open("storage/test.json", "w+") as f:
-        json.dump(recipe, f)
+    @staticmethod
+    def load_json(location):
+        with open(location, "r") as f:
+            return json.load(f)
+    
+    def save_recipe(self, recipe):
+        self.save_json(self.cookbookLocation, recipe)
 
-#saveRecipeJson(d)
+    def save_settings(self, settings):
+        self.save_json(self.settingLocation, settings)
+
+    def load_recipes(self):
+        recipes = self.load_json(self.cookbookLocation)
+        print(recipes)
+        return recipes
+
+    def load_settings(self):
+        return self.load_json(self.settingLocation)
+
+
 
 
 if __name__  == "__main__":
@@ -89,5 +111,6 @@ if __name__  == "__main__":
     pref = "not gluten"
     prompt = "Pasta"
 
-    window = webview.create_window("WeCookin","static/index.html",js_api=api)
+    html_path = os.path.abspath("static/index.html")
+    window = webview.create_window("WeCookin",html_path,js_api=api)
     webview.start(debug=True)

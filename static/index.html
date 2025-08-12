@@ -7,13 +7,47 @@
     <title>Title</title>
 </head>
 <body>
+    <div class="popup"> 
+        <div class="userPreferences" id="userPrefs">
+            <h3>Restrictions</h3>
+
+            <button id="closeButton" onclick="closeSettings()">x</button>
+            
+            <input type="checkbox" id="glutenFree">
+            <label for="glutenFree">Gluten Free</label><br><br>
+
+            <input type="checkbox" id="noDairy">
+            <label for="noDairy">No Dairy</label><br><br>
+
+            <input type="checkbox" id="noNuts">
+            <label for="noNuts">No Nuts</label><br><br>
+
+            <h3>Allergens</h3>
+
+            <input type="checkbox" id="vegetarian">
+            <label for="vegetarian">Vegetarian</label><br><br>
+
+            <input type="checkbox" id="vegan">
+            <label for="vegan">Vegan</label><br><br>
+
+            <input type="checkbox" id="halal">
+            <label for="halal">Halal</label><br><br>
+
+            <input type="checkbox" id="Kosher">
+            <label for="kosher">Kosher</label><br><br>
+
+
+            
+        </div>
+
+    </div>
 
     <div id="wholePage">
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <div class="bookmarkRecipe">
-                <h3 class="savedRecipe" onclick="recipeFromBar()">Borgor bookmarked</h3>
+
             </div>
         </div>
 
@@ -22,19 +56,49 @@
             <div class="options">
                 <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
-                <button>settings</button>
+                <button onclick="openSettings()">settings</button>
             </div>
 
             <!-- This div holds all the things related to the main recipe -->
             <div class="recipeBody">
-                <h1 id = "mainRecipeName" class="recipeName">Burger</h1>
-                <p id = "mainRecipeTime" class="recipeTime">1 hour</p>
-                <p id = "mainRecipeNutrition" class="recipeCal">1000 calories</p>
+                
+                <div id = "mainRecipeName">
+                        <h1>Burger</h1>
+                </div>
+                
+                <div id = "mainRecipeTime">
+                    <p>1000000 min</p>
+                </div>
+
+                <div id="mainRecipeNutrition">
+                    <div class="nutritionItem">
+                        <p>Nutrition</p>
+                    </div>
+                </div>
+
                 <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
                 <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-                <p id = "mainRecipeDescription">Description</p>
-                <p id = "mainRecipeIngredients">Ingredients</p>
-                <p id = "mainRecipeInstructions"> Instructions</p>
+                <div class="flexContainer">
+                    <div id="box1">
+                        <div id="mainRecipeDescription">
+                            <p>Description</p>
+                        </div>
+                    </div>
+                    <div id="box2">
+                        <div id="mainRecipeIngredients">
+                            <div class = "mainRecipeIngredientItem">
+                                <p>Ingredients</p>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="mainRecipeInstructions">
+                    <div class = "recipeInstructions">
+                        <p>Instructions</p>
+                    </div>          
+                </div>
+                
 
             </div>
 
@@ -49,8 +113,8 @@
 </body>
 
 <script>
+    console.log("borgor maxing");
 
-    pywebview.api.init();
     window.currentRecipe;
     window.recipeDict = {};
 
@@ -75,14 +139,16 @@
         console.log(window.recipeDict);
 
         if (typeof window.recipeDict == "undefined"){
-            window.recipeDict = {}
+            window.recipeDict = {};
         }
 
         console.log(window.recipeDict);
 
         window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
         console.log(window.recipeDict);
-        newBookmark();
+        newBookmark(currentRecipe);
+
+        pywebview.api.save_recipe(recipeDict);
     }
 
     function setRecipe(displayRecipe){
@@ -91,12 +157,40 @@
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
-            let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
-            document.getElementById("mainRecipeNutrition").textContent = nutrition;
+            //let nutrition = displayRecipe.nutrition.cholesterol  + ", "  + displayRecipe.nutrition.sodium + ", "  + displayRecipe.nutrition.servingsPerRecipe + ", "  + displayRecipe.nutrition.totalCalories + ", "  + displayRecipe.nutrition.totalFat + ", "  + displayRecipe.nutrition.saturatedFat + ", "
+
+            // NUTRITION INFORMATION
+
+            let nutrition = displayRecipe.nutrition;
+            createNutrientItem("Calories", nutrition.calori)
+            createNutrientItem("Cholesterol", nutrition.cholesterol);
+            createNutrientItem("Sodium", nutrition.sodium);
+            createNutrientItem("Servings", nutrition.servingsPerRecipe);
+            createNutrientItem("Fat", nutrition.totalFat);
+            createNutrientItem("Saturated fat", nutrition.saturatedFat);
+
+
+
+
+
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
             document.getElementById("mainRecipeIngredients").textContent = displayRecipe.ingredients;
             document.getElementById("mainRecipeInstructions").textContent = displayRecipe.instructions;
         }
+    }
+
+    function createNutrientItem(nutrient, value) {
+        let nutritionDiv = document.createElement("div");
+        let nutritionText = document.createElement("p");
+
+        nutritionText.innerText = nutrient + ": " + value;
+        nutritionDiv.className = "nutritionItem";
+        //nutritionText.className = "ENTER CLASS NAME UIWRBGIUWRH"
+
+        document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
+        nutritionDiv.appendChild(nutritionText);
+
+        console.log('this worked')
     }
 
     function recipeFromBar(name){
@@ -104,11 +198,11 @@
         setRecipe(grabbed);
     }
 
-    function newBookmark(){
+    function newBookmark(recipe){
         let bookmarkDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
         
-        bookmarkText.innerText = currentRecipe.name;
+        bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         
@@ -119,9 +213,38 @@
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
-        
-
     }
+
+    function openSettings(){
+        let settings = document.getElementById("userPrefs");
+        settings.style.display = "block";
+    }
+    function closeSettings(){
+        let settings = document.getElementById("userPrefs");
+        settings.style.display = "none";
+    }
+
+    // window.addEventListener("beforeunload", function (val) {
+    //     val.preventDefault();
+
+    // });
+
+    window.addEventListener('pywebviewready', async () => {
+        console.log("STARTING STARTING STARTING");
+
+        if (pywebview.api.init) {
+            await pywebview.api.init();
+            console.log("pywebview.api initialized");
+        }
+        recipeDict = await pywebview.api.load_recipes();
+
+        console.log(recipeDict);
+
+        for (const key in recipeDict){
+            newBookmark(recipeDict[key]);
+        }
+    });
+
 
 </script>
 </html>
