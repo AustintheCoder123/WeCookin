@@ -5,6 +5,7 @@
 --chamoisee: #A98467;
 --umber: #6C584C;
 --dark-brown: #3d3028;
+--white: #ffffff;
 
 display: grid;
 grid-template-rows: minmax(60px, auto) minmax(0, 100%);
@@ -139,7 +140,7 @@ body {
 }
 
 .recipeInstructions{
-    
+
 }
 
 .recipeInstructions > p{
@@ -160,7 +161,7 @@ body {
 }
 
 .options{
-    padding-left: 82%;
+    padding-left: 78%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
@@ -201,6 +202,42 @@ body {
     display: flex;
 }
 
+.userPreferences{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+    width: 70%;
+    height: 60%;
+    overflow-y: scroll;
+}
+
+.userPreferences::-webkit-scrollbar {
+    display: none;
+}
+
+#closeButton {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 20px;
+    color: var(--dark-gray);
+    background: none;
+    border: none;
+}
+
+#closeButton:hover {
+    color: red;
+}
+
+#mainRecipeName{
+
+}
 
 
 #nutritionsContainer{
