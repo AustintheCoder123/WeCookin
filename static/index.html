@@ -17,17 +17,17 @@
                 </div>
 
                 <div class="restrictionItem">
-                    <input type="checkbox" id="glutenFree">
+                    <input type="checkbox" value="Gluten Free">
                     <label for="glutenFree">Gluten Free</label>
                 </div>
 
                 <div class="restrictionItem">
-                    <input type="checkbox" id="noDairy">
+                    <input type="checkbox" value="No Dairy">
                     <label for="noDairy">No Dairy</label>
                 </div>
 
                 <div class="restrictionItem">
-                    <input type="checkbox" id="noNuts">
+                    <input type="checkbox" value="No Nuts">
                     <label for="noNuts">No Nuts</label>
                 </div>
             </div>
@@ -43,22 +43,22 @@
                 </div>
 
                 <div class="allergenItem">
-                    <input type="checkbox" id="vegetarian">
+                    <input type="checkbox" value="Vegetarian">
                     <label for="vegetarian">Vegetarian</label>
                 </div>
 
                 <div class="allergenItem">
-                    <input type="checkbox" id="vegan">
+                    <input type="checkbox" value="Vegan">
                     <label for="vegan">Vegan</label>
                 </div>
 
                 <div class="allergenItem">
-                    <input type="checkbox" id="halal">
+                    <input type="checkbox" value="Halal">
                     <label for="halal">Halal</label>
                 </div>
 
                 <div class="allergenItem">
-                    <input type="checkbox" id="Kosher">
+                    <input type="checkbox" value="Kosher">
                     <label for="kosher">Kosher</label>
                 </div>          
             </div>
@@ -147,6 +147,8 @@
 
     window.currentRecipe;
     window.recipeDict = {};
+    window.restrictionsString = "";
+    window.allergensString = "";
 
 
     async function createRecipe(){
@@ -285,6 +287,8 @@
     function closeSettings(){
         let settings = document.getElementById("userPrefs");
         settings.style.display = "none";
+        loadAllergens();
+        loadRestrictions();
     }
 
     function addRestriction(item){
@@ -321,6 +325,36 @@
         allergenItemDiv.appendChild(newAllergenLabel);
     }
 
+    function loadAllergens(){
+        let allergensDiv = document.getElementById("allergenItems");
+        let buttonsInDiv = allergensDiv.querySelectorAll("input");
+        let allergensList = [];
+
+        buttonsInDiv.forEach(element => {
+            if(element.checked){
+                allergensList.push(element.value);
+            }
+        });
+
+        allergensString = allergensList.join(", ");
+        console.log(allergensString);
+    }
+
+    function loadRestrictions(){
+        let restrictionsDiv = document.getElementById("restrictionItems");
+        let buttonsInDiv = restrictionsDiv.querySelectorAll("input");
+        let restrictionsList = [];
+
+        buttonsInDiv.forEach(element => {
+            if(element.checked){
+                restrictionsList.push(element.value);
+            }
+        });
+
+        restrictionsString = restrictionsList.join(", ");
+        console.log(restrictionsString);
+    }
+    //Event Listeners------------------------------------------
 
     let restrictionsInput = document.getElementById("otherRestriction");
     let allergensInput = document.getElementById("otherAllergen");
