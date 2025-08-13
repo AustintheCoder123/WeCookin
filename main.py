@@ -112,10 +112,10 @@ if __name__  == "__main__":
     api = API()
     prompt = "pancakes"
     pref = ""
-    
+
     recipe = api.create_recipe(pref, prompt)
     print(recipe)
-    
+
 
     html_path = os.path.abspath("static/index.html")
     window = webview.create_window("WeCookin",html_path,js_api=api)
