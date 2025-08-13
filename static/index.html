@@ -147,8 +147,7 @@
 
     window.currentRecipe;
     window.recipeDict = {};
-    window.restrictionsString = "";
-    window.allergensString = "";
+    window.settingsDict = {};
 
 
     async function createRecipe(){
@@ -289,6 +288,8 @@
         settings.style.display = "none";
         loadAllergens();
         loadRestrictions();
+
+        pywebview.api.save_settings([restrictionsString, allergensString]);
     }
 
     function addRestriction(item){
@@ -336,8 +337,7 @@
             }
         });
 
-        allergensString = allergensList.join(", ");
-        console.log(allergensString);
+        settingsDict["allergens"] = allergensList.join(", ");
     }
 
     function loadRestrictions(){
@@ -351,9 +351,10 @@
             }
         });
 
-        restrictionsString = restrictionsList.join(", ");
-        console.log(restrictionsString);
+        settingsDict["restrictions"] = restrictionsList.join(", ");
     }
+
+
     //Event Listeners------------------------------------------
 
     let restrictionsInput = document.getElementById("otherRestriction");
@@ -379,16 +380,15 @@
 
 
     window.addEventListener('pywebviewready', async () => {
-        console.log("STARTING STARTING STARTING");
-
         if (pywebview.api.init) {
             await pywebview.api.init();
-            console.log("pywebview.api initialized");
         }
         recipeDict = await pywebview.api.load_recipes();
+        restritionsString = await pywebview.api.load_settings()["restrictions"];
+        allergensString = await pywebview.api.load_settings()["allergens"];
 
-        console.log(recipeDict);
-
+        console.log(restritionsString);
+        console.log(allergensString);
         for (const key in recipeDict){
             newBookmark(recipeDict[key]);
         }
