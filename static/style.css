@@ -189,7 +189,7 @@ body {
     flex-direction: column;
     align-items: stretch;
     border-radius: 20px;
-    height: 100vh;
+    height: 98vh;
     overflow-y: scroll;
 }
 
@@ -197,10 +197,14 @@ body {
     display: none;
 }
 
-/* #bookmarkBarDiv {
-    display: flexbox;
-    position: fixed;
-} */
+.recipeBody {
+    max-height: 82vh;
+    overflow-y: scroll;
+}
+
+.recipeBody::-webkit-scrollbar {
+    display: none;
+}
 
 .mainRecipePage {
     width: 80%;
