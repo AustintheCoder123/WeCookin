@@ -197,6 +197,11 @@ body {
     display: inline-block;
 }
 
+#closeBtn {
+    padding-left: 80%;
+    top: 0;
+}
+
 .savedRecipe {
     text-align: center;
     padding-right: 30px;
