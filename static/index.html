@@ -216,7 +216,7 @@
                 document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
             }
             for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
-                createInstructions(displayRecipe.instructions[instruction]);
+                createInstructions(displayRecipe.instructions[instruction], instruction);
             }
         }
     }
@@ -232,11 +232,17 @@
         nutritionDiv.appendChild(nutritionText);
     }
     
-    function createInstructions(instruction){
+    function createInstructions(instruction, index){
         let instructionDiv = document.createElement("div");
+        let instructionStep = document.createElement("h2");
         let instructionText = document.createElement("p");
 
-        instructionDiv.className = "recipeInstructions"
+        instructionDiv.className = "recipeInstructions";
+        instructionStep.className = "instructionStep";
+
+        index++;
+        instructionStep.innerText = "Step " + index;
+        instructionDiv.appendChild(instructionStep) ;
 
         instructionText.innerText = instruction;
         instructionDiv.appendChild(instructionText);
