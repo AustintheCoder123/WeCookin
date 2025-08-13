@@ -12,32 +12,6 @@
             <button id="closeButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
-                <div class="restrictionItem">
-                    <h3 id="restrictionsHeader">Restrictions</h3>
-                </div>
-
-                <div class="restrictionItem">
-                    <input type="checkbox" value="Gluten Free">
-                    <label for="glutenFree">Gluten Free</label>
-                </div>
-
-                <div class="restrictionItem">
-                    <input type="checkbox" value="No Dairy">
-                    <label for="noDairy">No Dairy</label>
-                </div>
-
-                <div class="restrictionItem">
-                    <input type="checkbox" value="No Nuts">
-                    <label for="noNuts">No Nuts</label>
-                </div>
-            </div>
-
-            <div id="otherRestrictionBox">
-                <label>Other:</label>
-                <input id="otherRestriction">
-            </div>
-
-            <div class="allergens" id="allergenItems">
                 <div class="allergenItem">
                     <h3 id="allergensHeader">Allergens</h3>
                 </div>
@@ -63,6 +37,32 @@
                 </div>          
             </div>
 
+            <div id="otherRestrictionBox">
+                <label>Other:</label>
+                <input id="otherRestriction">
+            </div>
+
+            <div class="allergens" id="allergenItems">
+                <div class="restrictionItem">
+                    <h3 id="restrictionsHeader">Restrictions</h3>
+                </div>
+
+                <div class="restrictionItem">
+                    <input type="checkbox" value="Gluten Free">
+                    <label for="glutenFree">Gluten Free</label>
+                </div>
+
+                <div class="restrictionItem">
+                    <input type="checkbox" value="No Dairy">
+                    <label for="noDairy">No Dairy</label>
+                </div>
+
+                <div class="restrictionItem">
+                    <input type="checkbox" value="No Nuts">
+                    <label for="noNuts">No Nuts</label>
+                </div>
+            </div>
+
             <div id="otherAllergenBox">
                 <label>Other:</label>
                 <input id="otherAllergen">
@@ -80,6 +80,7 @@
             <div class="bookmarkRecipe">
             </div>
         </div>
+
 
         <div class="mainRecipePage" id="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
@@ -158,6 +159,11 @@
         let restrictions = document.getElementById("restrictionsPrompt").value;
 
         recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
+        let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
+        let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
+
+        console.log(restrictions);
+        recipe = await pywebview.api.create_recipe(foodRecipe, combinedRestrictions);
         window.currentRecipe = recipe;
         setRecipe(recipe);
         createButton.disabled = false;
@@ -263,7 +269,7 @@
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         bookmarkDiv.value = recipe.name;
-        
+
         
         bookmarkDiv.addEventListener('click', function () {
             setRecipe(recipeDict[bookmarkText.innerText]);

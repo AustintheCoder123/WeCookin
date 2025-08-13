@@ -107,7 +107,26 @@ class API:
         into the center; it should come out with moist crumbs but not wet batter.', 'Remove from oven and allow to cool in the dish for at least 10 minutes. Then, transfer to a wire rack to cool
         completely before slicing into squares.', 'Serve these decadent keto brownies alone or with a dollop of whipped cream or a few fresh berries for added flavor. Enjoy your sugar-free treat!']}"""
         
-        examples = example_1 + example_2 + example_3
+        examples =  f"""The following are examples of good formatting for different inputs from users. Use this as a reference or outline to help create your new responses based on user requests, however,
+        do not directly copy these.:
+        Example 1:
+        Preferences: ""
+        Prompt: "Fluffy pancakes"
+        
+        Response {example_1}
+        
+        Example 2:
+        Preferences: "gluten-free" 
+        Prompt: "homemade pasta"
+        
+        Response {example_2}
+        
+        Example 3:
+        Preferences: "according to the ketogenic diet"
+        Prompt: "brownies"
+        
+        Response {example_3}
+        """
         
         combined_prompt = gpt_job + expected_format + examples
         
