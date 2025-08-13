@@ -84,6 +84,7 @@
         <div class="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
             <div class="options">
+                <button onclick="openBookmark()">Bookmarks</button>
                 <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
                 <button onclick="openSettings()">settings</button>
@@ -319,6 +320,12 @@
         document.getElementById("allergenItems").appendChild(allergenItemDiv);
         allergenItemDiv.appendChild(newAllergenBox);
         allergenItemDiv.appendChild(newAllergenLabel);
+    }
+
+    function openBookmark() {
+        document.getElementById("bookmarkBar").style.width = "19%";
+        document.getElementById("mainRecipePage").style.width = "80%";
+        document.getElementById("mainRecipePage").style.paddingLeft = "20.6%";
     }
 
 

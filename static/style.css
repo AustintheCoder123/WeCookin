@@ -179,7 +179,11 @@ body {
 }
 
 #bookmarkBar {
-    width: 19%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.5s;
     background-color: var(--olive);
     display: flex;
     flex-direction: column;
@@ -187,8 +191,9 @@ body {
 }
 
 .mainRecipePage {
-    width: 80%;
+    width: 100%;
     padding-left: 0.6%;
+    transition: 0.5s;
     display: inline-block;
 }
 
