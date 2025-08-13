@@ -76,14 +76,15 @@
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
+            <p onclick="closeBookmark()" id="closeBtn">Close</p>
             <div class="bookmarkRecipe">
-
             </div>
         </div>
 
-        <div class="mainRecipePage">
+        <div class="mainRecipePage" id="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
-            <div class="options">
+            <div class="options" id="options">
+                <button onclick="openBookmark()">Bookmarks</button>
                 <button onclick="saveRecipe()"> Save Recipe</button>
                 <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
                 <button onclick="openSettings()">settings</button>
@@ -209,12 +210,18 @@
             document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
 
             // INGREDIENTS
+            while (document.getElementById("mainRecipeIngredients").lastElementChild){
+                document.getElementById("mainRecipeIngredients").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
+            }
             for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++){
                 createIngredients(displayRecipe.ingredients[ingredient]);
                 console.log(displayRecipe.ingredients)
             }
             
             // INSTRUCTIONS
+            while (document.getElementById("mainRecipeInstructions").lastElementChild){
+                document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
+            }
             for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
                 createInstructions(displayRecipe.instructions[instruction]);
                 console.log(instruction);console.log();
@@ -280,6 +287,18 @@
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
+    }
+
+    function openBookmark() {
+        document.getElementById("bookmarkBar").style.width = "19%";
+        document.getElementById("mainRecipePage").style.width = "80%";
+        document.getElementById("options").style.paddingLeft = "70%";
+    }
+
+    function closeBookmark(){
+        document.getElementById("bookmarkBar").style.width = "0";
+        document.getElementById("mainRecipePage").style.width = "100%";
+        document.getElementById("options").style.paddingLeft = "74%";
     }
 
     function openSettings(){
