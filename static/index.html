@@ -76,9 +76,9 @@
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
+            <p onclick="closeBookmark()" id="closeBtn">Close</p>
             <div class="bookmarkRecipe">
             </div>
-            <p onclick="closeBookmark()" id="closeBtn">Close</p>
         </div>
 
         <div class="mainRecipePage" id="mainRecipePage">
@@ -282,13 +282,11 @@
     function openBookmark() {
         document.getElementById("bookmarkBar").style.width = "19%";
         document.getElementById("mainRecipePage").style.width = "80%";
-        document.getElementById("mainRecipePage").style.paddingLeft = "20.6%";
     }
 
     function closeBookmark(){
         document.getElementById("bookmarkBar").style.width = "0";
         document.getElementById("mainRecipePage").style.width = "100%";
-        document.getElementById("mainRecipePage").style.paddingLeft = "0.6%";
     }
 
     function openSettings(){
