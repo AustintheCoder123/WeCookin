@@ -162,7 +162,7 @@ body {
 }
 
 .options{
-    padding-left: 74%;
+    padding-left: 70%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
@@ -179,7 +179,7 @@ body {
 }
 
 #bookmarkBar {
-    width: 0;
+    width: 19%;
     position: sticky;
     z-index: 1;
     overflow-x: hidden;
@@ -189,10 +189,21 @@ body {
     flex-direction: column;
     align-items: stretch;
     border-radius: 20px;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
+#bookmarkBar::-webkit-scrollbar {
+    display: none;
+}
+
+/* #bookmarkBarDiv {
+    display: flexbox;
+    position: fixed;
+} */
+
 .mainRecipePage {
-    width: 100%;
+    width: 80%;
     padding-left: 0.6%;
     transition: 0.5s;
     display: inline-block;
