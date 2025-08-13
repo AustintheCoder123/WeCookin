@@ -18,6 +18,14 @@ class API:
         self.processingRequest = False
 
     def create_recipe(self, user_preferences, prompt):
+        print(prompt)
+        print(type(prompt))
+        
+        if prompt == "":
+            print("canceling request")
+            return
+        
+        
         if self.processingRequest:
             return
 

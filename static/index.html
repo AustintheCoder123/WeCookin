@@ -153,16 +153,16 @@
 
     async function createRecipe(){
         let createButton = document.getElementById("createRecipeButton");
-        createButton.disabled = true;
-
+        
         let foodRecipe = document.getElementById("foodPrompt").value;
         console.log(foodRecipe);
         let restrictions = document.getElementById("restrictionsPrompt").value;
         let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
         let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
-
+        
         console.log(restrictions);
-        recipe = await pywebview.api.create_recipe(foodRecipe, combinedRestrictions);
+        createButton.disabled = true;
+        recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
         window.currentRecipe = recipe;
         setRecipe(recipe);
         createButton.disabled = false;
