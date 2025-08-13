@@ -73,6 +73,8 @@
     </div>
 
     <div id="wholePage">
+
+        
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
@@ -91,9 +93,13 @@
                 <button onclick="openSettings()">settings</button>
             </div>
 
+            <div id="loadingDiv">
+                <p>Loading</p>
+            </div>
+
             <!-- This div holds all the things related to the main recipe -->
             <div class="recipeBody">
-                
+
                 <div id = "mainRecipeName">
                         <h1>Burger</h1>
                 </div>
@@ -134,11 +140,13 @@
 
             </div>
 
-            <!-- the div for the search bar and send button -->
+            <!-- the div for th e search bar and send button -->
             <div class="textboxDiv">
                 <input id="foodPrompt" placeholder="Start making recipes!" >
                 <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
+        
+        
         </div>
     </div>
 
@@ -165,7 +173,17 @@
 
         console.log(restrictions);
         createButton.disabled = true;
+
+        function addLoading(){
+
+        }
+
         recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
+        
+        function removeLoading(){
+
+        }
+        
         window.currentRecipe = recipe;
         setRecipe(recipe);
         createButton.disabled = false;
