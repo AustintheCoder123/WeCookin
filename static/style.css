@@ -140,18 +140,26 @@ body {
 
 }
 
-.recipeInstructions > p {
-    font-size: 160%;
-    font-family: cursive;
-}
-
 .recipeInstructions{
-
+    background-color: var(--olive);
+    align-items: center;
+    margin-right: 50px;
+    margin-left: 50px;
+    border-radius: 10px;
 }
 
 .recipeInstructions > p{
     padding-left: 10px;
     padding-top: 10px;
+    font-size: 130%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.instructionStep {
+    font-weight: bold;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 10px;
 }
 
 .recipeTime{
