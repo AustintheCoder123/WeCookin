@@ -162,7 +162,7 @@
         let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
         let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
-        console.log(restrictions);
+        
         recipe = await pywebview.api.create_recipe(foodRecipe, combinedRestrictions);
         window.currentRecipe = recipe;
         setRecipe(recipe);
@@ -260,26 +260,41 @@
     }
 
     function newBookmark(recipe){
+        console.log("newBookmark");
         checkDuplicateBookmarks(recipe);
 
         let bookmarkDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
+        let bookmarkDelete = document.createElement("button");
+
+        bookmarkText.addEventListener('click', function () {
+            setRecipe(recipeDict[bookmarkText.innerText]);
+        });
         
         bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         bookmarkDiv.value = recipe.name;
 
+        bookmarkDelete.innerText = "X";
+
+        bookmarkDelete.onclick = function(){
+            checkDuplicateBookmarks(recipe);
+            delete recipeDict[recipe.name];
+            pywebview.api.save_recipe(recipeDict);
+        };
+
         
-        bookmarkDiv.addEventListener('click', function () {
-            setRecipe(recipeDict[bookmarkText.innerText]);
-        });
+        
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
+        bookmarkDiv.appendChild(bookmarkDelete);
+
     }
 
     function checkDuplicateBookmarks(recipe){
+        console.log("burger maxxingffffffffff");
         const bookmarks = document.getElementsByClassName("bookmarkRecipe");
 
         for (let i = 0; i < bookmarks.length; i++) {
@@ -434,7 +449,7 @@
         }
     });
 
-
+    
 
 
     window.addEventListener('pywebviewready', async () => {
@@ -448,6 +463,7 @@
         loadRestrictions();
 
         for (const key in recipeDict){
+            console.log("IHAGsfygasfouyugasosfyigasofygoa");
             newBookmark(recipeDict[key]);
         }
     });
