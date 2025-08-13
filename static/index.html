@@ -260,10 +260,11 @@
     }
 
     function newBookmark(recipe){
-        console.log("newBookmark");
         checkDuplicateBookmarks(recipe);
 
         let bookmarkDiv = document.createElement("div");
+        let textDiv = document.createElement("div");
+        let buttonDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
         let bookmarkDelete = document.createElement("button");
 
@@ -271,10 +272,12 @@
             setRecipe(recipeDict[bookmarkText.innerText]);
         });
         
+        
         bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         bookmarkDiv.value = recipe.name;
+        bookmarkDelete.className = "deleteBookmark";
 
         bookmarkDelete.innerText = "X";
 
@@ -283,18 +286,17 @@
             delete recipeDict[recipe.name];
             pywebview.api.save_recipe(recipeDict);
         };
-
-        
         
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
-        bookmarkDiv.appendChild(bookmarkText);
-        bookmarkDiv.appendChild(bookmarkDelete);
+        bookmarkDiv.appendChild(textDiv);
+        bookmarkDiv.appendChild(buttonDiv);
+        textDiv.appendChild(bookmarkText);
+        buttonDiv.appendChild(bookmarkDelete);
 
     }
 
     function checkDuplicateBookmarks(recipe){
-        console.log("burger maxxingffffffffff");
         const bookmarks = document.getElementsByClassName("bookmarkRecipe");
 
         for (let i = 0; i < bookmarks.length; i++) {
