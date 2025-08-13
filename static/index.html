@@ -152,9 +152,10 @@
 
     async function createRecipe(){
         let createButton = document.getElementById("createRecipeButton");
-        createButton.disabled = true;
-
         let foodRecipe = document.getElementById("foodPrompt").value;
+        if (foodRecipe == "")
+            return;
+        console.log(foodRecipe);
 
         let restrictions = document.getElementById("restrictionsPrompt").value;
 
@@ -162,7 +163,10 @@
         let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
         let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
-        
+        console.log(restrictions);
+        createButton.disabled = true;
+        recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
+
         recipe = await pywebview.api.create_recipe(foodRecipe, combinedRestrictions);
         window.currentRecipe = recipe;
         setRecipe(recipe);
@@ -271,8 +275,8 @@
         bookmarkText.addEventListener('click', function () {
             setRecipe(recipeDict[bookmarkText.innerText]);
         });
-        
-        
+
+
         bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
@@ -286,7 +290,7 @@
             delete recipeDict[recipe.name];
             pywebview.api.save_recipe(recipeDict);
         };
-        
+
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(textDiv);
@@ -451,7 +455,7 @@
         }
     });
 
-    
+
 
 
     window.addEventListener('pywebviewready', async () => {
@@ -465,7 +469,6 @@
         loadRestrictions();
 
         for (const key in recipeDict){
-            console.log("IHAGsfygasfouyugasosfyigasofygoa");
             newBookmark(recipeDict[key]);
         }
     });
