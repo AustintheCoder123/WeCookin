@@ -140,6 +140,11 @@ body {
 
 }
 
+.recipeInstructions > p {
+    font-size: 160%;
+    font-family: cursive;
+}
+
 .recipeInstructions{
 
 }
