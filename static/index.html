@@ -286,10 +286,10 @@
     function closeSettings(){
         let settings = document.getElementById("userPrefs");
         settings.style.display = "none";
-        loadAllergens();
-        loadRestrictions();
+        setAllergens();
+        setRestrictions();
 
-        pywebview.api.save_settings([restrictionsString, allergensString]);
+        pywebview.api.save_settings(settingsDict);
     }
 
     function addRestriction(item){
@@ -326,9 +326,8 @@
         allergenItemDiv.appendChild(newAllergenLabel);
     }
 
-    function loadAllergens(){
-        let allergensDiv = document.getElementById("allergenItems");
-        let buttonsInDiv = allergensDiv.querySelectorAll("input");
+    function setAllergens(){
+        let buttonsInDiv = document.getElementById("allergenItems").querySelectorAll("input");
         let allergensList = [];
 
         buttonsInDiv.forEach(element => {
@@ -340,9 +339,8 @@
         settingsDict["allergens"] = allergensList.join(", ");
     }
 
-    function loadRestrictions(){
-        let restrictionsDiv = document.getElementById("restrictionItems");
-        let buttonsInDiv = restrictionsDiv.querySelectorAll("input");
+    function setRestrictions(){
+        let buttonsInDiv = document.getElementById("restrictionItems").querySelectorAll("input");
         let restrictionsList = [];
 
         buttonsInDiv.forEach(element => {
@@ -352,6 +350,35 @@
         });
 
         settingsDict["restrictions"] = restrictionsList.join(", ");
+    }
+
+    function loadAllergens(){
+        let allergenList = settingsDict["allergens"].split(", ");
+        let buttonsInDiv = document.getElementById("allergenItems").querySelectorAll("input");
+
+        buttonsInDiv.forEach(element => {
+            for(let i =0;i<allergenList.length; i++){
+                if(element.value == allergenList[i]){
+                    element.checked = true;
+                }
+            }    
+        });
+    }
+
+    function loadRestrictions(){
+        let restrictionList = settingsDict["restrictions"].split(", ");
+        let buttonsInDiv = document.getElementById("restrictionItems").querySelectorAll("input");
+
+        let temp = 0;
+        buttonsInDiv.forEach(element => {
+            for(let i =0+temp;i<restrictionList.length; i++){
+                if(element.value == restrictionList[i]){
+                    element.checked = true;
+                    temp++;
+                }
+            }    
+        });
+        temp =0;
     }
 
 
@@ -384,11 +411,11 @@
             await pywebview.api.init();
         }
         recipeDict = await pywebview.api.load_recipes();
-        restritionsString = await pywebview.api.load_settings()["restrictions"];
-        allergensString = await pywebview.api.load_settings()["allergens"];
+        settingsDict = await pywebview.api.load_settings();
 
-        console.log(restritionsString);
-        console.log(allergensString);
+        loadAllergens();
+        loadRestrictions();
+
         for (const key in recipeDict){
             newBookmark(recipeDict[key]);
         }
