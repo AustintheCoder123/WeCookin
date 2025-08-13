@@ -12,26 +12,26 @@
             <button id="closeButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
-                <div class="allergenItem">
+                <div class="restrictionItem">
                     <h3 id="allergensHeader">Allergens</h3>
                 </div>
 
-                <div class="allergenItem">
+                <div class="restrictionItem">
                     <input type="checkbox" value="Vegetarian">
                     <label for="vegetarian">Vegetarian</label>
                 </div>
 
-                <div class="allergenItem">
+                <div class="restrictionItem">
                     <input type="checkbox" value="Vegan">
                     <label for="vegan">Vegan</label>
                 </div>
 
-                <div class="allergenItem">
+                <div class="restrictionItem">
                     <input type="checkbox" value="Halal">
                     <label for="halal">Halal</label>
                 </div>
 
-                <div class="allergenItem">
+                <div class="restrictionItem">
                     <input type="checkbox" value="Kosher">
                     <label for="kosher">Kosher</label>
                 </div>          
@@ -43,24 +43,24 @@
             </div>
 
             <div class="allergens" id="allergenItems">
-                <div class="restrictionItem">
+                <div class="allergenItem">
                     <h3 id="restrictionsHeader">Restrictions</h3>
                 </div>
 
-                <div class="restrictionItem">
+                <div class="allergenItem">
                     <input type="checkbox" value="Gluten Free">
                     <label for="glutenFree">Gluten Free</label>
                 </div>
 
-                <div class="restrictionItem">
+                <div class="allergenItem">
                     <input type="checkbox" value="No Dairy">
                     <label for="noDairy">No Dairy</label>
                 </div>
 
-                <div class="restrictionItem">
+                <div class="allergenItem">
                     <input type="checkbox" value="No Nuts">
                     <label for="noNuts">No Nuts</label>
-                </div>           
+                </div>
             </div>
 
             <div id="otherAllergenBox">
@@ -80,7 +80,7 @@
             <div class="bookmarkRecipe">
             </div>
         </div>
-        
+
 
         <div class="mainRecipePage" id="mainRecipePage">
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
@@ -145,8 +145,6 @@
 </body>
 
 <script>
-    console.log("borgor maxing");
-
     window.currentRecipe;
     window.recipeDict = {};
     window.settingsDict = {};
@@ -157,8 +155,10 @@
         createButton.disabled = true;
 
         let foodRecipe = document.getElementById("foodPrompt").value;
-        console.log(foodRecipe);
+
         let restrictions = document.getElementById("restrictionsPrompt").value;
+
+        recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
         let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
         let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
@@ -170,26 +170,17 @@
     }
 
     function saveRecipe(){
-        console.log(window.currentRecipe);
-        console.log(window.currentRecipe["name"]);
-        console.log(window.recipeDict);
-
         if (typeof window.recipeDict == "undefined"){
             window.recipeDict = {};
         }
 
-        console.log(window.recipeDict);
-
         window.recipeDict[window.currentRecipe["name"]] = window.currentRecipe;
-        console.log(window.recipeDict);
         newBookmark(currentRecipe);
 
         pywebview.api.save_recipe(recipeDict);
     }
 
     function setRecipe(displayRecipe){
-        console.log("setting recipe");
-        console.log(displayRecipe);
         if(displayRecipe){
             document.getElementById("mainRecipeName").textContent = displayRecipe.name;
             document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
@@ -216,7 +207,6 @@
             }
             for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++){
                 createIngredients(displayRecipe.ingredients[ingredient]);
-                console.log(displayRecipe.ingredients)
             }
             
             // INSTRUCTIONS
@@ -225,8 +215,6 @@
             }
             for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++){
                 createInstructions(displayRecipe.instructions[instruction]);
-                console.log(instruction);console.log();
-                // console.log(displayRecipe.instructions);
             }
         }
     }
@@ -240,8 +228,6 @@
 
         document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
         nutritionDiv.appendChild(nutritionText);
-
-        console.log('this worked')
     }
     
     function createInstructions(instruction){
@@ -274,13 +260,16 @@
     }
 
     function newBookmark(recipe){
+        checkDuplicateBookmarks(recipe);
+
         let bookmarkDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
         
         bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
-        
+        bookmarkDiv.value = recipe.name;
+
         
         bookmarkDiv.addEventListener('click', function () {
             setRecipe(recipeDict[bookmarkText.innerText]);
@@ -288,6 +277,16 @@
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
         bookmarkDiv.appendChild(bookmarkText);
+    }
+
+    function checkDuplicateBookmarks(recipe){
+        const bookmarks = document.getElementsByClassName("bookmarkRecipe");
+
+        for (let i = 0; i < bookmarks.length; i++) {
+            if(bookmarks[i].value==recipe.name){
+                bookmarks[i].remove();
+            }
+        }
     }
 
     function openBookmark() {
