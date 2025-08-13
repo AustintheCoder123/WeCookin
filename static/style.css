@@ -179,7 +179,7 @@ body {
 }
 
 #bookmarkBar {
-    width: 0;
+    width: 19%;
     position: sticky;
     z-index: 1;
     overflow-x: hidden;
@@ -192,7 +192,7 @@ body {
 }
 
 .mainRecipePage {
-    width: 100%;
+    width: 80%;
     padding-left: 0.6%;
     transition: 0.5s;
     display: inline-block;
