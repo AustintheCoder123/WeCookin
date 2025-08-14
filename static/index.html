@@ -91,9 +91,13 @@
                 <button onclick="openSettings()">settings</button>
             </div>
 
+            <div id="loadingDiv">
+                <p>Loading</p>
+            </div>
+
             <!-- This div holds all the things related to the main recipe -->
             <div class="recipeBody">
-                
+
                 <div id = "mainRecipeName">
                         <h1>Burger</h1>
                 </div>
@@ -167,9 +171,13 @@
 
         console.log(restrictions);
         createButton.disabled = true;
+
+        document.getElementById("loadingDiv").style.display = "block";
+
         recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
 
-        recipe = await pywebview.api.create_recipe(foodRecipe, combinedRestrictions);
+        document.getElementById("loadingDiv").style.display = "none";
+
         window.currentRecipe = recipe;
         setRecipe(recipe);
         createButton.disabled = false;
