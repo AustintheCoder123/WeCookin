@@ -90,12 +90,16 @@ function setRecipe(displayRecipe) {
 
 function createNutrientItem(nutrient, value) {
     let nutritionDiv = document.createElement("div");
+    let nutritionHead = document.createElement("h5")
     let nutritionText = document.createElement("p");
 
-    nutritionText.innerText = nutrient + ": " + value;
+    nutritionHead.innerText = nutrient + ": ";
+    nutritionText.innerText = value;
     nutritionDiv.className = "nutritionItem";
+    
 
     document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
+    nutritionDiv.appendChild(nutritionHead);
     nutritionDiv.appendChild(nutritionText);
 }
 
