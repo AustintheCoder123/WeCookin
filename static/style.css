@@ -289,6 +289,23 @@ body {
     margin-bottom: 2%;
 }
 
+.bookmarkRecipe{
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
+    
+}
+
+.deleteBookmark{
+    background-color: var(--olive);
+    font-size: 150%;
+    border: none;
+}
+
+.deleteBookmark:hover{
+    color: red;
+}
+
 #allergensHeader{
     
 }
