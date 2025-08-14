@@ -62,6 +62,14 @@ function setRecipe(displayRecipe) {
         createNutrientItem("Fat", nutrition.totalFat);
         createNutrientItem("Saturated fat", nutrition.saturatedFat);
 
+        let flexContainer = document.createElement("div");
+        flexContainer.className = "flexContainer";
+        let box1 = document.createElement("div");
+        box1.id = "box1";
+        document.getElementsByClassName("flexContainer").appendChild(box1);
+        let mainRecipeIngredients = createElement("div");
+        mainRecipeIngredients.className = "mainRecipeIngredients";
+        
 
         let description = document.createElement("p");
         while (document.getElementById("mainRecipeDescription").lastElementChild) {
