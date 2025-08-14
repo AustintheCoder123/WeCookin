@@ -97,6 +97,11 @@ body {
 
 #box1{
     width: 50%;
+    background-color: var(--tea-green);
+    margin-top: -10px;
+    padding-bottom: 200px;
+    margin-right: 10px;
+    border-radius: 10px;
 }
 
 #box2{
@@ -120,8 +125,8 @@ body {
     margin-bottom: px;
     background-color: var(--tea-green);
     margin-top: -10px;
-    padding-bottom: 200px   ;
     border-radius: 10px;
+    padding-bottom: 200px;
 }
 
 .mainRecipeIngredientItem > p{
