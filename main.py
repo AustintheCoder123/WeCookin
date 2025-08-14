@@ -12,7 +12,7 @@ class API:
         api_key = os.environ.get("OPENAI_API_KEY")
         self.client = OpenAI()
         self.client.api_key = api_key
-        self.model = "gpt-4.1-nano"
+        self.model = "gpt-5-mini"
         self.cookbookLocation = "storage/cookbook.json"
         self.settingLocation = "storage/preferences.json"
         self.processingRequest = False
