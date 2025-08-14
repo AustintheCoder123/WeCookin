@@ -140,6 +140,11 @@ body {
 
 }
 
+#instructionsHeader{
+    padding-top: 5%;
+    justify-content: center;
+}
+
 .recipeInstructions{
     background-color: var(--olive);
     align-items: center;
@@ -147,6 +152,8 @@ body {
     margin-left: 50px;
     border-radius: 10px;
 }
+
+
 
 .recipeInstructions > p{
     padding-left: 10px;
