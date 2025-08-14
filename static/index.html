@@ -9,9 +9,17 @@
 </head>
 
 <body>
-    <div class="popup">
+    <div class="popup" id="settings">
+
+        <div class="settingsSidebar">
+            <button class="sidebarButton">Dietary Restrictions</button>
+
+            <button class="sidebarButton">Kitchen Restrictions</button>
+        </div>
+
         <div class="userPreferences" id="userPrefs">
-            <button id="closeButton" onclick="closeSettings()">x</button>
+
+            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
                 <div class="restrictionItem">
@@ -38,6 +46,7 @@
                     <label for="kosher">Kosher</label>
                 </div>
             </div>
+        
 
             <div id="otherRestrictionBox">
                 <label>Other:</label>

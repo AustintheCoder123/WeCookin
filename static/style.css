@@ -219,6 +219,7 @@ body {
     border-radius: 20px;
     height: 98vh;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #bookmarkBar::-webkit-scrollbar {
@@ -263,26 +264,10 @@ body {
     display: flex;
 }
 
-.userPreferences{
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
-    background-color: white;
-    border-radius: 25px;
-    padding: 20px;
-    width: 70%;
-    height: 60%;
-    overflow-y: scroll;
-}
 
-.userPreferences::-webkit-scrollbar {
-    display: none;
-}
-
-#closeButton {
+#settingsCloseButton {
+    float: right;
     position: sticky;
     top: 8px;
     right: 10px;
@@ -292,7 +277,7 @@ body {
     border: none;
 }
 
-#closeButton:hover {
+#settingsCloseButton:hover {
     color: red;
 }
 
@@ -302,6 +287,7 @@ body {
 
 .restrictionItem{
     margin-bottom: 2%;
+    max-width: 75%;
 }
 
 .bookmarkRecipe{
@@ -349,3 +335,49 @@ body {
     left: 53%;
     display: none;
 }
+
+#settings{
+    display:none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 3%;
+    padding: 1%;
+    width: 70%;
+    height: 60%;
+    background-color: var(--olive);
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.settingsSidebar{
+    width: 19%;
+    position: sticky;
+    z-index: 1;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-top: 2.5%;
+}
+
+.userPreferences{
+    width: 80%;
+    padding-left: 2%;
+    display: inline-block;
+    overflow-y: scroll;
+
+    word-wrap: break-word;
+}
+
+.userPreferences::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebarButton{
+    margin-bottom: 5%;
+}
+

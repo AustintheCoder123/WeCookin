@@ -192,11 +192,11 @@ function closeBookmark() {
 }
 
 function openSettings() {
-    let settings = document.getElementById("userPrefs");
-    settings.style.display = "block";
+    let settings = document.getElementById("settings");
+    settings.style.display = "flex";
 }
 function closeSettings() {
-    let settings = document.getElementById("userPrefs");
+    let settings = document.getElementById("settings");
     settings.style.display = "none";
     setAllergens();
     setRestrictions();
