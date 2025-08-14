@@ -93,19 +93,12 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
+    margin-top: 10px;
 }
 
 #box1{
     width: 50%;
-}
-
-#box2{
-    width: 50%;
-}
-
-#mainRecipeDescription{
     background-color: var(--tea-green);
-    margin-top: -10px;
     padding-bottom: 200px;
     margin-right: 10px;
     border-radius: 10px;
@@ -113,20 +106,22 @@ body {
 
 #mainRecipeDescription > p{
     padding-left: 10px;
-    padding-top: 10px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #mainRecipeIngredients{
-    margin-bottom: px;
     background-color: var(--tea-green);
-    margin-top: -10px;
-    padding-bottom: 200px   ;
     border-radius: 10px;
+    padding-bottom: 200px;
+    width: 50%;
 }
 
 .mainRecipeIngredientItem > p{
     padding-left: 10px;
     padding-top: 10px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .recipeIngredients{

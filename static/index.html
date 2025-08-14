@@ -117,16 +117,13 @@
                 <div class="flexContainer">
                     <div id="box1">
                         <div id="mainRecipeDescription">
-                            <p>Description</p>
                         </div>
                     </div>
-                    <div id="box2">
                         <div id="mainRecipeIngredients">
                             <div class = "mainRecipeIngredientItem">
                                 <p>Ingredients</p>
                             </div>  
                         </div>
-                    </div>
                 </div>
                 
                 <div id="mainRecipeInstructions">
@@ -213,7 +210,12 @@
             createNutrientItem("Saturated fat", nutrition.saturatedFat);
             
 
-            document.getElementById("mainRecipeDescription").textContent = displayRecipe.desc;
+            let description = document.createElement("p");
+            while (document.getElementById("mainRecipeDescription").lastElementChild){
+                document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeDescription").lastElementChild);
+            }
+            description.innerText = displayRecipe.desc;
+            document.getElementById("mainRecipeDescription").appendChild(description);
 
             // INGREDIENTS
             while (document.getElementById("mainRecipeIngredients").lastElementChild){

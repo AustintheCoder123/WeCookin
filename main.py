@@ -58,8 +58,8 @@ class API:
         - Description: A more in-depth description of the dish in paragraph form, all in "str" or string format
           total carbohydrate, fiber, total sugars, protien, calcium, and iron, all in "str" or string format
         - Time: Time it takes to make the dish in "str" or string format
-        - Instructions: Write out the instructions to make the dish step-by step, with each step being part of a numbered list,
-          again, all in "str" or string format.
+        - Instructions: Write out the instructions to make the dish step-by step, with each step being part of a list,
+          again, all in "str" or string format. Do not put step numbers.
           Make sure to expand on each instruction and explain very in-depth what each step of making the dish involves"""
         
         example_1 = """{'name': 'Classic Fluffy Pancakes', 'ingredients': ['1 1/2 cups all-purpose flour', '3 1/2 teaspoons baking
