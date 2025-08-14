@@ -73,8 +73,6 @@
     </div>
 
     <div id="wholePage">
-
-        
 <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
@@ -140,13 +138,11 @@
 
             </div>
 
-            <!-- the div for th e search bar and send button -->
+            <!-- the div for the search bar and send button -->
             <div class="textboxDiv">
                 <input id="foodPrompt" placeholder="Start making recipes!" >
                 <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
-        
-        
         </div>
     </div>
 
@@ -177,9 +173,9 @@
         document.getElementById("loadingDiv").style.display = "block";
 
         recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
-       
+
         document.getElementById("loadingDiv").style.display = "none";
-        
+
         window.currentRecipe = recipe;
         setRecipe(recipe);
         createButton.disabled = false;
@@ -279,20 +275,37 @@
         checkDuplicateBookmarks(recipe);
 
         let bookmarkDiv = document.createElement("div");
+        let textDiv = document.createElement("div");
+        let buttonDiv = document.createElement("div");
         let bookmarkText = document.createElement("h3");
-        
+        let bookmarkDelete = document.createElement("button");
+
+        bookmarkText.addEventListener('click', function () {
+            setRecipe(recipeDict[bookmarkText.innerText]);
+        });
+
+
         bookmarkText.innerText = recipe.name;
         bookmarkText.className = "savedRecipe";
         bookmarkDiv.className = "bookmarkRecipe";
         bookmarkDiv.value = recipe.name;
+        bookmarkDelete.className = "deleteBookmark";
 
-        
-        bookmarkDiv.addEventListener('click', function () {
-            setRecipe(recipeDict[bookmarkText.innerText]);
-        });
+        bookmarkDelete.innerText = "X";
+
+        bookmarkDelete.onclick = function(){
+            checkDuplicateBookmarks(recipe);
+            delete recipeDict[recipe.name];
+            pywebview.api.save_recipe(recipeDict);
+        };
+
 
         document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
-        bookmarkDiv.appendChild(bookmarkText);
+        bookmarkDiv.appendChild(textDiv);
+        bookmarkDiv.appendChild(buttonDiv);
+        textDiv.appendChild(bookmarkText);
+        buttonDiv.appendChild(bookmarkDelete);
+
     }
 
     function checkDuplicateBookmarks(recipe){
