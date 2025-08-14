@@ -87,17 +87,15 @@ function setRecipe(displayRecipe) {
 
         let description = document.createElement("p");
         let avoidError = document.createElement("p");
-        document.getElementById("mainRecipeDescription").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
-        while (document.getElementById("mainRecipeDescription").lastElementChild) {
-            document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeDescription").lastElementChild);
-        }
+        mainRecipeDescription.innerHTML = "";
         description.innerText = displayRecipe.desc;
+        console.log(description.innerText);
         console.log(flexContainer);
         mainRecipeDescription.appendChild(description);
         console.log(description);
         
         // INGREDIENTS
-        document.getElementById("mainRecipeIngredients").appendChild(description); //This is just a line of code so that the next line doesn't return an error
+        document.getElementById("mainRecipeIngredients").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeIngredients").lastElementChild) {
             document.getElementById("mainRecipeIngredients").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
         }
@@ -112,7 +110,7 @@ function setRecipe(displayRecipe) {
             addToRecipeBody[i].appendChild(mainRecipeInstructions);
         }
         
-        document.getElementById("mainRecipeInstructions").appendChild(description); //This is just a line of code so that the next line doesn't return an error
+        document.getElementById("mainRecipeInstructions").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeInstructions").lastElementChild) {
             document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
         }
