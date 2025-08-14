@@ -81,26 +81,29 @@ body {
 }
 
 #mainRecipeNutrition{
-    background-color: var(--tea-green);
     padding-bottom: 5px;
     border-radius: 10px;
     display: flex;
 }
 
 .nutritionItem{
-
+    text-align: center;
+    width: 16.4%;
+    background-color: var(--olive);
+    margin-left: 0.3%;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 .nutritionItem > p{
     padding-left: 10px;
-    padding-top: 10px;
+    padding-top: -30px;
     font-size: 125%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .nutritionItem > h5{
     padding-left: 10px;
-    padding-top: 10px;
     font-size: 125%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
