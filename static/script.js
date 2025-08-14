@@ -47,7 +47,6 @@ function saveRecipe() {
 function setRecipe(displayRecipe) {
     if (displayRecipe) {
         document.getElementById("mainRecipeName").textContent = displayRecipe.name;
-        document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
 
         // NUTRITION INFORMATION
         let mainRecipeNutrition = document.createElement("div");
@@ -64,6 +63,7 @@ function setRecipe(displayRecipe) {
         let nutrition = displayRecipe.nutrition;
 
         createNutrientItem("Servings", nutrition.servingsPerRecipe);
+        createNutrientItem("Time", displayRecipe.time);
         createNutrientItem("Calories", nutrition.totalCalories);
         createNutrientItem("Cholesterol", nutrition.cholesterol);
         createNutrientItem("Sodium", nutrition.sodium);

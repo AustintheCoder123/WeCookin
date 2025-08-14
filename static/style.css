@@ -88,21 +88,24 @@ body {
 
 .nutritionItem{
     text-align: center;
-    width: 16.5%;
+    width: 14.3%;
     background-color: var(--olive);
-    margin-left: 0.2%;
-    margin-top: 10px;
+    margin-left: 0.5%;
     border-radius: 10px;
 }
 
 .nutritionItem > p{
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding-left: 10px;
-    padding-top: -30px;
-    font-size: 125%;
+    font-size: 110%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .nutritionItem > h5{
+    margin: 0;
+    margin-top: 5px;
     padding-left: 10px;
     font-size: 125%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
