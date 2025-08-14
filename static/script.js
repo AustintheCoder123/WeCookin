@@ -55,10 +55,10 @@ function setRecipe(displayRecipe) {
         }
         let nutrition = displayRecipe.nutrition;
 
+        createNutrientItem("Servings", nutrition.servingsPerRecipe);
         createNutrientItem("Calories", nutrition.totalCalories);
         createNutrientItem("Cholesterol", nutrition.cholesterol);
         createNutrientItem("Sodium", nutrition.sodium);
-        createNutrientItem("Servings", nutrition.servingsPerRecipe);
         createNutrientItem("Fat", nutrition.totalFat);
         createNutrientItem("Saturated fat", nutrition.saturatedFat);
 
@@ -124,12 +124,16 @@ function setRecipe(displayRecipe) {
 
 function createNutrientItem(nutrient, value) {
     let nutritionDiv = document.createElement("div");
+    let nutritionHead = document.createElement("h5")
     let nutritionText = document.createElement("p");
 
-    nutritionText.innerText = nutrient + ": " + value;
+    nutritionHead.innerText = nutrient + ": ";
+    nutritionText.innerText = value;
     nutritionDiv.className = "nutritionItem";
+    
 
     document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
+    nutritionDiv.appendChild(nutritionHead);
     nutritionDiv.appendChild(nutritionText);
 }
 
