@@ -94,7 +94,12 @@ function setRecipe(displayRecipe) {
 
         let description = document.createElement("p");
         let avoidError = document.createElement("p");
-        mainRecipeDescription.innerHTML = "";
+        document.getElementById("mainRecipeDescription").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
+        while (document.getElementById("mainRecipeDescription").lastElementChild) {
+            document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
+            console.log("worked");
+        }
+        for (
         description.innerText = displayRecipe.desc;
         console.log(description.innerText);
         console.log(flexContainer);
@@ -105,6 +110,7 @@ function setRecipe(displayRecipe) {
         document.getElementById("mainRecipeIngredients").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeIngredients").lastElementChild) {
             document.getElementById("mainRecipeIngredients").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
+            console.log("worked");
         }
         for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++) {
             createIngredients(displayRecipe.ingredients[ingredient]);
