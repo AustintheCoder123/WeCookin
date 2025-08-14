@@ -55,10 +55,10 @@ function setRecipe(displayRecipe) {
         }
         let nutrition = displayRecipe.nutrition;
 
+        createNutrientItem("Servings", nutrition.servingsPerRecipe);
         createNutrientItem("Calories", nutrition.totalCalories);
         createNutrientItem("Cholesterol", nutrition.cholesterol);
         createNutrientItem("Sodium", nutrition.sodium);
-        createNutrientItem("Servings", nutrition.servingsPerRecipe);
         createNutrientItem("Fat", nutrition.totalFat);
         createNutrientItem("Saturated fat", nutrition.saturatedFat);
 

@@ -81,11 +81,21 @@ body {
 }
 
 #mainRecipeNutrition{
-
+    background-color: var(--tea-green);
+    padding-bottom: 5px;
+    border-radius: 10px;
+    display: flex;
 }
 
 .nutritionItem{
 
+}
+
+.nutritionItem > p{
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .flexContainer{
@@ -307,12 +317,6 @@ body {
 
 #mainRecipeName{
 
-}
-
-
-#nutritionsContainer{
-    color: var(--olive);
-    padding: 10%;
 }
 
 #ingredientsContainer {
