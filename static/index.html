@@ -174,15 +174,11 @@
         console.log(restrictions);
         createButton.disabled = true;
 
-        function addLoading(){
-
-        }
+        document.getElementById("loadingDiv").style.display = "block";
 
         recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
-        
-        function removeLoading(){
-
-        }
+       
+        document.getElementById("loadingDiv").style.display = "none";
         
         window.currentRecipe = recipe;
         setRecipe(recipe);

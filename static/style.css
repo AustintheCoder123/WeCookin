@@ -313,4 +313,5 @@ body {
     position: fixed;
     top: 50%;
     left: 53%;
+    display: none;
 }
