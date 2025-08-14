@@ -64,29 +64,54 @@ function setRecipe(displayRecipe) {
 
         let flexContainer = document.createElement("div");
         flexContainer.className = "flexContainer";
+        let addToRecipeBody = document.getElementsByClassName("recipeBody");
+        for (let i=0; i < addToRecipeBody.length; i++){
+            addToRecipeBody[i].appendChild(flexContainer);
+        }
+
         let box1 = document.createElement("div");
         box1.id = "box1";
-        document.getElementsByClassName("flexContainer").appendChild(box1);
-        let mainRecipeIngredients = createElement("div");
-        mainRecipeIngredients.className = "mainRecipeIngredients";
-        
+        let addFlexContainer = document.getElementsByClassName("flexContainer");
+        for (let i=0; i < addFlexContainer.length; i++){
+            addFlexContainer[i].appendChild(box1);
+        }
+        let mainRecipeDescription = document.createElement("div");
+        mainRecipeDescription.id = "mainRecipeDescription";
+        document.getElementById("box1").appendChild(mainRecipeDescription);
+
+        let mainRecipeIngredients = document.createElement("div");
+        mainRecipeIngredients.id = "mainRecipeIngredients";
+        for (let i=0; i < addFlexContainer.length; i++){
+            addFlexContainer[i].appendChild(mainRecipeIngredients);
+        }
 
         let description = document.createElement("p");
+        let avoidError = document.createElement("p");
+        document.getElementById("mainRecipeDescription").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeDescription").lastElementChild) {
             document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeDescription").lastElementChild);
         }
         description.innerText = displayRecipe.desc;
-        document.getElementById("mainRecipeDescription").appendChild(description);
-
+        console.log(flexContainer);
+        mainRecipeDescription.appendChild(description);
+        console.log(description);
+        
         // INGREDIENTS
+        document.getElementById("mainRecipeIngredients").appendChild(description); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeIngredients").lastElementChild) {
             document.getElementById("mainRecipeIngredients").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
         }
         for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++) {
             createIngredients(displayRecipe.ingredients[ingredient]);
         }
+        
+        let mainRecipeInstructions = document.createElement("div");
+        mainRecipeInstructions.id = "mainRecipeInstructions";
+
+
 
         // INSTRUCTIONS
+        document.getElementById("mainRecipeInstructions").appendChild(description); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeInstructions").lastElementChild) {
             document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
         }
