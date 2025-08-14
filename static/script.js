@@ -50,6 +50,14 @@ function setRecipe(displayRecipe) {
         document.getElementById("mainRecipeTime").textContent = displayRecipe.time;
 
         // NUTRITION INFORMATION
+        let mainRecipeNutrition = document.createElement("div");
+        mainRecipeNutrition.id = "mainRecipeNutrition";
+        let addToRecipeBody = document.getElementsByClassName("recipeBody");
+        for (let i=0; i < addToRecipeBody.length; i++){
+            addToRecipeBody[i].appendChild(mainRecipeNutrition);
+        }
+
+
         while (document.getElementById("mainRecipeNutrition").lastElementChild) {
             document.getElementById("mainRecipeNutrition").removeChild(document.getElementById("mainRecipeNutrition").lastElementChild);
         }
@@ -64,7 +72,6 @@ function setRecipe(displayRecipe) {
 
         let flexContainer = document.createElement("div");
         flexContainer.className = "flexContainer";
-        let addToRecipeBody = document.getElementsByClassName("recipeBody");
         for (let i=0; i < addToRecipeBody.length; i++){
             addToRecipeBody[i].appendChild(flexContainer);
         }
@@ -115,7 +122,7 @@ function setRecipe(displayRecipe) {
             document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
         }
         for (let instruction = 0; instruction < displayRecipe.instructions.length; instruction++) {
-            createInstructions(displayRecipe.instructions[instruction]);
+            createInstructions(displayRecipe.instructions[instruction], instruction);
         }
     }
 }
@@ -135,17 +142,24 @@ function createNutrientItem(nutrient, value) {
     nutritionDiv.appendChild(nutritionText);
 }
 
-function createInstructions(instruction) {
-    let instructionDiv = document.createElement("div");
-    let instructionText = document.createElement("p");
+ function createInstructions(instruction, index){
+        let instructionDiv = document.createElement("div");
+        let instructionStep = document.createElement("h2");
+        let instructionText = document.createElement("p");
 
-    instructionDiv.className = "recipeInstructions"
+        instructionDiv.className = "recipeInstructions"
+        instructionDiv.className = "recipeInstructions";
+        instructionStep.className = "instructionStep";
 
-    instructionText.innerText = instruction;
-    instructionDiv.appendChild(instructionText);
+        index++;
+        instructionStep.innerText = "Step " + index;
+        instructionDiv.appendChild(instructionStep) ;
 
-    document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
-}
+        instructionText.innerText = instruction;
+        instructionDiv.appendChild(instructionText);
+
+        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+    }
 
 function createIngredients(ingredient) {
     let ingredientDiv = document.createElement("div");
