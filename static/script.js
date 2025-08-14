@@ -107,8 +107,9 @@ function setRecipe(displayRecipe) {
         
         let mainRecipeInstructions = document.createElement("div");
         mainRecipeInstructions.id = "mainRecipeInstructions";
-
-
+        for (let i=0; i < addToRecipeBody.length; i++){
+            addToRecipeBody[i].appendChild(mainRecipeInstructions);
+        }
 
         // INSTRUCTIONS
         document.getElementById("mainRecipeInstructions").appendChild(description); //This is just a line of code so that the next line doesn't return an error
