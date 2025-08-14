@@ -152,10 +152,12 @@
 
     async function createRecipe(){
         let createButton = document.getElementById("createRecipeButton");
-        let foodRecipe = document.getElementById("foodPrompt").value;
+        let foodPrompt = document.getElementById("foodPrompt");
+        let foodRecipe = foodPrompt.value;
+        foodPrompt.value = "";
+
         if (foodRecipe == "")
             return;
-        console.log(foodRecipe);
 
         let restrictions = document.getElementById("restrictionsPrompt").value;
 
