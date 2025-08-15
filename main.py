@@ -15,9 +15,10 @@ class API:
         self.model = "gpt-5-mini"
         self.cookbookLocation = "storage/cookbook.json"
         self.settingLocation = "storage/preferences.json"
+        self.kitchenLocation = "storage/kitchenRestrictions.json"
         self.processingRequest = False
 
-    def create_recipe(self, user_preferences, prompt):
+    def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
         print(prompt)
         print(type(prompt))
         
@@ -37,7 +38,9 @@ class API:
         if user_preferences != None:
             gpt_job += "for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
         
-        
+        if kitchen_restrictions != None:
+            gpt_job += "for all types of food while accepting kitchen equipment restrictions from customers. Take this kitchen equipment that the user doesn't have and apply it when making instructions: "
+
         gpt_job = f"""{gpt_job} {user_preferences} and apply it when making the recipe. Knowing these restrictions,
         make a recipe for this food: {prompt} and format the recipe, Description of the food, then the ingredients 
         with nutrition facts, and finally the instructions for the recipe. Unless the user requests for the dish to
@@ -185,13 +188,20 @@ class API:
     def save_settings(self, settings):
         self.save_json(self.settingLocation, settings)
 
+    def save_kitchen(self, kitchenItems):
+        print("saving")
+        self.save_json(self.kitchenLocation, kitchenItems)
+
     def load_recipes(self):
         recipes = self.load_json(self.cookbookLocation)
-        print(recipes)
         return recipes
 
     def load_settings(self):
         return self.load_json(self.settingLocation)
+
+    def load_kitchen(self):
+        print("loading")
+        return self.load_json(self.kitchenLocation)
 
 
 

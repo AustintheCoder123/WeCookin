@@ -7,9 +7,17 @@
     <title>Title</title>
 </head>
 <body>
-    <div class="popup">
+    <div class="popup" id="settings">
+
+        <div class="settingsSidebar">
+            <button class="sidebarButton" onclick="switchUserPrefs()">Dietary Restrictions</button>
+
+            <button class="sidebarButton" onclick="switchKitchenPrefs()">Kitchen Restrictions</button>
+        </div>
+
         <div class="userPreferences" id="userPrefs">
-            <button id="closeButton" onclick="closeSettings()">x</button>
+
+            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
                 <div class="restrictionItem">
@@ -36,6 +44,7 @@
                     <label for="kosher">Kosher</label>
                 </div>
             </div>
+
 
             <div id="otherRestrictionBox">
                 <label>Other:</label>
@@ -70,6 +79,37 @@
 
         </div>
 
+        <div class="kitchenRestrictions" id="kitchenPrefs">
+
+            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
+
+            <div class="kitchenRestrictionsDiv">
+                <div class="kitchenItem">
+                    <h3>Kitchen Restrictions</h3>
+                </div>
+
+                <div class="kitchenItem">
+                    <input type="checkbox" value="Oven">
+                    <label for="Oven">Oven</label>
+                </div>
+
+                <div class="kitchenItem">
+                    <input type="checkbox" value="Microwave">
+                    <label for="Microwave">Microwave</label>
+                </div>
+
+                <div class="kitchenItem">
+                    <input type="checkbox" value="Stove">
+                    <label for="Stove">Stove</label>
+                </div>
+            </div>
+
+
+            <div id="otherKitchenBox">
+                <label>Other:</label>
+                <input id="otherKitchenItem">
+            </div>
+        </div>
     </div>
 
     <div id="wholePage">
