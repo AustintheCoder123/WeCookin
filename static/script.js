@@ -19,7 +19,6 @@ async function createRecipe() {
     let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
     let kitchenRestrictions = `This is the users kitchen equipment that they don't have: ${kitchenPrefsDict["restrictions"]}.`;
-    console.log(restrictions);
     createButton.disabled = true;
 
     document.getElementById("loadingDiv").style.display = "block";
@@ -46,12 +45,32 @@ function saveRecipe() {
 
 function setRecipe(displayRecipe) {
     if (displayRecipe) {
+        let clear = document.getElementsByClassName("recipeBody");
+        let placeholder = document.createElement("p");
+
+        console.log(document.getElementById("mainRecipeName"));
+        document.getElementById("mainRecipeName").appendChild(placeholder); // Lines 51-52 are to avoid a reading null error
+        for (let i = 0; i < clear.length; i++){
+            while (clear[i].lastElementChild) {
+                clear[i].removeChild(clear[i].lastElementChild);
+            }
+        }
+        console.log(document.getElementById("mainRecipeName"));
+
+        let mainRecipeName = document.createElement("div");
+        mainRecipeName.id = "mainRecipeName";
+        let addToRecipeBody = document.getElementsByClassName("recipeBody");
+        for (let i=0; i < addToRecipeBody.length; i++){
+            addToRecipeBody[i].appendChild(mainRecipeName);
+        }
+
         document.getElementById("mainRecipeName").textContent = displayRecipe.name;
+        console.log(document.getElementById("mainRecipeName"));
+        
 
         // NUTRITION INFORMATION
         let mainRecipeNutrition = document.createElement("div");
         mainRecipeNutrition.id = "mainRecipeNutrition";
-        let addToRecipeBody = document.getElementsByClassName("recipeBody");
         for (let i=0; i < addToRecipeBody.length; i++){
             addToRecipeBody[i].appendChild(mainRecipeNutrition);
         }
@@ -97,19 +116,14 @@ function setRecipe(displayRecipe) {
         document.getElementById("mainRecipeDescription").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeDescription").lastElementChild) {
             document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeDescription").lastElementChild);
-            console.log("worked");
         }
         description.innerText = displayRecipe.desc;
-        console.log(description.innerText);
-        console.log(flexContainer);
-        mainRecipeDescription.appendChild(description);
-        console.log(description);
+        mainRecipeDescription.appendChild(description)
         
         // INGREDIENTS
         document.getElementById("mainRecipeIngredients").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeIngredients").lastElementChild) {
             document.getElementById("mainRecipeIngredients").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
-            console.log("worked");
         }
         for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++) {
             createIngredients(displayRecipe.ingredients[ingredient]);
