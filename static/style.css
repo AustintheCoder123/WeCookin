@@ -392,7 +392,7 @@ body {
     padding-right: 40px;
     padding-top: -10px;
     border-radius: 20px;
-    z-index: 2;
+    z-index: 5;
     position: fixed;
     top: 50%;
     left: 53%;
@@ -412,6 +412,7 @@ body {
     position: fixed;
     overflow-x: hidden;
     overflow-y: hidden;
+    z-index: 4;
 }
 
 .settingsSidebar{
@@ -434,7 +435,6 @@ body {
     padding-left: 2%;
     display: inline-block;
     overflow-y: scroll;
-
     word-wrap: break-word;
 }
 

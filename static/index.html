@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <link rel="stylesheet" href="../static/style.css">
 <link rel="stylesheet" href="style.css">
-
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-
 <body>
     <div class="popup" id="settings">
 
@@ -46,7 +44,7 @@
                     <label for="kosher">Kosher</label>
                 </div>
             </div>
-        
+
 
             <div id="otherRestrictionBox">
                 <label>Other:</label>
@@ -105,7 +103,7 @@
                     <label for="Stove">Stove</label>
                 </div>
             </div>
-        
+
 
             <div id="otherKitchenBox">
                 <label>Other:</label>
@@ -115,7 +113,7 @@
     </div>
 
     <div id="wholePage">
-        <!-- div for bookmark bar -->
+<!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <p onclick="closeBookmark()" id="closeBtn">Close</p>
@@ -128,8 +126,9 @@
             <!-- This div holds the differently-colored bar at the top of the website, also holds the input bar for restrictions and the settings button -->
             <div class="options" id="options">
                 <button id="openBookmarkBar" onclick="openBookmark()">Bookmarks</button>
-                <button id="saveRecipeButton" onclick="saveRecipe()"> Save Recipe</button>
-                <button id="openSettingsButton" onclick="openSettings()">Settings</button>
+                <button id="saveRecipeButton" onclick="saveRecipe()">Save Recipe</button>
+                <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
+                <button id="openSettingsButton" onclick="openSettings()">settings</button>
             </div>
 
             <div id="loadingDiv">
@@ -139,52 +138,25 @@
             <!-- This div holds all the things related to the main recipe -->
             <div class="recipeBody">
 
-                <div id="mainRecipeName">
-                    <h1>Burger</h1>
+                <div id = "mainRecipeName">
+                        <h1>WeCookin</h1>
                 </div>
 
                 <div id="mainRecipeTime">
                     <p></p>
                 </div>
 
-                <div id="mainRecipeNutrition">
-                    <div class="nutritionItem">
-                        <p>Nutrition</p>
-                    </div>
-                </div>
-
-                <!-- <img src="../static/pngtree-vegan-friendly-label-png-png-image_5698160.png"> -->
-                <!-- <img src="../statc/gluten-free-logo-png_seeklogo-530821.png"> -->
-                <div class="flexContainer">
-                    <div id="box1">
-                        <div id="mainRecipeDescription">
-                        </div>
-                    </div>
-                    <div id="mainRecipeIngredients">
-                        <div class="mainRecipeIngredientItem">
-                            <p>Ingredients</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="mainRecipeInstructions">
-                    <div class="recipeInstructions">
-                        <p>Instructions</p>
-                    </div>
-                </div>
-
-
+            <!-- All divs related to the recipe body have been moved to be generated in setRecipe() -->
             </div>
 
             <!-- the div for the search bar and send button -->
             <div class="textboxDiv">
-                <input id="foodPrompt" placeholder="Start making recipes!">
+                <input id="foodPrompt" placeholder="Start making recipes!" >
                 <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 </body>
-
 </html>
