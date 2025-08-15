@@ -283,9 +283,15 @@ body {
 
 .allergenItem{
     margin-bottom: 2%;
+    max-width: 75%;
 }
 
 .restrictionItem{
+    margin-bottom: 2%;
+    max-width: 75%;
+}
+
+.kitchenItem{
     margin-bottom: 2%;
     max-width: 75%;
 }
@@ -307,9 +313,6 @@ body {
     color: red;
 }
 
-#allergensHeader{
-    
-}
 
 #mainRecipeName{
 
@@ -362,6 +365,8 @@ body {
     overflow-y: hidden;
     overflow-x: hidden;
     padding-top: 2.5%;
+    padding-right: 2%;
+    border-right: 2px solid var(--dark-brown);
 }
 
 .userPreferences{
@@ -374,6 +379,19 @@ body {
 }
 
 .userPreferences::-webkit-scrollbar {
+    display: none;
+}
+
+.kitchenRestrictions{
+    width: 80%;
+    padding-left: 2%;
+    display: none;
+    overflow-y: scroll;
+
+    word-wrap: break-word;
+}
+
+.kitchenRestrictions::-webkit-scrollbar {
     display: none;
 }
 

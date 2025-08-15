@@ -293,6 +293,34 @@ function loadRestrictions() {
     temp = 0;
 }
 
+function switchUserPrefs(){
+    let userPrefs = document.getElementById("userPrefs");
+    let kitchenPrefs = document.getElementById("kitchenPrefs");
+    
+    if(userPrefs.style.display == "none"){
+        userPrefs.style.display = "inline-block";
+        kitchenPrefs.style.display = "none";
+    }
+    else if(kitchenPrefs.style.display != "none"){
+        userPrefs.style.display = "none";
+    }
+}
+
+
+
+function switchKitchenPrefs(){
+    let userPrefs = document.getElementById("userPrefs");
+    let kitchenPrefs = document.getElementById("kitchenPrefs");
+    
+    if(kitchenPrefs.style.display == "none"){
+        kitchenPrefs.style.display = "inline-block";
+        userPrefs.style.display = "none";
+    }
+    else if(userPrefs.style.display != "none"){
+        kitchenPrefs.style.display = "none";
+    }
+}
+
 
 //Event Listeners------------------------------------------
 
