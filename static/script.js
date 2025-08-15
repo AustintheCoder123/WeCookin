@@ -2,6 +2,7 @@
 window.currentRecipe;
 window.recipeDict = {};
 window.settingsDict = {};
+window.kitchenPrefsDict = {};
 
 
 async function createRecipe() {
@@ -15,16 +16,16 @@ async function createRecipe() {
 
     let restrictions = document.getElementById("restrictionsPrompt").value;
 
-    recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
     let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
     let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
+    let kitchenRestrictions = `This is the users kitchen equipment that they don't have: ${kitchenPrefsDict["restrictions"]}.`;
     console.log(restrictions);
     createButton.disabled = true;
 
     document.getElementById("loadingDiv").style.display = "block";
 
-    recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe);
+    recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe, kitchenRestrictions);
 
     document.getElementById("loadingDiv").style.display = "none";
 
@@ -200,8 +201,10 @@ function closeSettings() {
     settings.style.display = "none";
     setAllergens();
     setRestrictions();
+    setKitchenPrefs();
 
     pywebview.api.save_settings(settingsDict);
+    pywebview.api.save_kitchen(kitchenPrefsDict);
 }
 
 function addRestriction(item) {
@@ -321,6 +324,35 @@ function switchKitchenPrefs(){
     }
 }
 
+function loadKitchenPrefs(){
+    let restrictionList = kitchenPrefsDict["restrictions"].split(", ");
+    let buttonsInDiv = document.getElementById("kitchenPrefs").querySelectorAll("input");
+
+    let temp = 0;
+    buttonsInDiv.forEach(element => {
+        for (let i = 0 + temp; i < restrictionList.length; i++) {
+            if (element.value == restrictionList[i]) {
+                element.checked = true;
+                temp++;
+            }
+        }
+    });
+    temp = 0;
+}
+
+function setKitchenPrefs(){
+    let buttonsInDiv = document.getElementById("kitchenPrefs").querySelectorAll("input");
+    let restrictionsList = [];
+
+    buttonsInDiv.forEach(element => {
+        if (element.checked) {
+            restrictionsList.push(element.value);
+        }
+    });
+
+    kitchenPrefsDict["restrictions"] = restrictionsList.join(", ");
+}
+
 
 //Event Listeners------------------------------------------
 
@@ -361,9 +393,11 @@ window.addEventListener('pywebviewready', async () => {
     }
     recipeDict = await pywebview.api.load_recipes();
     settingsDict = await pywebview.api.load_settings();
+    kitchenPrefsDict = await pywebview.api.load_kitchen();
 
     loadAllergens();
     loadRestrictions();
+    loadKitchenPrefs();
 
     for (const key in recipeDict) {
         newBookmark(recipeDict[key]);

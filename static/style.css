@@ -2,6 +2,7 @@
 --parchment: #ebf0d2;
 --tea-green: #DDE5B6;
 --olive: #ADC178;
+--dark-olive:rgb(158, 174, 111);
 --chamoisee: #A98467;
 --umber: #6C584C;
 --dark-brown: #3d3028;
@@ -348,7 +349,7 @@ body {
     padding: 1%;
     width: 70%;
     height: 60%;
-    background-color: var(--olive);
+    background-color: var(--dark-olive);
     position: fixed;
     overflow-x: hidden;
     overflow-y: hidden;
