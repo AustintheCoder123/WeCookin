@@ -286,16 +286,25 @@ body {
 }
 
 .allergenItem{
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
     margin-bottom: 2%;
     max-width: 75%;
 }
 
 .restrictionItem{
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
     margin-bottom: 2%;
     max-width: 75%;
 }
 
 .kitchenItem{
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
     margin-bottom: 2%;
     max-width: 75%;
 }

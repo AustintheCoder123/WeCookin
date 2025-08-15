@@ -227,16 +227,55 @@ function addRestriction(item) {
 
 function addAllergen(item) {
     let allergenItemDiv = document.createElement("div");
+    let textDiv = document.createElement("div");
+    let buttonDiv = document.createElement("div");
+    let newAllergenBox = document.createElement("input");
+    let newAllergenLabel = document.createElement("label");
+    let itemDelete = document.createElement("button");
+
+
+    allergenItemDiv.className = "allergenItem";
+    newAllergenBox.type = "checkbox";
+    newAllergenBox.value = item;
+    itemDelete.className = "deleteBookmark";
+
+    itemDelete.innerText = "X";
+
+    newAllergenLabel.textContent = item;
+
+    
+
+    itemDelete.onclick = function () {
+        const items = document.getElementsByClassName("allergenItems");
+
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].value == item) {
+            items[i].remove();
+            }
+        }
+        delete recipeDict[recipe.name];
+    };
+
+    document.getElementById("allergenItems").appendChild(allergenItemDiv);
+    allergenItemDiv.appendChild(textDiv);
+    allergenItemDiv.appendChild(buttonDiv);
+    textDiv.appendChild(newAllergenBox);
+    textDiv.appendChild(newAllergenLabel);
+    buttonDiv.appendChild(itemDelete);
+}
+
+function addKitchenPref(item) {
+    let allergenItemDiv = document.createElement("div");
     let newAllergenBox = document.createElement("input");
     let newAllergenLabel = document.createElement("label");
 
-    allergenItemDiv.className = "allergenItem";
+    allergenItemDiv.className = "kitchenItem";
     newAllergenBox.type = "checkbox";
     newAllergenBox.value = item;
 
     newAllergenLabel.textContent = item;
 
-    document.getElementById("allergenItems").appendChild(allergenItemDiv);
+    document.getElementById("kicthenPrefsSubDiv").appendChild(allergenItemDiv);
     allergenItemDiv.appendChild(newAllergenBox);
     allergenItemDiv.appendChild(newAllergenLabel);
 }
@@ -358,6 +397,7 @@ function setKitchenPrefs(){
 
 let restrictionsInput = document.getElementById("otherRestriction");
 let allergensInput = document.getElementById("otherAllergen");
+let kitchenInput = document.getElementById("otherKitchenItem");
 let recipeInput = document.getElementById("foodPrompt");
 
 restrictionsInput.addEventListener("keypress", function (event) {
@@ -375,6 +415,16 @@ allergensInput.addEventListener("keypress", function (event) {
         allergensInput.value = "";
     }
 });
+
+kitchenInput.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        addKitchenPref(kitchenInput.value);
+        kitchenInput.value = "";
+    }
+});
+
+
 
 recipeInput.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
