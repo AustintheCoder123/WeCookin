@@ -265,6 +265,10 @@ body {
     position: absolute;
 }
 
+#bookmarkBar > p {
+    cursor: pointer;
+}
+
 #openBookmarkBar {
     background-color: var(--olive);
     border-radius: 10px;
