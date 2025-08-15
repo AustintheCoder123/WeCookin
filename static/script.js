@@ -1,4 +1,3 @@
-
 window.currentRecipe;
 window.recipeDict = {};
 window.settingsDict = {};
@@ -10,12 +9,11 @@ async function createRecipe() {
     let foodRecipe = foodPrompt.value;
     foodPrompt.value = "";
 
-    if (foodRecipe == "")
+    if (foodRecipe == "") {
         return;
-
+    }
     let restrictions = document.getElementById("restrictionsPrompt").value;
 
-    recipe = await pywebview.api.create_recipe(foodRecipe, restrictions);
     let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
     let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
 
@@ -96,10 +94,9 @@ function setRecipe(displayRecipe) {
         let avoidError = document.createElement("p");
         document.getElementById("mainRecipeDescription").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeDescription").lastElementChild) {
-            document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeIngredients").lastElementChild);
+            document.getElementById("mainRecipeDescription").removeChild(document.getElementById("mainRecipeDescription").lastElementChild);
             console.log("worked");
         }
-        for (
         description.innerText = displayRecipe.desc;
         console.log(description.innerText);
         console.log(flexContainer);
@@ -159,7 +156,7 @@ function createNutrientItem(nutrient, value) {
 
         index++;
         instructionStep.innerText = "Step " + index;
-        instructionDiv.appendChild(instructionStep) ;
+        instructionDiv.appendChild(instructionStep);
 
         instructionText.innerText = instruction;
         instructionDiv.appendChild(instructionText);
@@ -210,7 +207,7 @@ function newBookmark(recipe) {
         checkDuplicateBookmarks(recipe);
         delete recipeDict[recipe.name];
         pywebview.api.save_recipe(recipeDict);
-    };
+    }
 
 
     document.getElementById("bookmarkBar").appendChild(bookmarkDiv);
@@ -393,6 +390,3 @@ window.addEventListener('pywebviewready', async () => {
         newBookmark(recipeDict[key]);
     }
 });
-
-
-
