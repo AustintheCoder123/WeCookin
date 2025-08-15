@@ -2,6 +2,7 @@
 --parchment: #ebf0d2;
 --tea-green: #DDE5B6;
 --olive: #ADC178;
+--dark-olive:rgb(158, 174, 111);
 --chamoisee: #A98467;
 --umber: #6C584C;
 --dark-brown: #3d3028;
@@ -81,11 +82,34 @@ body {
 }
 
 #mainRecipeNutrition{
-
+    padding-bottom: 5px;
+    border-radius: 10px;
+    display: flex;
 }
 
 .nutritionItem{
+    text-align: center;
+    width: 14.3%;
+    background-color: var(--olive);
+    margin-left: 0.5%;
+    border-radius: 10px;
+}
 
+.nutritionItem > p{
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    font-size: 110%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nutritionItem > h5{
+    margin: 0;
+    margin-top: 5px;
+    padding-left: 10px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .flexContainer{
@@ -93,19 +117,12 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
+    margin-top: 10px;
 }
 
 #box1{
     width: 50%;
-}
-
-#box2{
-    width: 50%;
-}
-
-#mainRecipeDescription{
     background-color: var(--tea-green);
-    margin-top: -10px;
     padding-bottom: 200px;
     margin-right: 10px;
     border-radius: 10px;
@@ -113,20 +130,35 @@ body {
 
 #mainRecipeDescription > p{
     padding-left: 10px;
-    padding-top: 10px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #mainRecipeIngredients{
-    margin-bottom: px;
     background-color: var(--tea-green);
-    margin-top: -10px;
-    padding-bottom: 200px   ;
     border-radius: 10px;
+    padding-bottom: 200px;
+    width: 50%;
+}
+
+.mainRecipeIngredientItem{
+    background-color: var(--olive);
+    opacity: 75%;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding-top: 0px;
 }
 
 .mainRecipeIngredientItem > p{
     padding-left: 10px;
-    padding-top: 10px;
+    padding-top: 5px;
+    margin: 0;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    font-size: 125%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .recipeIngredients{
@@ -137,16 +169,33 @@ body {
     background-color: var(--tea-green);
     border-radius: 10px;
     padding-bottom: 230px;
-
+    padding-top: 2px;
+    margin-top: 10px;
 }
 
 .recipeInstructions{
-
+    background-color: var(--olive);
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
 }
 
 .recipeInstructions > p{
     padding-left: 10px;
     padding-top: 10px;
+    margin: 0;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    font-size: 130%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.instructionStep {
+    font-weight: bold;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 10px;
 }
 
 .recipeTime{
@@ -162,7 +211,7 @@ body {
 }
 
 .options{
-    padding-left: 78%;
+    padding-left: 70%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
@@ -180,16 +229,49 @@ body {
 
 #bookmarkBar {
     width: 19%;
+    position: sticky;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.5s;
     background-color: var(--olive);
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    border-radius: 20px;
+    height: 98vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#bookmarkBar::-webkit-scrollbar {
+    display: none;
+}
+
+.recipeBody {
+    max-height: 82vh;
+    overflow-y: scroll;
+}
+
+.recipeBody::-webkit-scrollbar {
+    display: none;
 }
 
 .mainRecipePage {
     width: 80%;
     padding-left: 0.6%;
+    transition: 0.5s;
     display: inline-block;
+}
+
+#bookmarkBar > h2 {
+    position: absolute;
+}
+
+#closeBtn {
+    padding-left: 80%;
+    padding-top: -300px;
+    font-size: 150%;
+    top: 0;
 }
 
 .savedRecipe {
@@ -203,26 +285,10 @@ body {
     display: flex;
 }
 
-.userPreferences{
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
-    background-color: white;
-    border-radius: 25px;
-    padding: 20px;
-    width: 70%;
-    height: 60%;
-    overflow-y: scroll;
-}
 
-.userPreferences::-webkit-scrollbar {
-    display: none;
-}
-
-#closeButton {
+#settingsCloseButton {
+    float: right;
     position: sticky;
     top: 8px;
     right: 10px;
@@ -232,39 +298,125 @@ body {
     border: none;
 }
 
-#closeButton:hover {
+#settingsCloseButton:hover {
     color: red;
 }
 
 .allergenItem{
     margin-bottom: 2%;
+    max-width: 75%;
 }
 
 .restrictionItem{
     margin-bottom: 2%;
+    max-width: 75%;
 }
 
-#allergensHeader{
+.kitchenItem{
+    margin-bottom: 2%;
+    max-width: 75%;
+}
+
+.bookmarkRecipe{
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
     
 }
+
+.deleteBookmark{
+    background-color: var(--olive);
+    font-size: 150%;
+    border: none;
+}
+
+.deleteBookmark:hover{
+    color: red;
+}
+
 
 #mainRecipeName{
 
 }
 
-
-#nutritionsContainer{
-    color: var(--olive);
-    padding: 10%;
-}
-
-
-
-
-
 #ingredientsContainer {
 
 }
 
+#loadingDiv{
+    text-align: center;
+    align-content: center;
+    font-size: 40px;
+    background-color: var(--olive);
+    opacity: 70%;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: -10px;
+    border-radius: 20px;
+    z-index: 5;
+    position: fixed;
+    top: 50%;
+    left: 53%;
+    display: none;
+}
 
+#settings{
+    display:none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 3%;
+    padding: 1%;
+    width: 70%;
+    height: 60%;
+    background-color: var(--dark-olive);
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 4;
+}
+
+.settingsSidebar{
+    width: 19%;
+    position: sticky;
+    z-index: 1;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-top: 2.5%;
+    padding-right: 2%;
+    border-right: 2px solid var(--dark-brown);
+}
+
+.userPreferences{
+    width: 80%;
+    padding-left: 2%;
+    display: inline-block;
+    overflow-y: scroll;
+    word-wrap: break-word;
+}
+
+.userPreferences::-webkit-scrollbar {
+    display: none;
+}
+
+.kitchenRestrictions{
+    width: 80%;
+    padding-left: 2%;
+    display: none;
+    overflow-y: scroll;
+
+    word-wrap: break-word;
+}
+
+.kitchenRestrictions::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebarButton{
+    margin-bottom: 5%;
+}
 
