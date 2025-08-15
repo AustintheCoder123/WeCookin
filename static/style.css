@@ -459,3 +459,6 @@ body {
     margin-bottom: 5%;
 }
 
+#restrictionsPrompt {
+    display: none;
+}
