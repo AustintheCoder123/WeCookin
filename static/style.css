@@ -3,6 +3,7 @@
 --tea-green: #DDE5B6;
 --olive: #ADC178;
 --dark-olive:rgb(158, 174, 111);
+--very-dark-olive: #3A5A40;
 --chamoisee: #A98467;
 --umber: #6C584C;
 --dark-brown: #3d3028;
@@ -217,14 +218,11 @@ body {
     padding-right: 20px;
     display: flex;
     background-color: var(--tea-green);
-}
-
-.options > input{
-    background-color: var(--chamoisee);
+    border-radius: 10px;
 }
 
 .options > button {
-    margin-left: 5px;
+    font-size: 15px;
 }
 
 #bookmarkBar {
@@ -267,11 +265,48 @@ body {
     position: absolute;
 }
 
+#openBookmarkBar {
+    background-color: var(--olive);
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1.5px solid rgb(36, 36, 36);
+    margin-left: 130px;
+}
+
+#openBookmarkBar:active {
+    background-color: var(--very-dark-olive);
+}
+
+
 #closeBtn {
     padding-left: 80%;
     padding-top: -300px;
     font-size: 150%;
     top: 0;
+}
+
+#saveRecipeButton {
+    background-color: var(--olive);
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1.5px solid rgb(36, 36, 36);
+    margin-left: 15px;
+}
+
+#saveRecipeButton:active {
+    background-color: var(--very-dark-olive);
+}
+
+#openSettingsButton {
+    background-color: var(--olive);
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1.5px solid rgb(36, 36, 36);
+    margin-left: 15px;
+}
+
+#openSettingsButton:active {
+    background-color: var(--very-dark-olive);
 }
 
 .savedRecipe {
