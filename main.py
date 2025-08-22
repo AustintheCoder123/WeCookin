@@ -21,16 +21,15 @@ class API:
     def create_recipe_once(self, user_preferences, prompt, kitchen_restrictions):
         print(prompt)
         print(type(prompt))
-        
+
         if prompt == "":
             return
 
-
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
-        
+
         if user_preferences != None:
             gpt_job += "for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
-        
+
         if kitchen_restrictions != None:
             gpt_job += "for all types of food while accepting kitchen equipment restrictions from customers. Take this kitchen equipment that the user doesn't have and apply it when making instructions: "
 
@@ -39,7 +38,7 @@ class API:
         with nutrition facts, and finally the instructions for the recipe. Unless the user requests for the dish to
         have certain restrictions, such as being vegetarian or vegan, do NOT create a vegetarian or vegan recipe.
         Keep it regular unless the user requests."""
-        
+
         expected_format = """Follow this order and format when returning:
         - Name: A short, descriptive name of the food/dish in "str" or string format
         - Ingredients: Make a bullet list of all the ingredients used for the dish, all in "str" or string format  
@@ -57,7 +56,7 @@ class API:
         - Instructions: Write out the instructions to make the dish step-by step, with each step being part of a list,
           again, all in "str" or string format. Do not put step numbers.
           Make sure to expand on each instruction and explain very in-depth what each step of making the dish involves"""
-        
+
         example_1 = """{'name': 'Classic Fluffy Pancakes', 'ingredients': ['1 1/2 cups all-purpose flour', '3 1/2 teaspoons baking
         powder', '1 teaspoon salt', '1 tablespoon granulated sugar', '1 1/4 cups milk', '1 large egg', '3 tablespoons unsalted
         butter, melted'], 'nutrition': {'cholesterol': '50 mg per serving', 'sodium': '520 mg per serving', 'servingsPerRecipe':
@@ -76,7 +75,7 @@ class API:
         cook for an additional 2 minutes on the other side, until golden brown. Adjust the heat as needed to prevent burning while ensuring the pancakes cook
         through.', 'Transfer cooked pancakes to a plate. Keep warm by covering with a clean towel or placing in a preheated oven set to a low temperature while
         preparing remaining batter. Serve hot with your favorite toppings such as syrup, fresh berries, or whipped cream. Enjoy!']}"""
-        
+
         example_2 = """{'name': 'Gluten-Free Homemade Pasta', 'ingredients': ['1 ½ cups gluten-free all-purpose flour (plus extra for dusting)', '3 large eggs',
         '1 tablespoon olive oil', '½ teaspoon salt'], 'nutrition': {'cholesterol': '35 mg per serving', 'sodium': '150 mg per serving', 'servingsPerRecipe':
         '4 servings', 'totalCalories': '210 kcal per serving', 'totalFat': '8 g per serving', 'saturatedFat': '1.2 g per serving'}, 'desc': 'This gluten-free homemade
@@ -96,7 +95,7 @@ class API:
         keeping it separated to prevent sticking.', 'Repeat the rolling and cutting process with the remaining dough portions.', 'Bring a large pot of water to a boil and add
         a pinch of salt. Gently drop the fresh gluten-free pasta into boiling water and cook for about 2-3 minutes, or until the pasta floats to the surface and is al dente.',
         'Drain the cooked pasta in a colander and serve immediately with your favorite sauce or toppings. Enjoy your homemade gluten-free pasta!']}"""
-        
+
         example_3 = """{'name': 'Keto Chocolate Brownies', 'ingredients': ['1/2 cup almond flour', '1/4 cup unsweetened cocoa powder', '1/4 teaspoon baking powder', '1/4 teaspoon salt',
         '3/4 cup erythritol or other keto-friendly sweetener', '2 large eggs', '1/4 cup unsalted butter, melted', '1 teaspoon vanilla extract', '1/4 cup sugar-free chocolate chips'],
         'nutrition': {'cholesterol': '40 mg per serving', 'sodium': '70 mg per serving', 'servingsPerRecipe': '16 servings', 'totalCalories': '150 kcal per serving', 'totalFat':
@@ -110,8 +109,8 @@ class API:
         evenly with a spatula to ensure uniform thickness for even baking.', 'Place the baking dish in the preheated oven and bake for about 15-20 minutes. To check for doneness, insert a toothpick
         into the center; it should come out with moist crumbs but not wet batter.', 'Remove from oven and allow to cool in the dish for at least 10 minutes. Then, transfer to a wire rack to cool
         completely before slicing into squares.', 'Serve these decadent keto brownies alone or with a dollop of whipped cream or a few fresh berries for added flavor. Enjoy your sugar-free treat!']}"""
-        
-        examples =  f"""The following are examples of good formatting for different inputs from users. Use this as a reference or outline to help create your new responses based on user requests, however,
+
+        examples = f"""The following are examples of good formatting for different inputs from users. Use this as a reference or outline to help create your new responses based on user requests, however,
         do not directly copy these.:
         Example 1:
         Preferences: ""
@@ -131,15 +130,13 @@ class API:
         
         Response {example_3}
         """
-        
+
         combined_prompt = gpt_job + expected_format + examples
-        
+
         response = self.client.beta.chat.completions.parse(
             model=self.model,
-            messages=[
-                {"role": "user", "content": combined_prompt}
-            ],
-            response_format=Recipe
+            messages=[{"role": "user", "content": combined_prompt}],
+            response_format=Recipe,
         )
         # print(type(response))
         response = response.choices[0].message.parsed
@@ -148,34 +145,36 @@ class API:
             "name": response.name,
             "ingredients": response.ingredients,
             "nutrition": {
-                "cholesterol" : response.nutrition.Cholesterol,
-                "sodium" : response.nutrition.Sodium,
-                "servingsPerRecipe" : response.nutrition.ServingsPerRecipe,
-                "totalCalories" : response.nutrition.TotalCalories,
-                "totalFat" : response.nutrition.TotalFat,
-                "saturatedFat" : response.nutrition.SaturatedFat,
+                "cholesterol": response.nutrition.Cholesterol,
+                "sodium": response.nutrition.Sodium,
+                "servingsPerRecipe": response.nutrition.ServingsPerRecipe,
+                "totalCalories": response.nutrition.TotalCalories,
+                "totalFat": response.nutrition.TotalFat,
+                "saturatedFat": response.nutrition.SaturatedFat,
             },
             "desc": response.desc,
-            
             "time": response.time,
-            "instructions": response.instructions
+            "instructions": response.instructions,
         }
 
         return recipe_dict
-    
-    #Error checking for main func so nothing goes wrong
+
+    # Error checking for main func so nothing goes wrong
     def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
-        if(self.processingRequest):
+        if self.processingRequest:
             return
         self.processingRequest = True
-        
+
         try:
-            return self.create_recipe_once(user_preferences, prompt, kitchen_restrictions)
+            return self.create_recipe_once(
+                user_preferences, prompt, kitchen_restrictions
+            )
         finally:
             self.processingRequest = False
-        
-    
-    def create_recipe_options(self, user_preferences, prompt, kitchen_restrictions, amount):
+
+    def create_recipe_options(
+        self, user_preferences, prompt, kitchen_restrictions, amount
+    ):
         if self.processingRequest:
             return []  # return a list so JS doesn't break
 
@@ -193,7 +192,9 @@ class API:
                     f" (Create a distinct variation #{idx+1}; "
                     f"vary the cuisine and primary protein/technique from previous options.)"
                 )
-                candidate = self.create_recipe_once(user_preferences, prompt + twist, kitchen_restrictions)
+                candidate = self.create_recipe_once(
+                    user_preferences, prompt + twist, kitchen_restrictions
+                )
                 if not candidate:
                     continue
 
@@ -209,9 +210,6 @@ class API:
         finally:
             self.processingRequest = False
 
-        
-        
-    
     @staticmethod
     def save_json(location, item):
         with open(location, "w+") as f:
@@ -221,7 +219,7 @@ class API:
     def load_json(location):
         with open(location, "r") as f:
             return json.load(f)
-    
+
     def save_recipe(self, recipe):
         self.save_json(self.cookbookLocation, recipe)
 
@@ -244,11 +242,9 @@ class API:
         return self.load_json(self.kitchenLocation)
 
 
-
-
-if __name__  == "__main__":
+if __name__ == "__main__":
     api = API()
 
     html_path = os.path.abspath("static/index.html")
-    window = webview.create_window("WeCookin",html_path,js_api=api)
+    window = webview.create_window("WeCookin", html_path, js_api=api)
     webview.start(debug=True)
