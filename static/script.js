@@ -24,14 +24,15 @@ async function createRecipe() {
 
     document.getElementById("loadingDiv").style.display = "block";
 
-    let options;
+    let options = await pywebview.api.create_recipe_options(combinedRestrictions, foodRecipe, kitchenRestrictions, 3);
 
     document.getElementById("loadingDiv").style.display = "none";
     createButton.disabled = false;
 
+    if (!options || !Array.isArray(options) || options.length === 0) return;
 
     window.recipeOptions = options;
-    setRecipe(recipe);
+    showRecipeOptions(recipe);
 }
 
 function showRecipeOptions(options) {
