@@ -1,499 +1,350 @@
-:root{
---parchment: #ebf0d2;
---tea-green: #DDE5B6;
---olive: #ADC178;
---dark-olive:rgb(158, 174, 111);
---very-dark-olive: #3A5A40;
---chamoisee: #A98467;
---umber: #6C584C;
---dark-brown: #3d3028;
---white: #ffffff;
+:root {
+    --parchment: #ebf0d2;
+    --tea-green: #DDE5B6;
+    --olive: #ADC178;
+    --dark-olive: rgb(158, 174, 111);
+    --very-dark-olive: #3A5A40;
+    --chamoisee: #A98467;
+    --umber: #6C584C;
+    --dark-brown: #3d3028;
+    --white: #ffffff;
 
-display: grid;
-grid-template-rows: minmax(60px, auto) minmax(0, 100%);
-height: 100%;
+    --gap: 1rem;
+    --radius: 12px;
+    --border: 1.5px solid rgb(36, 36, 36);
+}
+
+/* ---------- Base/reset ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: clamp(14px, 1vw + 12px, 18px);
 }
 
 body {
-    background-color: var(--parchment)
-}
-.textboxDiv{
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    padding-left: 44%;
-    padding-right: 50%;
-    padding-top: 20px;
-
+    margin: 0;
+    background: var(--parchment);
+    color: var(--dark-brown);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-.textboxDiv > input {
-    align-content: center;
-    color: var(--dark-brown, green);
-    background-color: var(--chamoisee);
-    padding: 20px;
-    padding-left: 10px;
-    padding-right: 100px;
-    padding-top: -10px;
-    padding-bottom: -100px;
-    border-radius: 20px;
-    font-size: 20px;
-    text-align: left;
-    border: 2px solid rgb(36, 36, 36);
+/* Hide scrollbars for nicer look in scroll panes */
+.recipeBody::-webkit-scrollbar,
+#bookmarkBar::-webkit-scrollbar,
+.userPreferences::-webkit-scrollbar,
+.kitchenRestrictions::-webkit-scrollbar {
+    display: none;
+}
 
+/* ---------- Generic controls ---------- */
+button {
+    cursor: pointer;
+    border: var(--border);
+    background: var(--olive);
+    border-radius: 10px;
+    padding: .6rem .9rem;
+    font: inherit;
+}
+
+button:active {
+    background: var(--very-dark-olive);
+    color: var(--white);
+}
+
+input {
+    border: var(--border);
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    font: inherit;
+    color: var(--dark-brown);
+    background: var(--chamoisee);
 }
 
 ::placeholder {
     color: var(--umber);
 }
 
-.textboxDiv > button {
-    background-color: var(--chamoisee);
-    color: var(--dark-brown, green);
-    margin: -50px;
-    border-radius: 70px;
-    padding: 12px;
-    border-left: 200px;
-    font-size: 19px;
-    cursor: pointer;
-    border: 2px solid rgb(36, 36, 36);
+/* ---------- Page layout (sidebar + main) ----------
+   Uses grid with first column sized by sidebar width.
+   Your JS sets #bookmarkBar.style.width to 0% or 19% — grid adapts automatically. */
+#wholePage {
+    --gap: 1rem;
+    --sidebar-w: 0;
+    --sidebar-gap: 0;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    gap: var(--sidebar-gap);
+    padding: var(--gap);
+    min-height: 100svh;
 }
 
-.textboxDiv > button:active {
-    background-color: var(--umber);
+#wholePage.sidebar-open {
+    --sidebar-w: clamp(220px, 22vw, 320px);
+    --sidebar-gap: var(--gap);
 }
 
-#mainRecipeName{
-    align-content: center;
-    padding-bottom: -20px;
-    text-align: center;
-    font-size: 90px;
-    margin-top: -10px;
-}
-
-#mainRecipeName > h1 {
-  color: black;
-}
-
-.textboxDiv > button:disabled {
-    background-color: var(--outer-space);
-}
-#mainRecipeTime{
-
-}
-
-#mainRecipeNutrition{
-    padding-bottom: 5px;
-    border-radius: 10px;
-    display: flex;
-}
-
-.nutritionItem{
-    text-align: center;
-    width: 14.3%;
-    background-color: var(--olive);
-    margin-left: 0.5%;
-    border-radius: 10px;
-}
-
-.nutritionItem > p{
-    margin: 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-left: 10px;
-    font-size: 110%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.nutritionItem > h5{
-    margin: 0;
-    margin-top: 5px;
-    padding-left: 10px;
-    font-size: 125%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.flexContainer{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-#box1{
-    width: 50%;
-    background-color: var(--tea-green);
-    padding-bottom: 200px;
-    margin-right: 10px;
-    border-radius: 10px;
-}
-
-#mainRecipeDescription > p{
-    padding-left: 10px;
-    font-size: 125%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#mainRecipeIngredients{
-    background-color: var(--tea-green);
-    border-radius: 10px;
-    padding-bottom: 200px;
-    width: 50%;
-}
-
-.mainRecipeIngredientItem{
-    background-color: var(--olive);
-    opacity: 75%;
-    border-radius: 10px;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding-top: 0px;
-}
-
-.mainRecipeIngredientItem > p{
-    padding-left: 10px;
-    padding-top: 5px;
-    margin: 0;
-    margin-top: 10px;
-    padding-bottom: 5px;
-    font-size: 125%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.recipeIngredients{
-
-}
-
-#mainRecipeInstructions{
-    background-color: var(--tea-green);
-    border-radius: 10px;
-    padding-bottom: 230px;
-    padding-top: 2px;
-    margin-top: 10px;
-}
-
-.recipeInstructions{
-    background-color: var(--olive);
-    margin-right: 20px;
-    margin-left: 20px;
-    border-radius: 10px;
-    margin-top: 15px;
-}
-
-.recipeInstructions > p{
-    padding-left: 10px;
-    padding-top: 10px;
-    margin: 0;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    font-size: 130%;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.instructionStep {
-    font-weight: bold;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-left: 10px;
-}
-
-.recipeTime{
-    text-align: center;
-    margin-top: -50px;
-    margin-left: -140px;
-}
-
-#mainRecipeCal{
-    text-align: center;
-    margin-top: -33px;
-    margin-left: 55px;
-}
-
-.options{
-    padding-left: 70%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    display: flex;
-    background-color: var(--tea-green);
-    border-radius: 10px;
-}
-
-.options > button {
-    font-size: 15px;
-}
-
+/* ---------- Sidebar (Bookmarks) ---------- */
 #bookmarkBar {
-    width: 19%;
-    position: sticky;
-    z-index: 1;
-    overflow-x: hidden;
-    transition: 0.5s;
-    background-color: var(--olive);
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 20px;
-    height: 98vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-#bookmarkBar::-webkit-scrollbar {
-    display: none;
-}
-
-.recipeBody {
-    max-height: 82vh;
-    overflow-y: scroll;
-}
-
-.recipeBody::-webkit-scrollbar {
-    display: none;
-}
-
-.mainRecipePage {
-    width: 80%;
-    padding-left: 0.6%;
-    transition: 0.5s;
-    display: inline-block;
-}
-
-#bookmarkBar > h2 {
-    position: absolute;
-}
-
-#bookmarkBar > p {
-    cursor: pointer;
-}
-
-#openBookmarkBar {
-    background-color: var(--olive);
-    border-radius: 10px;
-    cursor: pointer;
+    position: relative;
+    width: 100%;
+    /* fill the grid column */
+    max-height: calc(100svh - 2rem);
+    padding: 2.25rem .75rem .75rem;
+    /* room for title + Close */
+    background: var(--olive);
+    /* ✅ background color */
     border: 1.5px solid rgb(36, 36, 36);
-    margin-left: 130px;
+    /* ✅ outline / highlight */
+    border-radius: 20px;
+    /* ✅ rounded corners */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+    overflow: auto;
 }
 
-#openBookmarkBar:active {
-    background-color: var(--very-dark-olive);
+#wholePage:not(.sidebar-open) #bookmarkBar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-8px);
 }
 
+#bookmarkBar>h2 {
+    position: absolute;
+    top: .6rem;
+    left: .75rem;
+    margin: 0;
+}
 
 #closeBtn {
-    padding-left: 80%;
-    padding-top: -300px;
-    font-size: 150%;
-    top: 0;
-}
-
-#saveRecipeButton {
-    background-color: var(--olive);
-    border-radius: 10px;
+    position: absolute;
+    top: .6rem;
+    right: .75rem;
+    margin: 0;
+    padding: .15rem .45rem;
     cursor: pointer;
-    border: 1.5px solid rgb(36, 36, 36);
-    margin-left: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
 }
 
-#saveRecipeButton:active {
-    background-color: var(--very-dark-olive);
+#closeBtn:hover {
+    color: red;
 }
 
-#openSettingsButton {
-    background-color: var(--olive);
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1.5px solid rgb(36, 36, 36);
-    margin-left: 15px;
-}
-
-#openSettingsButton:active {
-    background-color: var(--very-dark-olive);
+/* Saved recipes in sidebar */
+.bookmarkRecipe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .25rem 0;
 }
 
 .savedRecipe {
-    text-align: center;
-    padding-right: 30px;
-    font-size: 160%;
-    color: black;
+    margin: 0;
+    font-size: 1.1rem;
+    color: #000;
+    cursor: pointer;
 }
 
-#wholePage {
-    display: flex;
-}
-
-
-
-#settingsCloseButton {
-    float: right;
-    position: sticky;
-    top: 8px;
-    right: 10px;
-    font-size: 20px;
-    color: var(--dark-gray);
-    background: none;
+.deleteBookmark {
+    background: transparent;
     border: none;
+    color: #000;
+    font-size: 1.25rem;
 }
 
-#settingsCloseButton:hover {
+.deleteBookmark:hover {
     color: red;
 }
 
-.allergenItem{
-    margin-bottom: 2%;
-    max-width: 75%;
+/* ---------- Main column ---------- */
+.mainRecipePage {
+    width: 100% !important;
+    /* neutralize any inline widths from older JS */
+    min-width: 0;
+    min-height: 0;
 }
 
-.restrictionItem{
-    margin-bottom: 2%;
-    max-width: 75%;
-}
-
-.kitchenItem{
-    margin-bottom: 2%;
-    max-width: 75%;
-}
-
-.bookmarkRecipe{
+/* Top options bar */
+.options {
     display: flex;
     align-items: center;
-    margin-right: 10%;
-    
+    justify-content: flex-end;
+    gap: .5rem;
+    padding: .75rem;
+    background: var(--tea-green);
+    border-radius: 10px;
 }
 
-.deleteBookmark{
-    background-color: var(--olive);
-    font-size: 150%;
-    border: none;
+#openBookmarkBar,
+#saveRecipeButton,
+#openSettingsButton {
+    background: var(--olive);
 }
 
-.deleteBookmark:hover{
-    color: red;
-}
-
-
-#mainRecipeName{
-
-}
-
-#ingredientsContainer {
-
-}
-
-#loadingDiv{
-    text-align: center;
-    align-content: center;
-    font-size: 40px;
-    background-color: var(--olive);
-    opacity: 70%;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: -10px;
-    border-radius: 20px;
-    z-index: 5;
-    position: fixed;
-    top: 50%;
-    left: 53%;
-    display: none;
-}
-
-#settings{
-    display:none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3%;
-    padding: 1%;
-    width: 70%;
-    height: 60%;
-    background-color: var(--dark-olive);
-    position: fixed;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    z-index: 4;
-}
-
-.settingsSidebar{
-    width: 19%;
-    position: sticky;
-    z-index: 1;
-    overflow-x: hidden;
+/* Search row */
+.textboxDiv {
+    width: min(900px, 100%);
+    margin: 1rem auto;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    padding-top: 2.5%;
-    padding-right: 2%;
-    border-right: 2px solid var(--dark-brown);
+    gap: .5rem;
+    align-items: center;
 }
 
-.userPreferences{
-    width: 80%;
-    padding-left: 2%;
-    display: inline-block;
-    overflow-y: scroll;
-    word-wrap: break-word;
+.textboxDiv>input {
+    flex: 1;
+    font-size: 1rem;
 }
 
-.userPreferences::-webkit-scrollbar {
-    display: none;
+.textboxDiv>button {
+    margin: 0;
+    padding: .7rem 1rem;
+    border-radius: 12px;
 }
 
-.kitchenRestrictions{
-    width: 80%;
-    padding-left: 2%;
-    display: none;
-    overflow-y: scroll;
-
-    word-wrap: break-word;
+/* ---------- Recipe area ---------- */
+.recipeBody {
+    background: transparent;
+    max-height: calc(100svh - 260px);
+    /* fits under top bars; adjust if needed */
+    overflow-y: auto;
+    padding-bottom: .5rem;
+    min-height: 0;
 }
 
-.kitchenRestrictions::-webkit-scrollbar {
-    display: none;
+#mainRecipeName {
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 5rem);
+    margin: .25rem 0 .5rem;
 }
 
-.sidebarButton{
-    margin-bottom: 5%;
+#mainRecipeName>h1 {
+    color: #000;
 }
 
-#restrictionsPrompt {
-    display: none;
+#mainRecipeTime p {
+    margin: 0;
+    text-align: center;
 }
 
+/* Nutrition becomes a wrapping grid */
+#mainRecipeNutrition {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: .5rem;
+    margin: .5rem 0;
+}
 
+.nutritionItem {
+    background: var(--olive);
+    border-radius: 10px;
+    padding: .4rem .5rem .6rem;
+    text-align: center;
+}
 
+.nutritionItem>h5 {
+    margin: .4rem 0 .25rem;
+    font-size: 1.05rem;
+}
 
+.nutritionItem>p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Two-column content: Description + Ingredients */
+.flexContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .625rem;
+    margin-top: .625rem;
+}
+
+#box1,
+#mainRecipeIngredients {
+    background: var(--tea-green);
+    border-radius: 10px;
+    padding: .5rem .5rem 1rem;
+}
+
+#mainRecipeDescription>p,
+.mainRecipeIngredientItem>p,
+.recipeInstructions>p {
+    font-size: clamp(1rem, 1vw + .75rem, 1.25rem);
+    margin: .5rem .5rem;
+}
+
+.mainRecipeIngredientItem {
+    background: var(--olive);
+    opacity: .85;
+    border-radius: 10px;
+    margin: .5rem;
+    padding: .25rem .5rem;
+}
+
+/* Instructions block */
+#mainRecipeInstructions {
+    background: var(--tea-green);
+    border-radius: 10px;
+    padding: .5rem 0 1rem;
+    margin-top: .625rem;
+}
+
+.recipeInstructions {
+    background: var(--olive);
+    border-radius: 10px;
+    margin: .75rem 1rem;
+    padding: .25rem .5rem .6rem;
+}
+
+.instructionStep {
+    font-weight: 700;
+    padding-left: .5rem;
+    margin: .5rem 0 0;
+}
+
+/* Optional time/calorie positioning (kept simple & centered) */
+.recipeTime,
+#mainRecipeCal {
+    text-align: center;
+}
+
+/* ---------- Recipe options (cards grid) ---------- */
 .recipeOptions {
-    display: none; /* shown when we have options */
+    display: none;
+    /* shown by JS when options arrive */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 12px;
     margin-top: 12px;
-    max-height: 82vh;
+    width: 100%;
+    max-height: calc(100svh - 260px);
     overflow-y: auto;
 }
 
 .recipeCard {
-    background-color: var(--tea-green);
-    border-radius: 12px;
-    padding: 12px;
-    border: 1.5px solid rgb(36, 36, 36);
+    background: var(--tea-green);
+    border-radius: var(--radius);
+    border: var(--border);
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 12px;
 }
 
 .recipeCard h3 {
-    margin: 0 0 4px 0;
-    color: black;
+    margin: 0 0 4px;
+    color: #000;
 }
 
 .recipeCardTime {
     margin: 0;
-    font-size: 90%;
-    opacity: 0.9;
+    font-size: .95rem;
+    opacity: .9;
 }
 
 .recipeCardDesc {
@@ -503,13 +354,161 @@ body {
 
 .recipeCardButton {
     align-self: flex-start;
-    background-color: var(--olive);
-    border: 1.5px solid rgb(36,36,36);
+    background: var(--olive);
+    border: var(--border);
     border-radius: 8px;
-    padding: 6px 10px;
-    cursor: pointer;
+    padding: .45rem .7rem;
 }
 
-.recipeCardButton:active {
-    background-color: var(--very-dark-olive);
+/* ---------- Loading overlay ---------- */
+#loadingDiv {
+    position: fixed;
+    inset: 0;
+    display: none;
+    /* toggled by JS */
+    place-items: center;
+    background: rgba(0, 0, 0, .1);
+    z-index: 5;
+}
+
+#loadingDiv>p {
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw + 1rem, 2rem);
+    background: var(--olive);
+    color: #000;
+    border-radius: 20px;
+    padding: .6rem 1rem;
+    border: var(--border);
+}
+
+/* ---------- Settings modal ---------- */
+#settings {
+    display: none;
+    /* toggled by JS */
+    position: fixed;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    width: min(980px, 90vw);
+    height: min(70vh, 90svh);
+    background: var(--dark-olive);
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 10;
+    border: var(--border);
+    color: #000;
+}
+
+/* Sidebar inside settings */
+.settingsSidebar {
+    width: 240px;
+    min-width: 200px;
+    border-right: 2px solid var(--dark-brown);
+    padding: 1rem .75rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    height: 100%;
+    overflow: auto;
+    float: left;
+    background: rgba(255, 255, 255, .15);
+}
+
+.sidebarButton {
+    background: var(--olive);
+    border: var(--border);
+    border-radius: 10px;
+    padding: .6rem .8rem;
+}
+
+/* Panels */
+.userPreferences,
+.kitchenRestrictions {
+    width: calc(100% - 240px);
+    height: 100%;
+    padding: .75rem 1rem;
+    overflow-y: auto;
+    float: right;
+    background: rgba(255, 255, 255, .2);
+}
+
+#settingsCloseButton {
+    position: sticky;
+    top: 8px;
+    float: right;
+    border: none;
+    background: none;
+    color: #111;
+    font-size: 1.2rem;
+}
+
+#settingsCloseButton:hover {
+    color: red;
+}
+
+/* Lists inside settings */
+.allergenItem,
+.restrictionItem,
+.kitchenItem {
+    margin-bottom: .5rem;
+    max-width: 48ch;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+#otherRestrictionBox,
+#otherAllergenBox,
+#otherKitchenBox {
+    margin: .75rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* ---------- Misc/legacy IDs (kept functional) ---------- */
+#restrictionsPrompt {
+    display: none;
+}
+
+/* matches original behavior */
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 1000px) {
+
+    /* Sidebar uses exact width set by JS; main stays fluid */
+    #bookmarkBar {
+        max-width: 22rem;
+    }
+}
+
+@media (max-width: 900px) {
+
+    /* Stack description/ingredients */
+    .flexContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .options {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #mainRecipeName {
+        font-size: clamp(1.75rem, 8vw, 3rem);
+    }
+
+    .recipeBody {
+        max-height: calc(100svh - 320px);
+    }
+
+    .settingsSidebar {
+        width: 200px;
+    }
+
+    .userPreferences,
+    .kitchenRestrictions {
+        width: calc(100% - 200px);
+    }
 }
