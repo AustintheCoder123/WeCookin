@@ -303,10 +303,12 @@ function checkDuplicateBookmarks(recipe) {
 
 function openBookmark() {
     document.getElementById("wholePage").classList.add("sidebar-open");
+    document.getElementById("openBookmarkBar").style.display = "none";
 }
 
 function closeBookmark() {
     document.getElementById("wholePage").classList.remove("sidebar-open");
+    document.getElementById("openBookmarkBar").style.display = "flex";
 }
 
 function openSettings() {

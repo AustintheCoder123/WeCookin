@@ -174,10 +174,14 @@ input {
     border-radius: 10px;
 }
 
-#openBookmarkBar,
+#openBookmarkBar
 #saveRecipeButton,
 #openSettingsButton {
     background: var(--olive);
+}
+
+#openBookmarkBar{
+    margin-right: auto;
 }
 
 /* Search row */
