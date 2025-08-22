@@ -18,20 +18,13 @@ class API:
         self.kitchenLocation = "storage/kitchenRestrictions.json"
         self.processingRequest = False
 
-    def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
+    def create_recipe_once(self, user_preferences, prompt, kitchen_restrictions):
         print(prompt)
         print(type(prompt))
         
         if prompt == "":
-            print("canceling request")
-            return
-        
-        
-        if self.processingRequest:
             return
 
-
-        self.processingRequest = True
 
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
@@ -171,6 +164,41 @@ class API:
         self.processingRequest = False
 
         return recipe_dict
+    
+    #Error checking for main func so nothing goes wrong
+    def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
+        if(self.processingRequest):
+            return
+        self.processingRequest = True
+        
+        try:
+            return self._generate_recipe_once(user_preferences, prompt, kitchen_restrictions)
+        finally:
+            self.processingRequest = False
+        
+    
+    def create_recipe_options(self, user_preferences, prompt, kitchen_restrictions, amount):
+        if self.processingRequest:
+            return
+        
+        self.processingRequest = True
+        try:
+            options = []
+            seen_names = set()
+            for i in range(i, amount):
+                twist = f" (Create a distinct variation #{i+1}; vary the cuisine and primary protein/technique from previous options.)"
+                candidate = self.create_recipe(user_preferences, prompt+ twist, kitchen_restrictions)
+                if not candidate:
+                    continue
+                name = candidate.get("name", "").strip()
+                if name and name not in seen_names:
+                    options.append(candidate)
+                    seen_names.add(name)
+            return options
+        finally:
+            self.processingRequest = False
+        
+        
     
     @staticmethod
     def save_json(location, item):

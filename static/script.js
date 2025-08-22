@@ -24,13 +24,14 @@ async function createRecipe() {
 
     document.getElementById("loadingDiv").style.display = "block";
 
-    recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe, kitchenRestrictions);
+    let options;
 
     document.getElementById("loadingDiv").style.display = "none";
-
-    window.currentRecipe = recipe;
-    setRecipe(recipe);
     createButton.disabled = false;
+
+
+    window.recipeOptions = options;
+    setRecipe(recipe);
 }
 
 function showRecipeOptions(options) {
