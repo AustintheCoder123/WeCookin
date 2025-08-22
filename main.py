@@ -161,8 +161,6 @@ class API:
             "instructions": response.instructions
         }
 
-        self.processingRequest = False
-
         return recipe_dict
     
     #Error checking for main func so nothing goes wrong
@@ -172,31 +170,45 @@ class API:
         self.processingRequest = True
         
         try:
-            return self._generate_recipe_once(user_preferences, prompt, kitchen_restrictions)
+            return self.create_recipe_once(user_preferences, prompt, kitchen_restrictions)
         finally:
             self.processingRequest = False
         
     
     def create_recipe_options(self, user_preferences, prompt, kitchen_restrictions, amount):
         if self.processingRequest:
-            return
-        
+            return []  # return a list so JS doesn't break
+
         self.processingRequest = True
         try:
+            try:
+                count = max(1, int(amount))
+            except Exception:
+                count = 3
+
             options = []
             seen_names = set()
-            for i in range(i, amount):
-                twist = f" (Create a distinct variation #{i+1}; vary the cuisine and primary protein/technique from previous options.)"
-                candidate = self.create_recipe(user_preferences, prompt+ twist, kitchen_restrictions)
+            for idx in range(count):
+                twist = (
+                    f" (Create a distinct variation #{idx+1}; "
+                    f"vary the cuisine and primary protein/technique from previous options.)"
+                )
+                candidate = self.create_recipe_once(user_preferences, prompt + twist, kitchen_restrictions)
                 if not candidate:
                     continue
-                name = candidate.get("name", "").strip()
-                if name and name not in seen_names:
-                    options.append(candidate)
+
+                name = (candidate.get("name") or "").strip()
+                if name in seen_names:
+                    candidate["name"] = f"{name} (Option {idx+1})"
+                else:
                     seen_names.add(name)
+
+                options.append(candidate)
+
             return options
         finally:
             self.processingRequest = False
+
         
         
     

@@ -32,7 +32,7 @@ async function createRecipe() {
     if (!options || !Array.isArray(options) || options.length === 0) return;
 
     window.recipeOptions = options;
-    showRecipeOptions(recipe);
+    showRecipeOptions(options);
 }
 
 function showRecipeOptions(options) {
