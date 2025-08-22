@@ -2,6 +2,7 @@ window.currentRecipe;
 window.recipeDict = {};
 window.settingsDict = {};
 window.kitchenPrefsDict = {};
+window.recipeOptions = [];
 
 
 async function createRecipe() {
@@ -31,6 +32,60 @@ async function createRecipe() {
     setRecipe(recipe);
     createButton.disabled = false;
 }
+
+function showRecipeOptions(options) {
+    const grid = document.getElementById("recipeOptions");
+    grid.innerHTML = "";
+    grid.style.display = "grid";
+
+    // Hide the detailed recipe view until user picks one
+    const body = document.querySelector(".recipeBody");
+    if (body) body.style.display = "none";
+
+    options.forEach((r, idx) => {
+        const card = document.createElement("div");
+        card.className = "recipeCard";
+
+        const title = document.createElement("h3");
+        title.textContent = r.name || `Option ${idx + 1}`;
+
+        const time = document.createElement("p");
+        time.className = "recipeCardTime";
+        time.textContent = r.time ? `Time: ${r.time}` : "";
+
+        const desc = document.createElement("p");
+        desc.className = "recipeCardDesc";
+        desc.textContent = r.desc || "";
+
+        const btn = document.createElement("button");
+        btn.className = "recipeCardButton";
+        btn.textContent = "View recipe";
+        btn.addEventListener("click", () => selectRecipe(idx));
+
+        card.appendChild(title);
+        card.appendChild(time);
+        card.appendChild(desc);
+        card.appendChild(btn);
+        grid.appendChild(card);
+    });
+}
+
+function selectRecipe(index) {
+    const chosen = window.recipeOptions[index];
+    if (!chosen) return;
+
+    // Show detailed recipe view
+    const body = document.querySelector(".recipeBody");
+    if (body) body.style.display = "block";
+
+    // Hide the cards
+    const grid = document.getElementById("recipeOptions");
+    grid.style.display = "none";
+
+    window.currentRecipe = chosen;
+    setRecipe(chosen);
+}
+
 
 function saveRecipe() {
     if (typeof window.recipeDict == "undefined") {
