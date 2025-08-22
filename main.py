@@ -18,20 +18,13 @@ class API:
         self.kitchenLocation = "storage/kitchenRestrictions.json"
         self.processingRequest = False
 
-    def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
+    def create_recipe_once(self, user_preferences, prompt, kitchen_restrictions):
         print(prompt)
         print(type(prompt))
         
         if prompt == "":
-            print("canceling request")
-            return
-        
-        
-        if self.processingRequest:
             return
 
-
-        self.processingRequest = True
 
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
         
@@ -168,9 +161,56 @@ class API:
             "instructions": response.instructions
         }
 
-        self.processingRequest = False
-
         return recipe_dict
+    
+    #Error checking for main func so nothing goes wrong
+    def create_recipe(self, user_preferences, prompt, kitchen_restrictions):
+        if(self.processingRequest):
+            return
+        self.processingRequest = True
+        
+        try:
+            return self.create_recipe_once(user_preferences, prompt, kitchen_restrictions)
+        finally:
+            self.processingRequest = False
+        
+    
+    def create_recipe_options(self, user_preferences, prompt, kitchen_restrictions, amount):
+        if self.processingRequest:
+            return []  # return a list so JS doesn't break
+
+        self.processingRequest = True
+        try:
+            try:
+                count = max(1, int(amount))
+            except Exception:
+                count = 3
+
+            options = []
+            seen_names = set()
+            for idx in range(count):
+                twist = (
+                    f" (Create a distinct variation #{idx+1}; "
+                    f"vary the cuisine and primary protein/technique from previous options.)"
+                )
+                candidate = self.create_recipe_once(user_preferences, prompt + twist, kitchen_restrictions)
+                if not candidate:
+                    continue
+
+                name = (candidate.get("name") or "").strip()
+                if name in seen_names:
+                    candidate["name"] = f"{name} (Option {idx+1})"
+                else:
+                    seen_names.add(name)
+
+                options.append(candidate)
+
+            return options
+        finally:
+            self.processingRequest = False
+
+        
+        
     
     @staticmethod
     def save_json(location, item):
