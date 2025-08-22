@@ -2,10 +2,13 @@
 <html lang="en">
 <link rel="stylesheet" href="../static/style.css">
 <link rel="stylesheet" href="style.css">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 </head>
+
 <body>
     <div class="popup" id="settings">
 
@@ -113,7 +116,7 @@
     </div>
 
     <div id="wholePage">
-<!-- div for bookmark bar -->
+        <!-- div for bookmark bar -->
         <div id="bookmarkBar">
             <h2>Bookmarks</h2>
             <p onclick="closeBookmark()" id="closeBtn">Close</p>
@@ -136,22 +139,24 @@
             </div>
 
             <!-- This div holds all the things related to the main recipe -->
+            <div id="recipeOptions" class="recipeOptions"></div>
+
             <div class="recipeBody">
 
-                <div id = "mainRecipeName">
-                        <h1>WeCookin</h1>
+                <div id="mainRecipeName">
+                    <h1>WeCookin</h1>
                 </div>
 
                 <div id="mainRecipeTime">
                     <p></p>
                 </div>
 
-            <!-- All divs related to the recipe body have been moved to be generated in setRecipe() -->
+                <!-- All divs related to the recipe body have been moved to be generated in setRecipe() -->
             </div>
 
             <!-- the div for the search bar and send button -->
             <div class="textboxDiv">
-                <input id="foodPrompt" placeholder="Start making recipes!" >
+                <input id="foodPrompt" placeholder="Start making recipes!">
                 <button id="createRecipeButton" onclick="createRecipe()">↑</button>
             </div>
         </div>
@@ -159,4 +164,5 @@
 
     <script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>

@@ -2,6 +2,7 @@ window.currentRecipe;
 window.recipeDict = {};
 window.settingsDict = {};
 window.kitchenPrefsDict = {};
+window.recipeOptions = [];
 
 
 async function createRecipe() {
@@ -23,14 +24,70 @@ async function createRecipe() {
 
     document.getElementById("loadingDiv").style.display = "block";
 
-    recipe = await pywebview.api.create_recipe(combinedRestrictions, foodRecipe, kitchenRestrictions);
+    let options = await pywebview.api.create_recipe_options(combinedRestrictions, foodRecipe, kitchenRestrictions, 3);
 
     document.getElementById("loadingDiv").style.display = "none";
-
-    window.currentRecipe = recipe;
-    setRecipe(recipe);
     createButton.disabled = false;
+
+    if (!options || !Array.isArray(options) || options.length === 0) return;
+
+    window.recipeOptions = options;
+    showRecipeOptions(options);
 }
+
+function showRecipeOptions(options) {
+    const grid = document.getElementById("recipeOptions");
+    grid.innerHTML = "";
+    grid.style.display = "grid";
+
+    // Hide the detailed recipe view until user picks one
+    const body = document.querySelector(".recipeBody");
+    if (body) body.style.display = "none";
+
+    options.forEach((r, idx) => {
+        const card = document.createElement("div");
+        card.className = "recipeCard";
+
+        const title = document.createElement("h3");
+        title.textContent = r.name || `Option ${idx + 1}`;
+
+        const time = document.createElement("p");
+        time.className = "recipeCardTime";
+        time.textContent = r.time ? `Time: ${r.time}` : "";
+
+        const desc = document.createElement("p");
+        desc.className = "recipeCardDesc";
+        desc.textContent = r.desc || "";
+
+        const btn = document.createElement("button");
+        btn.className = "recipeCardButton";
+        btn.textContent = "View recipe";
+        btn.addEventListener("click", () => selectRecipe(idx));
+
+        card.appendChild(title);
+        card.appendChild(time);
+        card.appendChild(desc);
+        card.appendChild(btn);
+        grid.appendChild(card);
+    });
+}
+
+function selectRecipe(index) {
+    const chosen = window.recipeOptions[index];
+    if (!chosen) return;
+
+    // Show detailed recipe view
+    const body = document.querySelector(".recipeBody");
+    if (body) body.style.display = "block";
+
+    // Hide the cards
+    const grid = document.getElementById("recipeOptions");
+    grid.style.display = "none";
+
+    window.currentRecipe = chosen;
+    setRecipe(chosen);
+}
+
 
 function saveRecipe() {
     if (typeof window.recipeDict == "undefined") {
@@ -50,7 +107,7 @@ function setRecipe(displayRecipe) {
 
         console.log(document.getElementById("mainRecipeName"));
         document.getElementById("mainRecipeName").appendChild(placeholder); // Lines 51-52 are to avoid a reading null error
-        for (let i = 0; i < clear.length; i++){
+        for (let i = 0; i < clear.length; i++) {
             while (clear[i].lastElementChild) {
                 clear[i].removeChild(clear[i].lastElementChild);
             }
@@ -60,18 +117,18 @@ function setRecipe(displayRecipe) {
         let mainRecipeName = document.createElement("div");
         mainRecipeName.id = "mainRecipeName";
         let addToRecipeBody = document.getElementsByClassName("recipeBody");
-        for (let i=0; i < addToRecipeBody.length; i++){
+        for (let i = 0; i < addToRecipeBody.length; i++) {
             addToRecipeBody[i].appendChild(mainRecipeName);
         }
 
         document.getElementById("mainRecipeName").textContent = displayRecipe.name;
         console.log(document.getElementById("mainRecipeName"));
-        
+
 
         // NUTRITION INFORMATION
         let mainRecipeNutrition = document.createElement("div");
         mainRecipeNutrition.id = "mainRecipeNutrition";
-        for (let i=0; i < addToRecipeBody.length; i++){
+        for (let i = 0; i < addToRecipeBody.length; i++) {
             addToRecipeBody[i].appendChild(mainRecipeNutrition);
         }
 
@@ -91,14 +148,14 @@ function setRecipe(displayRecipe) {
 
         let flexContainer = document.createElement("div");
         flexContainer.className = "flexContainer";
-        for (let i=0; i < addToRecipeBody.length; i++){
+        for (let i = 0; i < addToRecipeBody.length; i++) {
             addToRecipeBody[i].appendChild(flexContainer);
         }
 
         let box1 = document.createElement("div");
         box1.id = "box1";
         let addFlexContainer = document.getElementsByClassName("flexContainer");
-        for (let i=0; i < addFlexContainer.length; i++){
+        for (let i = 0; i < addFlexContainer.length; i++) {
             addFlexContainer[i].appendChild(box1);
         }
         let mainRecipeDescription = document.createElement("div");
@@ -107,7 +164,7 @@ function setRecipe(displayRecipe) {
 
         let mainRecipeIngredients = document.createElement("div");
         mainRecipeIngredients.id = "mainRecipeIngredients";
-        for (let i=0; i < addFlexContainer.length; i++){
+        for (let i = 0; i < addFlexContainer.length; i++) {
             addFlexContainer[i].appendChild(mainRecipeIngredients);
         }
 
@@ -119,7 +176,7 @@ function setRecipe(displayRecipe) {
         }
         description.innerText = displayRecipe.desc;
         mainRecipeDescription.appendChild(description)
-        
+
         // INGREDIENTS
         document.getElementById("mainRecipeIngredients").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeIngredients").lastElementChild) {
@@ -128,14 +185,14 @@ function setRecipe(displayRecipe) {
         for (let ingredient = 0; ingredient < displayRecipe.ingredients.length; ingredient++) {
             createIngredients(displayRecipe.ingredients[ingredient]);
         }
-        
+
         // INSTRUCTIONS
         let mainRecipeInstructions = document.createElement("div");
         mainRecipeInstructions.id = "mainRecipeInstructions";
-        for (let i=0; i < addToRecipeBody.length; i++){
+        for (let i = 0; i < addToRecipeBody.length; i++) {
             addToRecipeBody[i].appendChild(mainRecipeInstructions);
         }
-        
+
         document.getElementById("mainRecipeInstructions").appendChild(avoidError); //This is just a line of code so that the next line doesn't return an error
         while (document.getElementById("mainRecipeInstructions").lastElementChild) {
             document.getElementById("mainRecipeInstructions").removeChild(document.getElementById("mainRecipeInstructions").lastElementChild);
@@ -154,31 +211,31 @@ function createNutrientItem(nutrient, value) {
     nutritionHead.innerText = nutrient + ": ";
     nutritionText.innerText = value;
     nutritionDiv.className = "nutritionItem";
-    
+
 
     document.getElementById("mainRecipeNutrition").appendChild(nutritionDiv);
     nutritionDiv.appendChild(nutritionHead);
     nutritionDiv.appendChild(nutritionText);
 }
 
- function createInstructions(instruction, index){
-        let instructionDiv = document.createElement("div");
-        let instructionStep = document.createElement("h2");
-        let instructionText = document.createElement("p");
+function createInstructions(instruction, index) {
+    let instructionDiv = document.createElement("div");
+    let instructionStep = document.createElement("h2");
+    let instructionText = document.createElement("p");
 
-        instructionDiv.className = "recipeInstructions"
-        instructionDiv.className = "recipeInstructions";
-        instructionStep.className = "instructionStep";
+    instructionDiv.className = "recipeInstructions"
+    instructionDiv.className = "recipeInstructions";
+    instructionStep.className = "instructionStep";
 
-        index++;
-        instructionStep.innerText = "Step " + index;
-        instructionDiv.appendChild(instructionStep);
+    index++;
+    instructionStep.innerText = "Step " + index;
+    instructionDiv.appendChild(instructionStep);
 
-        instructionText.innerText = instruction;
-        instructionDiv.appendChild(instructionText);
+    instructionText.innerText = instruction;
+    instructionDiv.appendChild(instructionText);
 
-        document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
-    }
+    document.getElementById("mainRecipeInstructions").appendChild(instructionDiv);
+}
 
 function createIngredients(ingredient) {
     let ingredientDiv = document.createElement("div");
@@ -245,15 +302,11 @@ function checkDuplicateBookmarks(recipe) {
 }
 
 function openBookmark() {
-    document.getElementById("bookmarkBar").style.width = "19%";
-    document.getElementById("mainRecipePage").style.width = "80%";
-    document.getElementById("options").style.paddingLeft = "70%";
+    document.getElementById("wholePage").classList.add("sidebar-open");
 }
 
 function closeBookmark() {
-    document.getElementById("bookmarkBar").style.width = "0";
-    document.getElementById("mainRecipePage").style.width = "100%";
-    document.getElementById("options").style.paddingLeft = "74%";
+    document.getElementById("wholePage").classList.remove("sidebar-open");
 }
 
 function openSettings() {
@@ -360,35 +413,35 @@ function loadRestrictions() {
     temp = 0;
 }
 
-function switchUserPrefs(){
+function switchUserPrefs() {
     let userPrefs = document.getElementById("userPrefs");
     let kitchenPrefs = document.getElementById("kitchenPrefs");
-    
-    if(userPrefs.style.display == "none"){
+
+    if (userPrefs.style.display == "none") {
         userPrefs.style.display = "inline-block";
         kitchenPrefs.style.display = "none";
     }
-    else if(kitchenPrefs.style.display != "none"){
+    else if (kitchenPrefs.style.display != "none") {
         userPrefs.style.display = "none";
     }
 }
 
 
 
-function switchKitchenPrefs(){
+function switchKitchenPrefs() {
     let userPrefs = document.getElementById("userPrefs");
     let kitchenPrefs = document.getElementById("kitchenPrefs");
-    
-    if(kitchenPrefs.style.display == "none"){
+
+    if (kitchenPrefs.style.display == "none") {
         kitchenPrefs.style.display = "inline-block";
         userPrefs.style.display = "none";
     }
-    else if(userPrefs.style.display != "none"){
+    else if (userPrefs.style.display != "none") {
         kitchenPrefs.style.display = "none";
     }
 }
 
-function loadKitchenPrefs(){
+function loadKitchenPrefs() {
     let restrictionList = kitchenPrefsDict["restrictions"].split(", ");
     let buttonsInDiv = document.getElementById("kitchenPrefs").querySelectorAll("input");
 
@@ -404,7 +457,7 @@ function loadKitchenPrefs(){
     temp = 0;
 }
 
-function setKitchenPrefs(){
+function setKitchenPrefs() {
     let buttonsInDiv = document.getElementById("kitchenPrefs").querySelectorAll("input");
     let restrictionsList = [];
 
