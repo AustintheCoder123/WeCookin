@@ -68,9 +68,7 @@ input {
     color: var(--umber);
 }
 
-/* ---------- Page layout (sidebar + main) ----------
-   Uses grid with first column sized by sidebar width.
-   Your JS sets #bookmarkBar.style.width to 0% or 19% — grid adapts automatically. */
+/* ---------- Page layout (sidebar + main) ----------*/
 #wholePage {
     --gap: 1rem;
     --sidebar-w: 0;
@@ -92,16 +90,11 @@ input {
 #bookmarkBar {
     position: relative;
     width: 100%;
-    /* fill the grid column */
     max-height: calc(100svh - 2rem);
     padding: 2.25rem .75rem .75rem;
-    /* room for title + Close */
     background: var(--olive);
-    /* ✅ background color */
     border: 1.5px solid rgb(36, 36, 36);
-    /* ✅ outline / highlight */
     border-radius: 20px;
-    /* ✅ rounded corners */
     box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
     overflow: auto;
 }
@@ -165,7 +158,7 @@ input {
 /* ---------- Main column ---------- */
 .mainRecipePage {
     width: 100% !important;
-    /* neutralize any inline widths from older JS */
+
     min-width: 0;
     min-height: 0;
 }
@@ -211,7 +204,6 @@ input {
 .recipeBody {
     background: transparent;
     max-height: calc(100svh - 260px);
-    /* fits under top bars; adjust if needed */
     overflow-y: auto;
     padding-bottom: .5rem;
     min-height: 0;
@@ -308,7 +300,6 @@ input {
     margin: .5rem 0 0;
 }
 
-/* Optional time/calorie positioning (kept simple & centered) */
 .recipeTime,
 #mainRecipeCal {
     text-align: center;
@@ -364,27 +355,31 @@ input {
 #loadingDiv {
     position: fixed;
     inset: 0;
-    display: none;
-    /* toggled by JS */
-    place-items: center;
-    background: rgba(0, 0, 0, .1);
     z-index: 5;
+    display: none;
+
+    background: rgba(0, 0, 0, .1);
 }
 
 #loadingDiv>p {
+    position: absolute;
+    top: 60vh;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0;
-    font-size: clamp(1.1rem, 2vw + 1rem, 2rem);
+
+
     background: var(--olive);
     color: #000;
+    border: 1.5px solid rgb(36, 36, 36);
     border-radius: 20px;
     padding: .6rem 1rem;
-    border: var(--border);
+    font-size: clamp(1.1rem, 2vw + 1rem, 2rem);
 }
 
 /* ---------- Settings modal ---------- */
 #settings {
     display: none;
-    /* toggled by JS */
     position: fixed;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
@@ -470,12 +465,10 @@ input {
     display: none;
 }
 
-/* matches original behavior */
+
 
 /* ---------- Responsive tweaks ---------- */
 @media (max-width: 1000px) {
-
-    /* Sidebar uses exact width set by JS; main stays fluid */
     #bookmarkBar {
         max-width: 22rem;
     }
@@ -483,7 +476,6 @@ input {
 
 @media (max-width: 900px) {
 
-    /* Stack description/ingredients */
     .flexContainer {
         grid-template-columns: 1fr;
     }
