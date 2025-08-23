@@ -7,14 +7,67 @@
     --chamoisee: #A98467;
     --umber: #6C584C;
     --dark-brown: #3d3028;
-    --white: #ffffff;
+    --white: #fff;
 
     --gap: 1rem;
     --radius: 12px;
     --border: 1.5px solid rgb(36, 36, 36);
 }
 
-/* ---------- Base/reset ---------- */
+/* ---------- Theme variants (set on <html>) ---------- */
+html.theme-green {
+    --parchment: #ebf0d2;
+    --tea-green: #DDE5B6;
+    --olive: #ADC178;
+    --dark-olive: rgb(158, 174, 111);
+    --very-dark-olive: #3A5A40;
+    --chamoisee: #A98467;
+    --umber: #6C584C;
+    --dark-brown: #3d3028;
+    --white: #fff;
+    --border: 1.5px solid rgb(36, 36, 36);
+}
+
+html.theme-dark-blue {
+    --parchment: #0d1b2a;
+    --tea-green: #1b263b;
+    --olive: #2d4a6a;
+    --dark-olive: #3e5e86;
+    --very-dark-olive: #0b1320;
+    --chamoisee: #243b53;
+    --umber: #9fb3c8;
+    --dark-brown: #e2e8f0;
+    --white: #fff;
+    --border: 1.5px solid #2b3b52;
+}
+
+html.theme-black {
+    --parchment: #0a0a0a;
+    --tea-green: #171717;
+    --olive: #2a2a2a;
+    --dark-olive: #3a3a3a;
+    --very-dark-olive: #111;
+    --chamoisee: #1f1f1f;
+    --umber: #9ca3af;
+    --dark-brown: #e5e7eb;
+    --white: #fff;
+    --border: 1.5px solid #3f3f46;
+}
+
+html.theme-white {
+    --parchment: #fff;
+    --tea-green: #f4f4f5;
+    --olive: #e5e7eb;
+    --dark-olive: #d4d4d8;
+    --very-dark-olive: #c7c7cc;
+    --chamoisee: #f3f4f6;
+    --umber: #6b7280;
+    --dark-brown: #111827;
+    --white: #fff;
+    --border: 1.5px solid #d1d5db;
+}
+
+/* ---------- Reset & typography ---------- */
 *,
 *::before,
 *::after {
@@ -29,10 +82,14 @@ body {
     margin: 0;
     background: var(--parchment);
     color: var(--dark-brown);
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Hide scrollbars for nicer look in scroll panes */
+:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
 .recipeBody::-webkit-scrollbar,
 #bookmarkBar::-webkit-scrollbar,
 .userPreferences::-webkit-scrollbar,
@@ -40,7 +97,14 @@ body {
     display: none;
 }
 
-/* ---------- Generic controls ---------- */
+.recipeBody,
+#bookmarkBar,
+.userPreferences,
+.kitchenRestrictions {
+    scrollbar-width: none;
+}
+
+/* ---------- Buttons / inputs ---------- */
 button {
     cursor: pointer;
     border: var(--border);
@@ -48,6 +112,7 @@ button {
     border-radius: 10px;
     padding: .6rem .9rem;
     font: inherit;
+    color: inherit;
 }
 
 button:active {
@@ -68,12 +133,10 @@ input {
     color: var(--umber);
 }
 
-/* ---------- Page layout (sidebar + main) ----------*/
+/* ---------- Page layout (sidebar + main) ---------- */
 #wholePage {
-    --gap: 1rem;
     --sidebar-w: 0;
     --sidebar-gap: 0;
-
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
     gap: var(--sidebar-gap);
@@ -86,17 +149,17 @@ input {
     --sidebar-gap: var(--gap);
 }
 
-/* ---------- Sidebar (Bookmarks) ---------- */
 #bookmarkBar {
     position: relative;
     width: 100%;
     max-height: calc(100svh - 2rem);
     padding: 2.25rem .75rem .75rem;
     background: var(--olive);
-    border: 1.5px solid rgb(36, 36, 36);
+    border: var(--border);
     border-radius: 20px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
     overflow: auto;
+    transition: opacity .25s ease, transform .25s ease;
 }
 
 #wholePage:not(.sidebar-open) #bookmarkBar {
@@ -118,17 +181,16 @@ input {
     right: .75rem;
     margin: 0;
     padding: .15rem .45rem;
-    cursor: pointer;
     background: transparent;
     border: none;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 #closeBtn:hover {
     color: red;
 }
 
-/* Saved recipes in sidebar */
 .bookmarkRecipe {
     display: flex;
     align-items: center;
@@ -158,12 +220,10 @@ input {
 /* ---------- Main column ---------- */
 .mainRecipePage {
     width: 100% !important;
-
     min-width: 0;
     min-height: 0;
 }
 
-/* Top options bar */
 .options {
     display: flex;
     align-items: center;
@@ -174,17 +234,16 @@ input {
     border-radius: 10px;
 }
 
-#openBookmarkBar
+#openBookmarkBar,
 #saveRecipeButton,
 #openSettingsButton {
     background: var(--olive);
 }
 
-#openBookmarkBar{
+#openBookmarkBar {
     margin-right: auto;
 }
 
-/* Search row */
 .textboxDiv {
     width: min(900px, 100%);
     margin: 1rem auto;
@@ -228,7 +287,6 @@ input {
     text-align: center;
 }
 
-/* Nutrition becomes a wrapping grid */
 #mainRecipeNutrition {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -253,7 +311,6 @@ input {
     font-size: 1rem;
 }
 
-/* Two-column content: Description + Ingredients */
 .flexContainer {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -272,7 +329,7 @@ input {
 .mainRecipeIngredientItem>p,
 .recipeInstructions>p {
     font-size: clamp(1rem, 1vw + .75rem, 1.25rem);
-    margin: .5rem .5rem;
+    margin: .5rem;
 }
 
 .mainRecipeIngredientItem {
@@ -283,7 +340,6 @@ input {
     padding: .25rem .5rem;
 }
 
-/* Instructions block */
 #mainRecipeInstructions {
     background: var(--tea-green);
     border-radius: 10px;
@@ -304,15 +360,9 @@ input {
     margin: .5rem 0 0;
 }
 
-.recipeTime,
-#mainRecipeCal {
-    text-align: center;
-}
-
-/* ---------- Recipe options (cards grid) ---------- */
+/* ---------- Recipe options (cards) ---------- */
 .recipeOptions {
     display: none;
-    /* shown by JS when options arrive */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 12px;
     margin-top: 12px;
@@ -361,7 +411,6 @@ input {
     inset: 0;
     z-index: 5;
     display: none;
-
     background: rgba(0, 0, 0, .1);
 }
 
@@ -371,11 +420,9 @@ input {
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-
-
     background: var(--olive);
     color: #000;
-    border: 1.5px solid rgb(36, 36, 36);
+    border: var(--border);
     border-radius: 20px;
     padding: .6rem 1rem;
     font-size: clamp(1.1rem, 2vw + 1rem, 2rem);
@@ -394,21 +441,18 @@ input {
     overflow: hidden;
     z-index: 10;
     border: var(--border);
-    color: #000;
+    align-items: stretch;
 }
 
-/* Sidebar inside settings */
 .settingsSidebar {
-    width: 240px;
-    min-width: 200px;
+    flex: 0 0 240px;
+    max-width: 240px;
     border-right: 2px solid var(--dark-brown);
     padding: 1rem .75rem;
     display: flex;
     flex-direction: column;
     gap: .75rem;
-    height: 100%;
     overflow: auto;
-    float: left;
     background: rgba(255, 255, 255, .15);
 }
 
@@ -419,73 +463,100 @@ input {
     padding: .6rem .8rem;
 }
 
-/* Panels */
 .userPreferences,
-.kitchenRestrictions {
-    width: calc(100% - 240px);
-    height: 100%;
+.kitchenRestrictions,
+#themePrefs {
+    flex: 1 1 auto;
     padding: .75rem 1rem;
     overflow-y: auto;
-    float: right;
     background: rgba(255, 255, 255, .2);
 }
 
+.userPreferences {
+    display: inline-block;
+}
+
+.kitchenRestrictions,
+#themePrefs {
+    display: none;
+}
+
 #settingsCloseButton {
-    position: sticky;
+    position: absolute;
     top: 8px;
-    float: right;
+    right: 10px;
+    background: transparent;
     border: none;
-    background: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
     color: #111;
-    font-size: 1.2rem;
 }
 
 #settingsCloseButton:hover {
     color: red;
 }
 
-/* Lists inside settings */
-.allergenItem,
-.restrictionItem,
-.kitchenItem {
-    margin-bottom: .5rem;
-    max-width: 48ch;
+
+
+/* ---------- Theme picker (vertical) ---------- */
+.themeGrid {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: .5rem;
 }
 
-#otherRestrictionBox,
-#otherAllergenBox,
-#otherKitchenBox {
-    margin: .75rem 0 1rem;
+.themeChoice {
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: .6rem;
+    padding: .6rem .8rem;
+    border: var(--border);
+    border-radius: 10px;
+    background: var(--tea-green);
+    cursor: pointer;
 }
 
-/* ---------- Misc/legacy IDs (kept functional) ---------- */
-#restrictionsPrompt {
-    display: none;
+.themeChoice input {
+    accent-color: currentColor;
 }
 
-
-
-/* ---------- Responsive tweaks ---------- */
-@media (max-width: 1000px) {
-    #bookmarkBar {
-        max-width: 22rem;
-    }
+.swatch {
+    width: 36px;
+    height: 24px;
+    border-radius: 6px;
+    border: var(--border);
+    flex: 0 0 auto;
 }
 
-@media (max-width: 900px) {
+.swatch-green {
+    background: linear-gradient(135deg, #ADC178 0%, #DDE5B6 100%);
+}
 
+.swatch-blue {
+    background: linear-gradient(135deg, #1b263b 0%, #2d4a6a 100%);
+}
+
+.swatch-black {
+    background: linear-gradient(135deg, #0a0a0a 0%, #2a2a2a 100%);
+}
+
+.swatch-white {
+    background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
+}
+
+.themeChoice:has(input:checked) {
+    box-shadow: 0 0 0 2px currentColor inset;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px) {
     .flexContainer {
         grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width:600px) {
     .options {
         flex-wrap: wrap;
         justify-content: center;
@@ -500,11 +571,7 @@ input {
     }
 
     .settingsSidebar {
-        width: 200px;
-    }
-
-    .userPreferences,
-    .kitchenRestrictions {
-        width: calc(100% - 200px);
+        flex-basis: 200px;
+        max-width: 200px;
     }
 }

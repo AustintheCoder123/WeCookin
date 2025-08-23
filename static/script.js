@@ -14,17 +14,23 @@ async function createRecipe() {
     if (foodRecipe == "") {
         return;
     }
-    let restrictions = document.getElementById("restrictionsPrompt").value;
 
-    let optionString = `This is the users dietary restrictions and preferences: ${settingsDict["allergens"]} and ${settingsDict["restrictions"]}.`;
-    let combinedRestrictions = `${optionString} Also these are the users special requests for recipes: ${restrictions}.`;
+    const allergens = (settingsDict?.allergens || "").trim();
+    const diet = (settingsDict?.restrictions || "").trim();
+    const kitchen = (kitchenPrefsDict?.restrictions || "").trim();
 
-    let kitchenRestrictions = `This is the users kitchen equipment that they don't have: ${kitchenPrefsDict["restrictions"]}.`;
+    const optionString = `This is the user's dietary restrictions and preferences: ${[allergens, diet].filter(Boolean).join(", ")
+        }.`.replace(": .", ": (none).");
+
+
+    const kitchenRestrictions = kitchen
+        ? `This is the user's kitchen equipment that they don't have: ${kitchen}.`
+        : `This is the user's kitchen equipment that they don't have: (none).`;
+
     createButton.disabled = true;
-
     document.getElementById("loadingDiv").style.display = "block";
 
-    let options = await pywebview.api.create_recipe_options(combinedRestrictions, foodRecipe, kitchenRestrictions, 3);
+    let options = await pywebview.api.create_recipe_options(optionString, foodRecipe, kitchenRestrictions, 3);
 
     document.getElementById("loadingDiv").style.display = "none";
     createButton.disabled = false;
@@ -311,10 +317,26 @@ function closeBookmark() {
     document.getElementById("openBookmarkBar").style.display = "flex";
 }
 
-function openSettings() {
-    let settings = document.getElementById("settings");
-    settings.style.display = "flex";
+const SETTINGS_PANELS = ['userPrefs', 'kitchenPrefs', 'themePrefs'];
+
+function showPanel(id) {
+    SETTINGS_PANELS.forEach(pid => {
+        const el = document.getElementById(pid);
+        if (!el) return;
+        el.style.display = (pid === id) ? 'inline-block' : 'none';
+    });
 }
+
+function switchUserPrefs() { showPanel('userPrefs'); }
+function switchKitchenPrefs() { showPanel('kitchenPrefs'); }
+function switchThemePrefs() { showPanel('themePrefs'); }
+
+function openSettings() {
+    const settings = document.getElementById("settings");
+    settings.style.display = "flex";
+    showPanel('userPrefs');
+}
+
 function closeSettings() {
     let settings = document.getElementById("settings");
     settings.style.display = "none";
@@ -415,34 +437,6 @@ function loadRestrictions() {
     temp = 0;
 }
 
-function switchUserPrefs() {
-    let userPrefs = document.getElementById("userPrefs");
-    let kitchenPrefs = document.getElementById("kitchenPrefs");
-
-    if (userPrefs.style.display == "none") {
-        userPrefs.style.display = "inline-block";
-        kitchenPrefs.style.display = "none";
-    }
-    else if (kitchenPrefs.style.display != "none") {
-        userPrefs.style.display = "none";
-    }
-}
-
-
-
-function switchKitchenPrefs() {
-    let userPrefs = document.getElementById("userPrefs");
-    let kitchenPrefs = document.getElementById("kitchenPrefs");
-
-    if (kitchenPrefs.style.display == "none") {
-        kitchenPrefs.style.display = "inline-block";
-        userPrefs.style.display = "none";
-    }
-    else if (userPrefs.style.display != "none") {
-        kitchenPrefs.style.display = "none";
-    }
-}
-
 function loadKitchenPrefs() {
     let restrictionList = kitchenPrefsDict["restrictions"].split(", ");
     let buttonsInDiv = document.getElementById("kitchenPrefs").querySelectorAll("input");
@@ -471,6 +465,33 @@ function setKitchenPrefs() {
 
     kitchenPrefsDict["restrictions"] = restrictionsList.join(", ");
 }
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.remove('theme-green', 'theme-dark-blue', 'theme-black', 'theme-white');
+    root.classList.add(
+        theme === 'blue' ? 'theme-dark-blue' :
+            theme === 'black' ? 'theme-black' :
+                theme === 'white' ? 'theme-white' :
+                    'theme-green'
+    );
+}
+
+function setTheme() {
+    const sel = document.querySelector('input[name="theme"]:checked');
+    const theme = sel ? sel.value : 'green';
+    settingsDict["theme"] = theme;
+    applyTheme(theme);
+    try { pywebview.api.save_settings(settingsDict); } catch (e) { /* no-op */ }
+}
+
+function loadTheme() {
+    const saved = (settingsDict && settingsDict["theme"]) ? settingsDict["theme"] : 'green';
+    const radio = document.querySelector(`input[name="theme"][value="${saved}"]`);
+    if (radio) radio.checked = true;
+    applyTheme(saved);
+}
+
 
 
 //Event Listeners------------------------------------------
@@ -513,6 +534,11 @@ window.addEventListener('pywebviewready', async () => {
     recipeDict = await pywebview.api.load_recipes();
     settingsDict = await pywebview.api.load_settings();
     kitchenPrefsDict = await pywebview.api.load_kitchen();
+    document.querySelectorAll('input[name="theme"]').forEach(el => {
+        el.addEventListener('change', setTheme);
+    });
+    loadTheme();
+
 
     loadAllergens();
     loadRestrictions();

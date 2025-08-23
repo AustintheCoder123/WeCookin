@@ -11,16 +11,17 @@
 
 <body>
     <div class="popup" id="settings">
+        <button id="settingsCloseButton" onclick="closeSettings()" aria-label="Close settings">×</button>
 
         <div class="settingsSidebar">
             <button class="sidebarButton" onclick="switchUserPrefs()">Dietary Restrictions</button>
 
             <button class="sidebarButton" onclick="switchKitchenPrefs()">Kitchen Restrictions</button>
+
+            <button class="sidebarButton" onclick="switchThemePrefs()">Themes</button>
         </div>
 
         <div class="userPreferences" id="userPrefs">
-
-            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
                 <div class="restrictionItem">
@@ -84,8 +85,6 @@
 
         <div class="kitchenRestrictions" id="kitchenPrefs">
 
-            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
-
             <div class="kitchenRestrictionsDiv">
                 <div class="kitchenItem">
                     <h3>Kitchen Restrictions</h3>
@@ -113,6 +112,38 @@
                 <input id="otherKitchenItem">
             </div>
         </div>
+
+        <div id="themePrefs">
+            <h3>Themes</h3>
+            <p>Choose a theme. Changes apply immediately.</p>
+
+            <div class="themeGrid">
+                <label class="themeChoice">
+                <input type="radio" name="theme" value="green">
+                <span class="swatch swatch-green"></span>
+                <span>Green (Default)</span>
+                </label>
+
+                <label class="themeChoice">
+                <input type="radio" name="theme" value="blue">
+                <span class="swatch swatch-blue"></span>
+                <span>Dark Blue</span>
+                </label>
+
+                <label class="themeChoice">
+                <input type="radio" name="theme" value="black">
+                <span class="swatch swatch-black"></span>
+                <span>Black</span>
+                </label>
+
+                <label class="themeChoice">
+                <input type="radio" name="theme" value="white">
+                <span class="swatch swatch-white"></span>
+                <span>White</span>
+                </label>
+            </div>
+        </div>
+
     </div>
 
     <div id="wholePage">
@@ -130,7 +161,6 @@
             <div class="options" id="options">
                 <button id="openBookmarkBar" onclick="openBookmark()">Bookmarks</button>
                 <button id="saveRecipeButton" onclick="saveRecipe()">Save Recipe</button>
-                <input id="restrictionsPrompt" placeholder="Dietary restrictions here!">
                 <button id="openSettingsButton" onclick="openSettings()">settings</button>
             </div>
 

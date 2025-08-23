@@ -27,11 +27,12 @@ class API:
 
         gpt_job = "You are a chef who has expertise in making recipes, instructions, ingredients with nutrition facts, and a description of the food"
 
-        if user_preferences != None:
-            gpt_job += "for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences for their dietary restrictions and kitchen equipment restrictions: "
+        if user_preferences:
+            gpt_job += " for all types of food while accepting dietary restrictions from customers. Take these user restrictions and preferences into account: "
 
-        if kitchen_restrictions != None:
-            gpt_job += "for all types of food while accepting kitchen equipment restrictions from customers. Take this kitchen equipment that the user doesn't have and apply it when making instructions: "
+        if kitchen_restrictions:
+            gpt_job += " Also apply these kitchen equipment limitations when writing the instructions: "
+
 
         gpt_job = f"""{gpt_job} {user_preferences} and apply it when making the recipe. Knowing these restrictions,
         make a recipe for this food: {prompt} and format the recipe, Description of the food, then the ingredients 
