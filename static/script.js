@@ -418,13 +418,16 @@ function loadRestrictions() {
 function switchUserPrefs() {
     let userPrefs = document.getElementById("userPrefs");
     let kitchenPrefs = document.getElementById("kitchenPrefs");
+    let themePrefs = document.getElementById("themePrefs");
 
     if (userPrefs.style.display == "none") {
         userPrefs.style.display = "inline-block";
         kitchenPrefs.style.display = "none";
+        themePrefs.style.display = "none";
     }
-    else if (kitchenPrefs.style.display != "none") {
+    else if (kitchenPrefs.style.display != "none" || themePrefs.style.display != "none") {
         userPrefs.style.display = "none";
+        themePrefs.style.display = "none";
     }
 }
 
@@ -433,12 +436,33 @@ function switchUserPrefs() {
 function switchKitchenPrefs() {
     let userPrefs = document.getElementById("userPrefs");
     let kitchenPrefs = document.getElementById("kitchenPrefs");
+    let themePrefs = document.getElementById("themePrefs");
+
 
     if (kitchenPrefs.style.display == "none") {
         kitchenPrefs.style.display = "inline-block";
         userPrefs.style.display = "none";
+        themePrefs.style.display = "none";
     }
-    else if (userPrefs.style.display != "none") {
+    else if (userPrefs.style.display != "none" || themePrefs.style.display != "none") {
+        kitchenPrefs.style.display = "none";
+        themePrefs.style.display = "none";
+    }
+}
+
+function switchThemePrefs() {
+    let userPrefs = document.getElementById("userPrefs");
+    let kitchenPrefs = document.getElementById("kitchenPrefs");
+    let themePrefs = document.getElementById("themePrefs");
+
+
+    if (themePrefs.style.display == "none") {
+        themePrefs.style.display = "inline-block";
+        userPrefs.style.display = "none";
+        kitchenPrefs.style.display = "none";
+    }
+    else if (userPrefs.style.display != "none" || kitchenPrefs.style.display != "none") {
+        userPrefs.style.display = "none";
         kitchenPrefs.style.display = "none";
     }
 }
