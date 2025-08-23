@@ -11,6 +11,7 @@
 
 <body>
     <div class="popup" id="settings">
+        <button id="settingsCloseButton" onclick="closeSettings()" aria-label="Close settings">×</button>
 
         <div class="settingsSidebar">
             <button class="sidebarButton" onclick="switchUserPrefs()">Dietary Restrictions</button>
@@ -21,8 +22,6 @@
         </div>
 
         <div class="userPreferences" id="userPrefs">
-
-            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
 
             <div class="restrictions" id="restrictionItems">
                 <div class="restrictionItem">
@@ -85,8 +84,6 @@
         </div>
 
         <div class="kitchenRestrictions" id="kitchenPrefs">
-
-            <button id="settingsCloseButton" onclick="closeSettings()">x</button>
 
             <div class="kitchenRestrictionsDiv">
                 <div class="kitchenItem">

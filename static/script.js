@@ -311,10 +311,26 @@ function closeBookmark() {
     document.getElementById("openBookmarkBar").style.display = "flex";
 }
 
-function openSettings() {
-    let settings = document.getElementById("settings");
-    settings.style.display = "flex";
+const SETTINGS_PANELS = ['userPrefs', 'kitchenPrefs', 'themePrefs'];
+
+function showPanel(id) {
+  SETTINGS_PANELS.forEach(pid => {
+    const el = document.getElementById(pid);
+    if (!el) return;
+    el.style.display = (pid === id) ? 'inline-block' : 'none';
+  });
 }
+
+function switchUserPrefs()    { showPanel('userPrefs'); }
+function switchKitchenPrefs() { showPanel('kitchenPrefs'); }
+function switchThemePrefs()   { showPanel('themePrefs'); }
+
+function openSettings() {
+  const settings = document.getElementById("settings");
+  settings.style.display = "flex"; 
+  showPanel('userPrefs');
+}
+
 function closeSettings() {
     let settings = document.getElementById("settings");
     settings.style.display = "none";
@@ -413,58 +429,6 @@ function loadRestrictions() {
         }
     });
     temp = 0;
-}
-
-function switchUserPrefs() {
-    let userPrefs = document.getElementById("userPrefs");
-    let kitchenPrefs = document.getElementById("kitchenPrefs");
-    let themePrefs = document.getElementById("themePrefs");
-
-    if (userPrefs.style.display == "none") {
-        userPrefs.style.display = "inline-block";
-        kitchenPrefs.style.display = "none";
-        themePrefs.style.display = "none";
-    }
-    else if (kitchenPrefs.style.display != "none" || themePrefs.style.display != "none") {
-        userPrefs.style.display = "none";
-        themePrefs.style.display = "none";
-    }
-}
-
-
-
-function switchKitchenPrefs() {
-    let userPrefs = document.getElementById("userPrefs");
-    let kitchenPrefs = document.getElementById("kitchenPrefs");
-    let themePrefs = document.getElementById("themePrefs");
-
-
-    if (kitchenPrefs.style.display == "none") {
-        kitchenPrefs.style.display = "inline-block";
-        userPrefs.style.display = "none";
-        themePrefs.style.display = "none";
-    }
-    else if (userPrefs.style.display != "none" || themePrefs.style.display != "none") {
-        kitchenPrefs.style.display = "none";
-        themePrefs.style.display = "none";
-    }
-}
-
-function switchThemePrefs() {
-    let userPrefs = document.getElementById("userPrefs");
-    let kitchenPrefs = document.getElementById("kitchenPrefs");
-    let themePrefs = document.getElementById("themePrefs");
-
-
-    if (themePrefs.style.display == "none") {
-        themePrefs.style.display = "inline-block";
-        userPrefs.style.display = "none";
-        kitchenPrefs.style.display = "none";
-    }
-    else if (userPrefs.style.display != "none" || kitchenPrefs.style.display != "none") {
-        userPrefs.style.display = "none";
-        kitchenPrefs.style.display = "none";
-    }
 }
 
 function loadKitchenPrefs() {
