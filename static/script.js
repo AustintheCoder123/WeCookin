@@ -496,6 +496,33 @@ function setKitchenPrefs() {
     kitchenPrefsDict["restrictions"] = restrictionsList.join(", ");
 }
 
+function applyTheme(theme) {
+  const root = document.documentElement;
+  root.classList.remove('theme-green','theme-dark-blue','theme-black','theme-white');
+  root.classList.add(
+    theme === 'blue' ? 'theme-dark-blue' :
+    theme === 'black' ? 'theme-black' :
+    theme === 'white' ? 'theme-white' :
+    'theme-green'
+  );
+}
+
+function setTheme() {
+  const sel = document.querySelector('input[name="theme"]:checked');
+  const theme = sel ? sel.value : 'green';
+  settingsDict["theme"] = theme;
+  applyTheme(theme);
+  try { pywebview.api.save_settings(settingsDict); } catch (e) { /* no-op */ }
+}
+
+function loadTheme() {
+  const saved = (settingsDict && settingsDict["theme"]) ? settingsDict["theme"] : 'green';
+  const radio = document.querySelector(`input[name="theme"][value="${saved}"]`);
+  if (radio) radio.checked = true;
+  applyTheme(saved);
+}
+
+
 
 //Event Listeners------------------------------------------
 
@@ -537,6 +564,11 @@ window.addEventListener('pywebviewready', async () => {
     recipeDict = await pywebview.api.load_recipes();
     settingsDict = await pywebview.api.load_settings();
     kitchenPrefsDict = await pywebview.api.load_kitchen();
+    document.querySelectorAll('input[name="theme"]').forEach(el => {
+        el.addEventListener('change', setTheme);
+    });
+    loadTheme();
+
 
     loadAllergens();
     loadRestrictions();
